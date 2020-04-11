@@ -363,3 +363,10 @@ x509.genkey
 # Clang's compilation database file
 /compile_commands.json
 
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
