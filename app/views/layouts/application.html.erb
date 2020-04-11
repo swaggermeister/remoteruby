@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Remoteruby</title>
+    <title>Remote Ruby on Rails Jobs</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%=javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
+    <header class="navbar">
+      <section class="navbar-section">
+        <a href="..." class="navbar-brand mr-2">Ruby Remote Jobs</a>
+      </section>
+      <section class="navbar-section">
+        <div class="input-group input-inline">
+          <input class="form-input" type="text" placeholder="search" />
+          <button class="btn btn-primary input-group-btn">Search</button>
+        </div>
+      </section>
+    </header>
+    <div class="container">
+      <div class="columns">
+        <div class="col-2 col-md-0"></div>
+        <div class="col-8 col-md-12"><%= yield %></div>
+        <div class="col-2 col-md-0"></div>
+      </div>
+    </div>
   </body>
 </html>
