@@ -9,14 +9,17 @@
           <%= link_to job_listing_path(job_listing) do %>
             <span class="text-bold"><%= job_listing.title %></span> - <%= job_listing.salary %>
           <% end %>
-          <div class="employer avatar"><img src="<%="/images/logo#{(1..6).to_a.shuffle.first}.jpeg"%>" /></div>
         </div>
         <div class="card-body">
-          <div class="location mb-2"><%= job_listing.location %></div>
-          <div class="description"><%= job_listing.description %></div>
+          <span class="employer">
+            <img class="avatar" src="<%="/images/logo#{(1..6).to_a.shuffle.first}.jpeg"%>" />
+            <%# <div class="location mb-2"></div> %>
+            <%= job_listing.employer_name %> - 
+            <%= job_listing.location %>
+          </span>
         </div>
         <div class="card-footer">
-          <button class="btn btn-primary">View Full Listing</button>
+          <%= link_to 'View Full Listing', job_listing_path(job_listing), class: 'btn btn-primary' %>
         </div>
       </div>
     <% end %>
