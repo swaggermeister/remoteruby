@@ -64,7 +64,9 @@ class JobListingsController < ApplicationController
   # GET /job_listings/search
   # just get a random #/selection of listings to display for now
   def search
-    JobListing.limit(0..6).order("RANDOM()")
+    random = Random.new
+    number_of_listings = random.rand(0..5)
+    @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
   end
 
   private
