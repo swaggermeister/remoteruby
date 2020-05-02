@@ -28,7 +28,7 @@ class EmployersController < ApplicationController
 
     respond_to do |format|
       if @employer.save
-        format.html { redirect_to @employer, notice: 'Employer was successfully created.' }
+        format.html { redirect_to @employer, notice: "Employer was successfully created." }
         format.json { render :show, status: :created, location: @employer }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class EmployersController < ApplicationController
   def update
     respond_to do |format|
       if @employer.update(employer_params)
-        format.html { redirect_to @employer, notice: 'Employer was successfully updated.' }
+        format.html { redirect_to @employer, notice: "Employer was successfully updated." }
         format.json { render :show, status: :ok, location: @employer }
       else
         format.html { render :edit }
@@ -56,19 +56,20 @@ class EmployersController < ApplicationController
   def destroy
     @employer.destroy
     respond_to do |format|
-      format.html { redirect_to employers_url, notice: 'Employer was successfully destroyed.' }
+      format.html { redirect_to employers_url, notice: "Employer was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_employer
-      @employer = Employer.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def employer_params
-      params.require(:employer).permit(:name, :email, :username, :password)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_employer
+    @employer = Employer.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def employer_params
+    params.require(:employer).permit(:name, :email, :username, :password)
+  end
 end
