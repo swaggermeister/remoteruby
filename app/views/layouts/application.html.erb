@@ -10,13 +10,16 @@
   <body>
     <header class="navbar">
       <section class="navbar-section">
-        <a href="..." class="navbar-brand mr-2">Ruby Remote Jobs</a>
+        <a href="/" class="navbar-brand mr-2">Ruby Remote Jobs</a>
       </section>
       <section class="navbar-section">
         <div class="input-group input-inline">
           <input class="form-input" type="text" placeholder="search" />
           <%= link_to 'Search', search_job_listings_url, class: 'btn btn-primary' %>
         </div>
+      </section>
+      <section class="navbar-section">
+        <%= link_to 'Employers', employers_url, class: 'btn btn-primary' %>
       </section>
     </header>
     <div class="container">
