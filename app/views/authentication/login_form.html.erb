@@ -1,10 +1,19 @@
-<h1>New to Remote Ruby on Rails Jobs?</h1>
-<%= link_to 'Create an Account', new_employer_path, class: 'btn btn-primary' %>
-<h2>Or, log in:</h2>
-<div class="form-group">
-  <div class="form-label">Username</div>
-  <div class="form-input" type="text" id="username" placeholder="Username"></div>
-  <div class="form-label">Password</div>
-  <div class="form-input" type="password" placeholder="Password"></div>
+<div class="m-2 p-2">
+  <h3>Log In</h3>
+  <div class="form-group">
+    <label class="form-label" for="username">Username</label>
+    <input class="form-input col-5" type="text" id="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label class="form-label" for="password">Password</label>
+    <input class="form-input col-5" type="password" id="password" placeholder="Password">
+  </div>
+  <div class="my-2">
+    <%= link_to 'Log In', login_path, class: 'btn btn-primary' %>
+  </div>
 </div>
-<%= link_to 'Back', employers_path %>
+</div>
+<div class="m-2 p-2">
+  <h4>New to Remote Ruby on Rails Jobs?</h4>
+  <%= link_to 'Create an Account', new_employer_path, class: 'btn btn-default' %>
+</div>

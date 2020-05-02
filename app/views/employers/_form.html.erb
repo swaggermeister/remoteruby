@@ -2,7 +2,6 @@
   <% if employer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(employer.errors.count, "error") %> prohibited this employer from being saved:</h2>
-
       <ul>
         <% employer.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,28 +9,19 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-group">
+    <%= form.label :name, "Company Name", class:"form-label col-8" %>
+    <%= form.text_field :name, class:"form-input col-5" %>
   </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+  <div class="form-group">
+    <%= form.label :email, class:"form-label col-5" %>
+    <%= form.text_field :email, class:"form-input col-5" %>
   </div>
-
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
+  <div class="form-group">
+    <%= form.label :password, class:"form-label col-5" %>
+    <%= form.text_field :password, class:"form-input col-5" %>
   </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mt-2">
+    <%= form.submit "Create Account", class:"btn btn-primary  mt-2" %>
   </div>
 <% end %>
