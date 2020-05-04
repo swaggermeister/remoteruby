@@ -6,6 +6,40 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# seed employers
+employer_names = [
+  "DeskCorp",
+  "AutoLab",
+  "HRForce",
+  "Google",
+  "Smith & Smith"
+]
+
+employer_emails = [
+  "jbob@deskcorp.com",
+  "cjones@autolab.com",
+  "mdavis@hrforce.com",
+  "agail@google.com",
+  "bsmith@smithsmith.com"
+]
+
+employer_passwords = [
+  "test1234",
+  "pass7890",
+  "dogs1267",
+  "cats2345",
+  "bananas5678"
+]
+
+100.times.map do |n|
+  random = Random.new
+
+  Employer.create(name: employer_names[random.rand(employer_names.length)],
+                  email: employer_emails[random.rand(employer_emails.length)],
+                  password: employer_passwords[random.rand(employer_passwords.length)])
+end
+
+# seed job listings
 job_titles = [
   "Senior Ruby on Rails Engineer",
   "Full Stack Rails Engineer",
@@ -48,14 +82,6 @@ job_salaries = [
   "120000"
 ]
 
-employers = [
-  "DeskCorp",
-  "AutoLab",
-  "HRForce",
-  "Google",
-  "Smith & Smith"
-]
-
 100.times.map do |n|
   random = Random.new
 
@@ -63,5 +89,5 @@ employers = [
                     description: job_descriptions[random.rand(job_descriptions.length)],
                     location: job_locations[random.rand(job_locations.length)],
                     salary: job_salaries[random.rand(job_salaries.length)],
-                    employer_name: employers[random.rand(employers.length)])
+                    employer_name: employer_names[random.rand(employer_names.length)])
 end

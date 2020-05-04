@@ -69,6 +69,13 @@ class JobListingsController < ApplicationController
     @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
   end
 
+  def my_job_listings
+    random = Random.new
+    number_of_listings = random.rand(0..5)
+    @employer = Employer.limit(1).order("RANDOM()").first
+    @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
