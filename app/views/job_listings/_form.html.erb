@@ -2,7 +2,6 @@
   <% if job_listing.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(job_listing.errors.count, "error") %> prohibited this job_listing from being saved:</h2>
-
       <ul>
         <% job_listing.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,28 +9,23 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="form-group">
+    <label for="title" class="form-label">Job Title</label>
+    <input type="text" class=form-input" id="title" placeholder="Job title">
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <div class="form-group">
+    <label for="salary" class="form-label">Salary</label>
+    <input type="text" class="form-input" id="salary" placeholder="Salary">
   </div>
-
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
+  <div class="form-group">
+    <label for="location" class="form-label">Location</label>
+    <input type="text" class="form-input" id="location" placeholder="Location">
   </div>
-
-  <div class="field">
-    <%= form.label :salary %>
-    <%= form.text_field :salary %>
+  <div class="form-group">
+    <label for="description" class="form-label">Job Description</label>
+    <textarea type="text" class="form-input" id="description" rows="5"> </textarea>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="submit">
+    <%= link_to 'Create Listing', my_job_listings_path %>
   </div>
 <% end %>
