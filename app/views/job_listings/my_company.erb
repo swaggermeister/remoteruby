@@ -1,0 +1,12 @@
+<div class="job-listings-header my-2">
+  <h3>Your Job Listings</h3>
+</div>
+<div class="my-job-listings">
+  <% if @job_listings.empty? %>
+    <%= render partial: "no_job_listings" %>
+  <% else %>
+    <% @job_listings.each do |job_listing| %>
+      <%= render partial: "my_job_listing", locals: {job_listing: job_listing} %>
+    <% end %>
+  <% end %>
+</div>

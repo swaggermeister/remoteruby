@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :job_listings do
     collection do
       get "search", to: "job_listings#search"
-      get "my_job_listings", to: "job_listings#my_job_listings", as: "my"
+      get "my_company", to: "job_listings#my_company", as: "my_company"
     end
   end
   get "login", to: "authentication#login_form"

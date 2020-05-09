@@ -11,7 +11,7 @@
   <% end %>
   <div class="form-group">
     <label for="title" class="form-label">Job Title</label>
-    <input type="text" class=form-input" id="title" placeholder="Job title">
+    <input type="text" class="form-input" id="title" placeholder="Job title">
   </div>
   <div class="form-group">
     <label for="salary" class="form-label">Salary</label>
@@ -26,6 +26,6 @@
     <textarea type="text" class="form-input" id="description" rows="5"> </textarea>
   </div>
   <div class="submit">
-    <%= link_to 'Create Listing', my_job_listings_path %>
+    <%= link_to 'Create Listing', my_job_listings_path,class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -1,0 +1,18 @@
+<div class="card s-rounded mb-2 mt-2">
+  <div class="card-header">
+    <%= link_to job_listing_path(job_listing) do %>
+      <span class="text-bold"><%= job_listing.title %></span> - <%= job_listing.salary %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <span class="employer">
+      <img class="avatar" src="<%="/images/logo#{(1..6).to_a.shuffle.first}.jpeg"%>" />
+      <%# <div class="location mb-2"></div> %>
+      <%= job_listing.employer_name %> - 
+      <%= job_listing.location %>
+    </span>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'View Listing', job_listing_path(job_listing), class: 'btn btn-primary' %>
+  </div>
+</div>
