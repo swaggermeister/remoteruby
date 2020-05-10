@@ -24,7 +24,8 @@ class JobListingsController < ApplicationController
   # POST /job_listings
   # POST /job_listings.json
   def create
-    @job_listing = JobListing.new(job_listing_params)
+    # @job_listing = JobListing.new(job_listing_params)
+    @job_listing = JobListing.new
 
     respond_to do |format|
       if @job_listing.save
@@ -56,7 +57,7 @@ class JobListingsController < ApplicationController
   def destroy
     @job_listing.destroy
     respond_to do |format|
-      format.html { redirect_to job_listings_url, notice: "Job listing was successfully destroyed." }
+      format.html { redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -72,7 +73,7 @@ class JobListingsController < ApplicationController
   def my_company
     random = Random.new
     number_of_listings = random.rand(0..5)
-    # @employer = Employer.limit(1).order("RANDOM()").first
+    @employer = Employer.limit(1).order("RANDOM()").first
     @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
   end
 

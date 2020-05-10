@@ -13,15 +13,17 @@
         <a href="/" class="navbar-brand btn btn-primary">Ruby Remote Jobs</a>
         <%= link_to 'Employers', login_path, class: 'btn btn-link' %>
       </section>
-      <section class="navbar-section">
-        <div class="input-group input-inline">
-          <input class="form-input" type="text" placeholder="search" />
-          <%= link_to 'Search', search_job_listings_path, class: 'btn btn-primary' %>
-        </div>
-      </section>
     </header>
     <div class="container">
       <div class="columns">
+        <div class="col-12 text-center">
+          <%= form_tag search_job_listings_path do %>
+            <div class="input-group input-inline">
+              <input class="form-input input-lg" type="text" placeholder="search" />
+              <%= submit_tag 'Search', class: 'btn btn-primary input-group-btn btn-lg' %>
+            </div>
+          <% end %>
+        </div>
         <div class="col-2 col-md-0"></div>
         <div class="col-8 col-md-12"><%= yield %></div>
         <div class="col-2 col-md-0"></div>

@@ -10,22 +10,19 @@
     </div>
   <% end %>
   <div class="form-group">
-    <label for="title" class="form-label">Job Title</label>
-    <input type="text" class="form-input" id="title" placeholder="Job title">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-input", placeholder: "Senior Software Engineer" %>
   </div>
   <div class="form-group">
-    <label for="salary" class="form-label">Salary</label>
-    <input type="text" class="form-input" id="salary" placeholder="Salary">
+    <%= form.label :salary, class: "form-label" %>
+    <%= form.text_field :salary, class: "form-input", placeholder: "$100,000" %>
   </div>
   <div class="form-group">
-    <label for="location" class="form-label">Location</label>
-    <input type="text" class="form-input" id="location" placeholder="Location">
+    <%= form.label :location, class: "form-label" %>
+    <%= form.text_field :location, class: "form-input", placeholder: "NYC" %>
   </div>
   <div class="form-group">
-    <label for="description" class="form-label">Job Description</label>
-    <textarea type="text" class="form-input" id="description" rows="5"> </textarea>
-  </div>
-  <div class="submit">
-    <%= link_to 'Create Listing', my_job_listings_path,class: 'btn btn-primary' %>
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-input", placeholder: "Seeking a Senior Level Developer..." %>
   </div>
 <% end %>

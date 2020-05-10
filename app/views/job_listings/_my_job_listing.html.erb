@@ -13,6 +13,8 @@
     </span>
   </div>
   <div class="card-footer">
-    <%= link_to 'View Listing', job_listing_path(job_listing), class: 'btn btn-primary' %>
+    <%= link_to 'Update Listing', edit_job_listing_path(job_listing), class: 'btn btn-primary' %>
+    <%= link_to 'View Listing', job_listing_path(job_listing), class: 'btn btn-default' %>
+    <%= link_to 'Delete Listing', job_listing_path(job_listing), method: :delete, data:{ confirm: 'Are you sure you want to delete this listing?' }, class: 'btn btn-link' %>
   </div>
 </div>

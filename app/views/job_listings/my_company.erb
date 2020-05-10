@@ -1,3 +1,6 @@
+<div class="my-account">
+  <%= link_to 'View Profile', edit_employer_path(@employer) %>
+</div>
 <div class="job-listings-header my-2">
   <h3>Your Job Listings</h3>
 </div>
@@ -5,6 +8,7 @@
   <% if @job_listings.empty? %>
     <%= render partial: "no_job_listings" %>
   <% else %>
+    <%= link_to 'Add a new listing', new_job_listing_path %>
     <% @job_listings.each do |job_listing| %>
       <%= render partial: "my_job_listing", locals: {job_listing: job_listing} %>
     <% end %>
