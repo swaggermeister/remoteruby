@@ -1,6 +1,4 @@
 <h1>Create Job Listing</h1>
 <%= render 'form', job_listing: @job_listing %>
 <%= render 'create_job_listing_button', job_listing: @job_listing %>
-<div class="back mt-2">
-  <%= link_to 'Back to my Listings', my_company_job_listings_path %>
-</div>
+<%= link_to 'Back to my Listings', my_company_job_listings_path, class: 'btn btn-link mt-2' %>
