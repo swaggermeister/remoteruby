@@ -26,28 +26,20 @@ class EmployersController < ApplicationController
   def create
     @employer = Employer.new(employer_params)
 
-    respond_to do |format|
-      if @employer.save
-        format.html { redirect_to @employer, notice: "Employer was successfully created." }
-        format.json { render :show, status: :created, location: @employer }
-      else
-        format.html { render :new }
-        format.json { render json: @employer.errors, status: :unprocessable_entity }
-      end
+    if @employer.save
+      redirect_to @employer, notice: "Employer was successfully created."
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /employers/1
   # PATCH/PUT /employers/1.json
   def update
-    respond_to do |format|
-      if @employer.update(employer_params)
-        format.html { redirect_to @employer, notice: "Employer was successfully updated." }
-        format.json { render :show, status: :ok, location: @employer }
-      else
-        format.html { render :edit }
-        format.json { render json: @employer.errors, status: :unprocessable_entity }
-      end
+    if @employer.update(employer_params)
+      redirect_to @employer, notice: "Employer was successfully updated."
+    else
+      render :edit
     end
   end
 
@@ -55,10 +47,7 @@ class EmployersController < ApplicationController
   # DELETE /employers/1.json
   def destroy
     @employer.destroy
-    respond_to do |format|
-      format.html { redirect_to employers_url, notice: "Employer was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to employers_url, notice: "Employer was successfully destroyed."
   end
 
   private

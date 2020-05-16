@@ -27,28 +27,20 @@ class JobListingsController < ApplicationController
     # @job_listing = JobListing.new(job_listing_params)
     @job_listing = JobListing.new
 
-    respond_to do |format|
-      if @job_listing.save
-        format.html { redirect_to @job_listing, notice: "Job listing was successfully created." }
-        format.json { render :show, status: :created, location: @job_listing }
-      else
-        format.html { render :new }
-        format.json { render json: @job_listing.errors, status: :unprocessable_entity }
-      end
+    if @job_listing.save
+      redirect_to @job_listing, notice: "Job listing was successfully created."
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /job_listings/1
   # PATCH/PUT /job_listings/1.json
   def update
-    respond_to do |format|
-      if @job_listing.update(job_listing_params)
-        format.html { redirect_to @job_listing, notice: "Job listing was successfully updated." }
-        format.json { render :show, status: :ok, location: @job_listing }
-      else
-        format.html { render :edit }
-        format.json { render json: @job_listing.errors, status: :unprocessable_entity }
-      end
+    if @job_listing.update(job_listing_params)
+      redirect_to @job_listing, notice: "Job listing was successfully updated."
+    else
+      render :edit
     end
   end
 
@@ -56,10 +48,7 @@ class JobListingsController < ApplicationController
   # DELETE /job_listings/1.json
   def destroy
     @job_listing.destroy
-    respond_to do |format|
-      format.html { redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed."
   end
 
   # GET /job_listings/search

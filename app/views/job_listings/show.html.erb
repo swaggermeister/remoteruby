@@ -11,7 +11,7 @@
       </span>
     </div>
     <div class="description mt-2">
-      <p><%= @job_listing.description %></p>
+      <p><%= markdown(@job_listing.description) %></p>
     </div>
     <div class="apply btn btn-primary mt-2"><%= link_to 'Apply Now' %></div>
     <div class="back mt-2"><%= link_to 'Back', job_listings_path %></div>

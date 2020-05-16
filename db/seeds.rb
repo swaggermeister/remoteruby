@@ -49,22 +49,73 @@ job_titles = [
   "Ruby Developer with 20 Years Experience"
 ]
 
-job_descriptions = [
-  "Write both back-end and front-end application code to build out our site, add features and functionality, debug, and oversee all new development.",
-  "Write code, as well as modifying software to fix errors, adapt it to new hardware, improve its performance, or upgrade interfaces.",
-  "Work closely with our small and passionate in-house product development team who focus in different areas including: product design, data science, bio-sensing, IoT and audio systems. The Backend Developer role involves taking features from conceptualisation and prototyping through to production and maintenance, it will ideally suit someone with broad production experience using Ruby on Rails/ Dockers/ PostgreSQL and Python. Ruby/Rails will be the most important area of experience for this role. We expect the candidate to be able to bring their expertise for designing for maintainability, reliability and scalability to the fore. The role suits a candidate who has excellent existing backend technology knowledge but also maintains a thirst for expanding their expertise, can concisely communicate their ideas to cross-functional team members and can balance their workload to effectively meet the needs of the business.",
-  "productboard's stack is a Ruby on Rails backend built by passionate Rubyists with React.js on Typescript on the frontend. Over time with demand, we've added new technologies to support the growing needs of the team, both in complexity and traffic. We're running Elasticsearch to power our Insights search, we are fully migrated to Kubernetes on AWS to enable an event-driven service architecture, we're using Kafka to let services communicate together asynchronously and resiliently.",
-  <<-JOBDESC
-  We are looking for a full-time, full stack engineer with strong Rails and Javascript experience to join our team of talented coders and content creators.
+job_description = <<~JOBDESC
+  ### About the Role
 
-  About the Role
+  Tithe.ly is currently looking to recruit a full-time Ruby on Rails Developer to join a team focused on writing code that will allow our Products to integrate with different 3rd party systems.
 
-  We’re looking for a hungry, talented engineer who wants to make a big impact at this early stage in our roadmap.
+  This position affords the opportunity to collaborate with other experienced engineers while also providing plenty of space for autonomy and coding. You will need to be able to think on your feet, be innovative and be independent when required.
 
-  As a full stack engineer,  you will be responsible for building out the intuitive, interactive experiences that our customers need to organize their own documentation, as well as determining the backend architecture and endpoints that we need to support those features.
-  JOBDESC
+  This is an awesome opportunity to get involved with a growing company that practices continuous development and building something great!
 
-]
+  100% remote opportunity, but must be based in the US or Canada.
+
+  ### Duties & Responsibilities
+
+  The successful candidate will find themselves working with Ruby on Rails, contributing heavily to our web-based software. The candidate will also have the chance to grow their skillset under a highly skilled team that can guide the candidate and unlock their full potential.
+
+  ### Key skillsets
+
+  **Technology**
+
+  - 2+ years experience in Ruby/Rails
+  - Extensive experience in writing unit and integration tests
+  - Solid understanding of RESTful APIs
+  - Experience with using non-trivial APIs to read and save data
+  - Solid understanding of JavaScript, CSS, HTML
+  - Solid understanding of Git
+  - Experience with writing SQL queries and using MySQL/PostgreSQL
+  - Experience working with Docker
+  - Comfortable working in a Unix/Linux environment
+
+  **Human / Relational:**
+
+  - Find joy in working out solutions to tricky problems
+  - Willingness to learn and expand upon existing skill sets
+  - A team player & able to work without supervision
+  - Quick learner & takes initiative
+  - Possess a high level of attention to detail
+  - Ability to effectively communicate technical information into simple terms
+  - Have a friendly, patient & positive nature
+  - Thinks Real Genius is a great movie
+
+  ### Benefits & Culture
+
+  You will be joining a very friendly and social team, who are highly skilled technically, where you will be working with the latest technology. This is a 100% remote opportunity, but must be based in the US or Canada.
+
+  Salary will depend on the level of experience.
+
+  ### Applying for the Role
+
+  All applicants require a cover letter in the "Note" field for us to consider your application.
+
+  Please start your cover letter with "I love code!" so we can ensure you've read the ad.
+
+  **Job Type:** Full-time
+
+  **Salary:** $80,000.00 to $140,000.00 /year
+
+  **Experience:** Ruby on Rails: 2 years (Required)
+
+  **Work Location:** Fully Remote
+
+  **Schedule:** Monday to Friday
+
+  **Company's website:** https://get.tithe.ly
+
+  **Work Remotely:** Yes
+
+JOBDESC
 
 job_locations = [
   "Littleton",
@@ -86,7 +137,7 @@ job_salaries = [
   random = Random.new
 
   JobListing.create(title: job_titles[random.rand(job_titles.length)],
-                    description: job_descriptions[random.rand(job_descriptions.length)],
+                    description: job_description,
                     location: job_locations[random.rand(job_locations.length)],
                     salary: job_salaries[random.rand(job_salaries.length)],
                     employer_name: employer_names[random.rand(employer_names.length)])
