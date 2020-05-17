@@ -3,6 +3,10 @@
     <button class="btn btn-link">Sort Jobs by Salary</button>
   </div>
   <div class="joblistings col-12">
-    <%= render @job_listings %>
+    <% if @job_listings.empty? %>
+      <%= render 'no_search_results' %>
+    <% else %>
+      <%= render @job_listings %>
+    <% end %>
   </div>
 </div>

@@ -18,9 +18,9 @@
     <div class="container">
       <div class="columns">
         <div class="col-12 text-center">
-          <%= form_tag search_job_listings_path, method: :get do %>
+          <%= form_tag job_listings_path(search: @search_text), method: :get do %>
             <div class="input-group input-inline">
-              <input class="form-input input-lg" type="text" placeholder="search" />
+              <%= text_field_tag :search, @search_text, class: "form-input input-lg", placeholder: "Search" %>
               <%= submit_tag 'Search', class: 'btn btn-primary input-group-btn btn-lg' %>
             </div>
           <% end %>

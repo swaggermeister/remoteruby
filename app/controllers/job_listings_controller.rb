@@ -4,7 +4,12 @@ class JobListingsController < ApplicationController
   # GET /job_listings
   # GET /job_listings.json
   def index
-    @job_listings = JobListing.all
+    query = JobListing
+    if (@search_text = params[:search])
+      query = query.where(["title like :search or description like :search", search: "%#{@search_text}%"])
+    end
+
+    @job_listings = query.all
   end
 
   # GET /job_listings/1
@@ -52,11 +57,12 @@ class JobListingsController < ApplicationController
 
   # GET /job_listings/search
   # just get a random #/selection of listings to display for now
-  def search
-    random = Random.new
-    number_of_listings = random.rand(0..5)
-    @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
-  end
+  # def search
+  #   search_text = params[:search]
+  #   # random = Random.new
+  #   # number_of_listings = random.rand(0..5)
+  #   @job_listings = JobListing.where(["title like ? or description like ?", search_text]).all # .limit(number_of_listings).order("RANDOM()").all
+  # end
 
   def my_company
     random = Random.new
