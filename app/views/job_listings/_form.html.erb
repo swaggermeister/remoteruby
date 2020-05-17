@@ -26,4 +26,7 @@
     <%= form.text_area :description, class: "form-input", placeholder: "Seeking a Senior Level Developer..." %>
   </div>
   <%= link_to 'Preview Job Listing', '#' %>
+  <div class="submit">
+    <%= submit_tag form.object.new_record? ? 'Create Listing' : 'Update Listing', class: 'btn btn-primary' %>
+  </div>
 <% end %>

@@ -24,11 +24,10 @@ class JobListingsController < ApplicationController
   # POST /job_listings
   # POST /job_listings.json
   def create
-    # @job_listing = JobListing.new(job_listing_params)
-    @job_listing = JobListing.new
+    @job_listing = JobListing.new(job_listing_params)
 
     if @job_listing.save
-      redirect_to @job_listing, notice: "Job listing was successfully created."
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
     else
       render :new
     end
@@ -38,7 +37,7 @@ class JobListingsController < ApplicationController
   # PATCH/PUT /job_listings/1.json
   def update
     if @job_listing.update(job_listing_params)
-      redirect_to @job_listing, notice: "Job listing was successfully updated."
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
     else
       render :edit
     end
