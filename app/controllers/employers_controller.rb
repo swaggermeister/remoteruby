@@ -27,7 +27,7 @@ class EmployersController < ApplicationController
     @employer = Employer.new(employer_params)
 
     if @employer.save
-      redirect_to @employer, notice: "Employer was successfully created."
+      redirect_to @employer, notice: "Account successfully created."
     else
       render :new
     end
@@ -37,7 +37,7 @@ class EmployersController < ApplicationController
   # PATCH/PUT /employers/1.json
   def update
     if @employer.update(employer_params)
-      redirect_to @employer, notice: "Employer was successfully updated."
+      redirect_to @employer, notice: "Account successfully updated."
     else
       render :edit
     end
