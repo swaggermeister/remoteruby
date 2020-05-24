@@ -47,7 +47,7 @@ class EmployersController < ApplicationController
   # DELETE /employers/1.json
   def destroy
     @employer.destroy
-    redirect_to employers_url, notice: "Employer was successfully destroyed."
+    redirect_to job_listings_url, notice: "Account was successfully deleted."
   end
 
   private
