@@ -21,11 +21,19 @@
     <%= form.label :location, class: "form-label" %>
     <%= form.text_field :location, class: "form-input", placeholder: "NYC" %>
   </div>
+  <ul class="tab">
+    <li class="tab-item">
+      <a id="write-description-tab" class="active" href="#">Write</a>
+    </li>
+    <li class="tab-item">
+      <a id="preview-description-tab" href="#">Preview</a>
+    </li>
+  </ul>
   <div class="form-group">
     <%= form.label :description, 'Description (markdown format)', class: "form-label" %>
-    <%= form.text_area :description, class: "form-input", placeholder: "Seeking a Senior Level Developer..." %>
+    <%= form.text_area :description, id: "write-description", class: "form-input", placeholder: "Seeking a Senior Level Developer..." %>
   </div>
-  <%= link_to 'Preview Job Listing', '#' %>
+  <div id="preview-description" class="d-none"></div>
   <div class="submit">
     <%= submit_tag form.object.new_record? ? 'Create Listing' : 'Update Listing', class: 'btn btn-primary' %>
   </div>

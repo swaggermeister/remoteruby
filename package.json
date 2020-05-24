@@ -6,12 +6,16 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.0.1",
+    "marked": "^1.1.0",
     "reset-css": "^5.0.1",
     "spectre.css": "^0.5.8",
-    "turbolinks": "^5.2.0"
+    "ts-loader": "^7.0.5",
+    "turbolinks": "^5.2.0",
+    "typescript": "^3.9.3"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@types/marked": "^0.7.4",
     "webpack-dev-server": "^3.10.3"
   }
 }
