@@ -12,7 +12,7 @@ const WRITE_TAB_ID = "write-description-tab";
 const WRITE_TEXTAREA_ID = "write-description";
 const PREVIEW_DIV_ID = "preview-description";
 
-export function setupClickHandlers(): void {
+export function setupPreviewDescriptionClickHandlers(): void {
   document.addEventListener("click", (event) => {
     const target = event.target;
 

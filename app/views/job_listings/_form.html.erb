@@ -21,6 +21,21 @@
     <%= form.label :location, class: "form-label" %>
     <%= form.text_field :location, class: "form-input", placeholder: "NYC" %>
   </div>
+  <div class="form-group">
+    <label class="form-label">Preferred Contact Method</label>
+    <!-- email -->
+    <%= label_tag "contact_method_email", class: "form-radio" do %>
+      <%= radio_button_tag 'contact_method', "email", show_email_input?(job_listing) %>
+      <i class="form-icon"></i> Email
+    <% end %>
+    <%= form.email_field :contact_email, class: "form-input #{show_email_input?(job_listing) ? '' : 'd-none' }"%>
+    <!-- url -->
+    <%= label_tag "contact_method_url", class: "form-radio" do %>
+      <%= radio_button_tag 'contact_method', "url", show_url_input?(job_listing) %>
+      <i class="form-icon"></i> External site
+    <% end %>
+    <%= form.url_field :contact_url, class: "form-input #{show_url_input?(job_listing) ? '' : 'd-none' }" %>
+  </div>
   <ul class="tab">
     <li class="tab-item">
       <a id="write-description-tab" class="active" href="#">Write</a>
