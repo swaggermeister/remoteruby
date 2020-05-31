@@ -26,7 +26,7 @@ export function setupContactInfoClickHandlers(): void {
 export function initContactMethodVisibility(): void {
   const emailInput = getEmailInput();
 
-  emailInput.checked ? showEmailInput() : showUrlInput();
+  emailInput.value != "" ? showEmailInput() : showUrlInput();
 }
 
 function showEmailInput(): void {
@@ -35,6 +35,7 @@ function showEmailInput(): void {
 
   emailInput.classList.remove(HIDDEN_CLASS);
   urlInput.classList.add(HIDDEN_CLASS);
+  urlInput.value = "";
 }
 
 function showUrlInput(): void {
@@ -43,6 +44,7 @@ function showUrlInput(): void {
 
   emailInput.classList.add(HIDDEN_CLASS);
   urlInput.classList.remove(HIDDEN_CLASS);
+  emailInput.value = "";
 }
 
 function getEmailInput(): HTMLInputElement {

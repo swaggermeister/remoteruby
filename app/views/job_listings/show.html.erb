@@ -13,6 +13,10 @@
     <div class="description mt-2">
       <%= markdown(@job_listing.description) %>
     </div>
-    <%= link_to 'Apply Now', '#', class: 'btn btn-primary' %>
+    <% if @job_listing.contact_url.empty? %>
+      <%= mail_to @job_listing.contact_email, 'Apply Now', class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to 'Apply Now', @job_listing.contact_url, class: 'btn btn-primary' %>
+    <% end %>
   </div>
 </div>
