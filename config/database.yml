@@ -21,7 +21,11 @@ development:
 test:
   <<: *default
   database: remoteruby_test
+  username: <%= Rails.application.credentials.pg[:user] %>
+  password: <%= Rails.application.credentials.pg[:pass] %>
 
 production:
   <<: *default
   database: remoteruby_production
+  username: <%= Rails.application.credentials.pg[:user] %>
+  password: <%= Rails.application.credentials.pg[:pass] %>
