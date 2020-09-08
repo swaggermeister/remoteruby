@@ -370,3 +370,7 @@ x509.genkey
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+
+# app-specific 
+config/database.yml
