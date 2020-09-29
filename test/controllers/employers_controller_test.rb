@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class EmployersControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -16,7 +16,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create employer" do
-    assert_difference('Employer.count') do
+    assert_difference("Employer.count") do
       post employers_url, params: { employer: { email: @employer.email, name: @employer.name, password: @employer.password, username: @employer.username } }
     end
 
@@ -39,10 +39,10 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy employer" do
-    assert_difference('Employer.count', -1) do
+    assert_difference("Employer.count", -1) do
       delete employer_url(@employer)
     end
 
-    assert_redirected_to employers_url
+    assert_redirected_to job_listings_url
   end
 end

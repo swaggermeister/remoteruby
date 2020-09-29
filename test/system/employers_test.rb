@@ -6,44 +6,53 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit employers_url
-    assert_selector "h1", text: "Employers"
+    visit job_listings_url
+    assert_selector "h1", text: "Job Listings"
   end
 
   test "creating a Employer" do
-    visit employers_url
-    click_on "New Employer"
+    visit job_listings_url
+    click_on "Employers"
+    click_on "Create an Account"
 
     fill_in "Email", with: @employer.email
     fill_in "Name", with: @employer.name
     fill_in "Password", with: @employer.password
-    fill_in "Username", with: @employer.username
-    click_on "Create Employer"
+    click_on "Create Account"
 
-    assert_text "Employer was successfully created"
-    click_on "Back"
+    assert_text "Account successfully created"
+    click_on "My Job Listings"
   end
 
   test "updating a Employer" do
-    visit employers_url
-    click_on "Edit", match: :first
-
+    visit job_listings_url
+    click_on "Employers"
     fill_in "Email", with: @employer.email
-    fill_in "Name", with: @employer.name
     fill_in "Password", with: @employer.password
-    fill_in "Username", with: @employer.username
-    click_on "Update Employer"
+    click_on "Log In"
+    click_on "View Profile"
 
-    assert_text "Employer was successfully updated"
-    click_on "Back"
+    fill_in "Company Name", with: "A Test String"
+    click_on "Update Account"
+
+    assert_text "Account successfully updated."
+    click_on "My Job Listings"
   end
 
   test "destroying a Employer" do
-    visit employers_url
+    visit job_listings_url
+    click_on "Employers"
+    fill_in "Email", with: @employer.email
+    fill_in "Password", with: @employer.password
+    click_on "Log In"
+    click_on "View Profile"
+
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete Account"
     end
 
-    assert_text "Employer was successfully destroyed"
+    assert_current_path job_listings_path
+    byebug
+    assert_text "Account was successfully deleted."
   end
 end
