@@ -8,10 +8,9 @@
 <div class="my-job-listings">
   <% if @job_listings.empty? %>
     <%= render partial: "no_job_listings" %>
-  <% else %>
-    <%= link_to 'Add a new listing', new_job_listing_path %>
-    <% @job_listings.each do |job_listing| %>
-      <%= render partial: "my_job_listing", locals: {job_listing: job_listing} %>
-    <% end %>
+  <% end %>
+  <%= link_to 'Add a new listing', new_job_listing_path %>
+  <% @job_listings.each do |job_listing| %>
+    <%= render partial: "my_job_listing", locals: {job_listing: job_listing} %>
   <% end %>
 </div>

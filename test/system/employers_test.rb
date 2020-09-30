@@ -52,7 +52,6 @@ class EmployersTest < ApplicationSystemTestCase
     end
 
     assert_current_path job_listings_path
-    byebug
     assert_text "Account was successfully deleted."
   end
 end

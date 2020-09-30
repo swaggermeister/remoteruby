@@ -5,9 +5,11 @@ one:
   description: MyText
   location: MyString
   salary: MyString
+  employer: two
 
 two:
   title: MyString
   description: MyText
   location: MyString
   salary: MyString
+  employer: one
