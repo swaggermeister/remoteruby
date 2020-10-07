@@ -41,9 +41,7 @@ class JobListingsTest < ApplicationSystemTestCase
     click_on "Update Listing", match: :first
     fill_in "job_listing[description]", with: "New test description"
     fill_in "Salary", with: "New test salary"
-
-    byebug
-    click_on "Update listing"
+    click_on "Update Listing"
 
     assert_text "Job listing was successfully updated."
     click_on "View Profile"
@@ -51,10 +49,15 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "destroying a Job listing" do
     visit job_listings_url
+    click_on "Employers"
+    fill_in "Email", with: @employer.email
+    fill_in "Password", with: @employer.password
+    click_on "Log In"
+
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete Listing"
     end
 
-    assert_text "Job listing was successfully destroyed"
+    assert_text "Job listing was successfully destroyed."
   end
 end

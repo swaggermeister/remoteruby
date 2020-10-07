@@ -7,7 +7,7 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit job_listings_url
-    assert_selector "h1", text: "Job Listings"
+    assert_selector "button", text: "Sort Jobs by Salary"
   end
 
   test "creating a Employer" do
@@ -39,7 +39,7 @@ class EmployersTest < ApplicationSystemTestCase
     click_on "My Job Listings"
   end
 
-  test "destroying a Employer" do
+  test "destroying an Employer" do
     visit job_listings_url
     click_on "Employers"
     fill_in "Email", with: @employer.email

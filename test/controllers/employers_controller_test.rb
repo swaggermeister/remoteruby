@@ -5,11 +5,6 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
     @employer = employers(:one)
   end
 
-  test "should get index" do
-    get employers_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_employer_url
     assert_response :success
@@ -17,7 +12,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create employer" do
     assert_difference("Employer.count") do
-      post employers_url, params: { employer: { email: @employer.email, name: @employer.name, password: @employer.password, username: @employer.username } }
+      post employers_url, params: { employer: { email: @employer.email, name: @employer.name, password: @employer.password } }
     end
 
     assert_redirected_to employer_url(Employer.last)
@@ -34,7 +29,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update employer" do
-    patch employer_url(@employer), params: { employer: { email: @employer.email, name: @employer.name, password: @employer.password, username: @employer.username } }
+    patch employer_url(@employer), params: { employer: { email: @employer.email, name: @employer.name, password: @employer.password } }
     assert_redirected_to employer_url(@employer)
   end
 
