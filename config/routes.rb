@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "sessions/new"
+  get "sessions/create"
+  get "sessions/destroy"
   resources :employers do
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -8,6 +11,6 @@ Rails.application.routes.draw do
       get "my_company", to: "job_listings#my_company", as: "my_company"
     end
   end
-  get "login", to: "authentication#login_form"
+
   root to: "job_listings#index"
 end
