@@ -1,4 +1,5 @@
 class JobListingsController < ApplicationController
+  skip_before_action :authorize, only: [:index, :show]
   before_action :set_job_listing, only: [:show, :edit, :update, :destroy]
 
   # GET /job_listings
@@ -70,7 +71,7 @@ class JobListingsController < ApplicationController
     # number_of_listings = random.rand(0..5)
     # @employer = Employer.limit(1).order("RANDOM()").first
     # @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
-    @employer = Employer.last
+    @employer = current_user
     @job_listings = @employer.job_listings
   end
 

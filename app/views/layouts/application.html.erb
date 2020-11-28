@@ -12,7 +12,8 @@
     <header class="navbar">
       <section class="navbar-section">
         <a href="/" class="navbar-brand">Ruby Remote Jobs</a>
-        <%= link_to 'Employers', sessions_new_path, class: 'btn btn-link' %>
+        <%= link_to 'Employers', login_path, class: 'btn btn-link' %>
+        <%= link_to 'Log Out', logout_path, method: :delete, remote: true, class: 'btn btn-link' %>
       </section>
     </header>
     <div class="container">
@@ -25,14 +26,10 @@
             </div>
           <% end %>
         </div>
-        
         <div class="col-2 col-md-0"></div>
         <div class="col-8 col-md-12">
-          <div id='flash'>
-            <% flash.each do |type, msg| %>
-              <%= msg %>
-            <% end %>
-          </div>
+          session[:employer_id] <%= session[:employer_id].inspect %>
+          <%= render partial: "layouts/flash" %>
           <%= yield %>
         </div>
         <div class="col-2 col-md-0"></div>
