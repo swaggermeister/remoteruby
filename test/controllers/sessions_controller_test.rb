@@ -21,6 +21,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
+  test "should fail to create account when missing PW confirmation" do
+    post employers_url, params: { employer: { email: "anemployer@test.com", name: "A New Employer", password: "newtestpassword" } }
+    assert_response :error
+  end
+
   test "should log out" do
     delete logout_url
     assert_redirected_to job_listings_url

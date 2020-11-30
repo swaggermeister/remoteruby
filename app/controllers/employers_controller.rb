@@ -1,4 +1,5 @@
 class EmployersController < ApplicationController
+  skip_before_action :authorize, only: [:new, :create]
   before_action :set_employer, only: [:show, :edit, :update, :destroy]
 
   # GET /employers
@@ -25,8 +26,8 @@ class EmployersController < ApplicationController
   # POST /employers.json
   def create
     @employer = Employer.new(employer_params)
-
     if @employer.save
+      session[:employer_id] = @employer.id
       redirect_to @employer, notice: "Account successfully created."
     else
       render :new
@@ -59,6 +60,6 @@ class EmployersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employer_params
-    params.require(:employer).permit(:name, :email, :password)
+    params.require(:employer).permit(:name, :email, :password, :password_confirmation)
   end
 end

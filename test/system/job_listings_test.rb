@@ -1,30 +1,26 @@
 require "application_system_test_case"
 
 class JobListingsTest < ApplicationSystemTestCase
-  setup do
-    @job_listing = job_listings(:one)
-    @employer = employers(:two)
-  end
-
   test "visiting the index" do
     visit job_listings_url
     assert_selector "button", text: "Sort Jobs by Salary"
   end
 
   test "creating a Job listing" do
+    employer = employers(:two)
+
     visit job_listings_url
     click_on "Employers"
-    fill_in "Email", with: @employer.email
-    fill_in "Password", with: @employer.password
-    click_on "Log In"
+    login_employer(employer)
+    visit my_company_job_listings_path
 
     click_on "Add a new listing"
 
-    fill_in "job_listing[description]", with: @job_listing.description
-    fill_in "Location", with: @job_listing.location
-    fill_in "Salary", with: @job_listing.salary
-    fill_in "Title", with: @job_listing.title
-    fill_in "job_listing[contact_email]", with: @job_listing.contact_email
+    fill_in "job_listing[description]", with: "Test Job Description"
+    fill_in "Location", with: "NYC"
+    fill_in "Salary", with: "200000"
+    fill_in "Title", with: "Rails Engineer"
+    fill_in "job_listing[contact_email]", with: "testco@place.com"
     click_on "Create Listing"
 
     assert_text "Job listing was successfully created."
@@ -32,11 +28,12 @@ class JobListingsTest < ApplicationSystemTestCase
   end
 
   test "updating a Job listing" do
+    employer = employers(:two)
+
     visit job_listings_url
     click_on "Employers"
-    fill_in "Email", with: @employer.email
-    fill_in "Password", with: @employer.password
-    click_on "Log In"
+    login_employer(employer)
+    visit my_company_job_listings_path
 
     click_on "Update Listing", match: :first
     fill_in "job_listing[description]", with: "New test description"
@@ -48,16 +45,17 @@ class JobListingsTest < ApplicationSystemTestCase
   end
 
   test "destroying a Job listing" do
+    employer = employers(:two)
+
     visit job_listings_url
     click_on "Employers"
-    fill_in "Email", with: @employer.email
-    fill_in "Password", with: @employer.password
-    click_on "Log In"
+    login_employer(employer)
+    visit my_company_job_listings_path
 
     page.accept_confirm do
       click_on "Delete Listing"
     end
-
+    assert_current_path my_company_job_listings_path
     assert_text "Job listing was successfully destroyed."
   end
 end

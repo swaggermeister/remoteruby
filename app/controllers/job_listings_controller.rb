@@ -71,7 +71,7 @@ class JobListingsController < ApplicationController
     # number_of_listings = random.rand(0..5)
     # @employer = Employer.limit(1).order("RANDOM()").first
     # @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
-    @employer = current_user
+    @employer = current_employer
     @job_listings = @employer.job_listings
   end
 
