@@ -1,31 +1,24 @@
 class EmployersController < ApplicationController
-  skip_before_action :authorize, only: [:new, :create]
-  before_action :set_employer, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authorize, only: %i[new create]
+  before_action :set_employer, only: %i[show edit update destroy]
 
-  # GET /employers
-  # GET /employers.json
   def index
     @employers = Employer.all
   end
 
-  # GET /employers/1
-  # GET /employers/1.json
   def show
   end
 
-  # GET /employers/new
   def new
     @employer = Employer.new
   end
 
-  # GET /employers/1/edit
   def edit
   end
 
-  # POST /employers
-  # POST /employers.json
   def create
     @employer = Employer.new(employer_params)
+
     if @employer.save
       session[:employer_id] = @employer.id
       redirect_to @employer, notice: "Account successfully created."
@@ -34,8 +27,6 @@ class EmployersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /employers/1
-  # PATCH/PUT /employers/1.json
   def update
     if @employer.update(employer_params)
       redirect_to @employer, notice: "Account successfully updated."
@@ -44,8 +35,6 @@ class EmployersController < ApplicationController
     end
   end
 
-  # DELETE /employers/1
-  # DELETE /employers/1.json
   def destroy
     @employer.destroy
     redirect_to job_listings_url, notice: "Account was successfully deleted."

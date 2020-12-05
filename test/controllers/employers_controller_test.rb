@@ -8,7 +8,14 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create employer" do
     assert_difference("Employer.count") do
-      post employers_url, params: { employer: { email: "anemployer@test.com", name: "A New Employer", password: "newtestpassword" } }
+      post employers_url, params: {
+                            employer: {
+                              email: "anemployer@test.com",
+                              name: "A New Employer",
+                              password: "newtestpassword",
+                              password_confirmation: "newtestpassword",
+                            },
+                          }
     end
 
     assert_redirected_to employer_url(Employer.last)
