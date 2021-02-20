@@ -1,3 +1,4 @@
+require "securerandom"
 random = Random.new
 
 employer_names = [
@@ -126,9 +127,11 @@ end
 desc "custom task to seed the db with test employers"
 task :seed_employers do
   100.times.map do
-    Employer.create(name: employer_names[random.rand(employer_names.length)],
-                    email: employer_emails[random.rand(employer_emails.length)],
-                    password: employer_passwords[random.rand(employer_passwords.length)])
+    pw = employer_passwords.sample
+    Employer.create!(name: employer_names.sample,
+                     email: "#{SecureRandom.hex}@test.com",
+                     password: pw,
+                     password_confirmation: pw)
   end
 end
 
@@ -137,11 +140,11 @@ task :seed_job_listings do
   employers = Employer.select(:id, :name).limit(100)
 
   100.times.map do
-    JobListing.create(title: job_titles.sample,
-                      description: job_description,
-                      location: job_locations.sample,
-                      salary: job_salaries.sample,
-                      employer_name: employers.sample.name,
-                      employer_id: employers.sample.id)
+    JobListing.create!(title: job_titles.sample,
+                       description: job_description,
+                       location: job_locations.sample,
+                       salary: job_salaries.sample,
+                       employer_name: employers.sample.name,
+                       employer_id: employers.sample.id)
   end
 end

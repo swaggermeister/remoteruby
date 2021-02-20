@@ -16,22 +16,22 @@
         <%= link_to 'Log Out', logout_path, method: :delete, remote: true, class: 'btn btn-link' %>
       </section>
     </header>
-    <div class="container">
+    <div class="container mb-8">
       <div class="columns">
-        <div class="col-12 text-center">
+        <div class="col-12 text-center mb-5">
           <%= form_tag job_listings_path(search: @search_text), method: :get do %>
             <div class="input-group input-inline">
               <%= text_field_tag :search, @search_text, class: "form-input input-lg", placeholder: "Search" %>
-              <%= submit_tag 'Search', class: 'btn btn-primary input-group-btn btn-lg' %>
+              <%= button_tag class: 'btn input-group-btn btn-lg' do %> <i class="icon icon-search"></i> <% end %>
             </div>
           <% end %>
         </div>
-        <div class="col-2 col-md-0"></div>
-        <div class="col-8 col-md-12">
+        <div class="col-3 col-md-0"></div>
+        <div class="col-6 col-md-12">          
           <%= render partial: "layouts/flash" %>
           <%= yield %>
         </div>
-        <div class="col-2 col-md-0"></div>
+        <div class="col-3 col-md-0"></div>
       </div>
     </div>
   </body>

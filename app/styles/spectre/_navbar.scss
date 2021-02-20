@@ -4,6 +4,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  border-bottom-color: rgb(8, 5, 4);
+  border-bottom-width: initial;
+  border-bottom-style: solid;
+  margin-bottom: 20px;
 
   .navbar-section {
     align-items: center;
@@ -24,5 +28,6 @@
   .navbar-brand {
     font-size: $font-size-lg;
     text-decoration: none;
+    padding: $control-padding-y $control-padding-x-sm;
   }
 }
