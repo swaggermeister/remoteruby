@@ -3,26 +3,27 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import "./scss/application.scss";
+// CSS
+import "../../styles/application";
 
+// JS polyfills
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
+// Rails
 require("@rails/ujs").start();
+// Turbolinks
 require("turbolinks").start();
-require("@rails/activestorage").start();
-require("channels");
 
+// App logic
 import { setupPreviewDescriptionClickHandlers } from "../preview_description";
-document.addEventListener("DOMContentLoaded", () => {
-  setupPreviewDescriptionClickHandlers();
-});
-
 import {
   setupContactInfoClickHandlers,
   initContactMethodVisibility,
 } from "../set_contact_info";
+
 document.addEventListener("DOMContentLoaded", () => {
+  setupPreviewDescriptionClickHandlers();
   setupContactInfoClickHandlers();
   initContactMethodVisibility();
 });

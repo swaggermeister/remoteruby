@@ -1,0 +1,10 @@
+// reset CSS
+@import "reset";
+// spectre CSS framework
+@import "spectre/spectre";
+@import "spectre/spectre-exp";
+@import "spectre/spectre-icons";
+
+p {
+  line-height: 1.5;
+}

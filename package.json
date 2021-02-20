@@ -9,8 +9,6 @@
     "@types/marked": "^0.7.4",
     "@types/node": "^14.6.4",
     "marked": "^1.1.0",
-    "reset-css": "^5.0.1",
-    "spectre.css": "^0.5.8",
     "ts-loader": "^7.0.5",
     "turbolinks": "^5.2.0",
     "typescript": "^3.9.3"
