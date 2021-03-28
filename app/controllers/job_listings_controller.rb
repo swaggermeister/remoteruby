@@ -7,7 +7,8 @@ class JobListingsController < ApplicationController
   def index
     query = JobListing
     if (@search_text = params[:search])
-      query = query.where(["title ilike :search or description ilike :search", search: "%#{@search_text}%"])
+      query = JobListing.search(@search_text)
+      # query = query.where(["title ilike :search or description ilike :search", search: "%#{@search_text}%"])
     end
 
     @job_listings = query.all

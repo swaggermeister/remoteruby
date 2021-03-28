@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_030144) do
+ActiveRecord::Schema.define(version: 2021_03_28_154540) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "employers", force: :cascade do |t|
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_11_25_030144) do
     t.string "contact_url"
     t.bigint "employer_id", null: false
     t.index ["employer_id"], name: "index_job_listings_on_employer_id"
+    t.index ["title"], name: "index_joblistings_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
   end
 
   add_foreign_key "job_listings", "employers"

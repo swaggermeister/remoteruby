@@ -9,6 +9,7 @@ gem "rails", "~> 6.0.2", ">= 6.0.2.2"
 # gem 'sqlite3', '~> 1.4'
 # use postgres
 gem "pg"
+gem "pg_search"
 # Use Puma as the app server
 gem "puma", "~> 4.1"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
