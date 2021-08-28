@@ -22,7 +22,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show employer" do
-    employer = employers(:one)
+    employer = create_employer!
     login_employer(employer)
 
     get employer_url(employer)
@@ -30,7 +30,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    employer = employers(:one)
+    employer = create_employer!
     login_employer(employer)
 
     get edit_employer_url(employer)
@@ -38,7 +38,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update employer" do
-    employer = employers(:one)
+    employer = create_employer!
     login_employer(employer)
 
     patch employer_url(employer), params: { employer: { email: employer.email, name: employer.name, password: employer.password } }
@@ -46,7 +46,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy employer" do
-    employer = employers(:one)
+    employer = create_employer!
     login_employer(employer)
 
     assert_difference("Employer.count", -1) do

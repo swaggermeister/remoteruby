@@ -7,7 +7,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should login" do
-    employer = employers(:one)
+    employer = create_employer!
 
     post login_url, params: { email: employer.email, password: "secret" }
     assert_redirected_to my_company_job_listings_path
@@ -15,7 +15,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should fail login" do
-    employer = employers(:one)
+    employer = create_employer!
 
     post login_url, params: { email: employer.email, password: "wrong" }
     assert_redirected_to login_url

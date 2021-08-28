@@ -7,7 +7,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    employer = employers(:two)
+    employer = create_employer!
     login_employer(employer)
 
     get new_job_listing_url
@@ -15,7 +15,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create job_listing" do
-    employer = employers(:two)
+    employer = create_employer!
     login_employer(employer)
 
     assert_difference("JobListing.count") do
@@ -26,15 +26,16 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show job_listing" do
-    job_listing = job_listings(:one)
+    employer = create_employer!
+    job_listing = create_job_listing!(employer: employer)
 
     get job_listing_url(job_listing)
     assert_response :success
   end
 
   test "should get edit" do
-    employer = employers(:two)
-    job_listing = job_listings(:one)
+    employer = create_employer!
+    job_listing = create_job_listing!(employer: employer)
 
     login_employer(employer)
     get edit_job_listing_url(job_listing)
@@ -42,8 +43,8 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update job_listing" do
-    employer = employers(:two)
-    job_listing = job_listings(:one)
+    employer = create_employer!
+    job_listing = create_job_listing!(employer: employer)
 
     login_employer(employer)
     patch job_listing_url(job_listing), params: { job_listing: { description: job_listing.description, location: job_listing.location, salary: job_listing.salary, title: job_listing.title } }
@@ -51,8 +52,8 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy job_listing" do
-    employer = employers(:two)
-    job_listing = job_listings(:one)
+    employer = create_employer!
+    job_listing = create_job_listing!(employer: employer)
 
     login_employer(employer)
     assert_difference("JobListing.count", -1) do

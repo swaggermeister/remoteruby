@@ -14,4 +14,34 @@ class ActiveSupport::TestCase
   def login_employer(employer)
     ApplicationController.any_instance.stubs(:current_employer).returns(employer)
   end
+
+  def create_employer!(name: nil, email: nil)
+    name ||= "Test #{random_string}"
+    email ||= "#{random_string}@test.com"
+
+    Employer.create!(
+      name: name,
+      email: email,
+      password_digest: BCrypt::Password.create("secret"),
+    )
+  end
+
+  def create_job_listing!(employer:, title: nil, description: nil, location: nil, salary: nil)
+    title ||= "A Great Job #{random_string}"
+    description ||= "The best job you will ever have you will love it #{random_string}"
+    location ||= "Randomville, CA"
+    salary ||= "99,500"
+
+    JobListing.create!(
+      title: title,
+      description: description,
+      location: location,
+      salary: salary,
+      employer: employer,
+    )
+  end
+
+  def random_string
+    SecureRandom.hex.split("-")
+  end
 end
