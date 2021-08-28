@@ -15,11 +15,37 @@ blocks:
       jobs:
         - name: Test
           commands:
+            # checkout repo
             - checkout
-            - sem-service start postgres 12
+
+            # restore yarn cache
+            - cache restore yarn-$(checksum yarn.lock)
+
+            # Install Yarn deps
+            - yarn install --ignore-engines
+
+            # Store Yarn cache
+            - cache store yarn-$(checksum yarn.lock) node_modules
+
+            # Restore Bundler cache
+            - cache restore bundler-$(checksum Gemfile.lock)
+
+            # Set Ruby version
             - sem-version ruby 2.7.2
-            - cache restore
-            - bundle install --deployment --path vendor/bundle
-            - cache store
+
+            # Bundle install
+            - bundle config set deployment 'true'
+            - bundle config set path 'vendor/bundle'
+            - bundle install --jobs=4 --retry=3
+
+            # Store Bundler cache
+            - cache store bundler-$(checksum Gemfile.lock) vendor/bundle
+
+            # Set up PG (needed before migration)
+            - sem-service start postgres 12
+
+            # Migrate database
             - "bundle exec rake db:setup"
+
+            # Run the test suite
             - bundle exec rails test
