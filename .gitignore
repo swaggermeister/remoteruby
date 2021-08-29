@@ -374,3 +374,6 @@ yarn-debug.log*
 
 # app-specific 
 config/database.yml
+
+# Semaphore CI configuration files
+!.semaphore

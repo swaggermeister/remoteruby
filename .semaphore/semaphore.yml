@@ -49,3 +49,8 @@ blocks:
 
             # Run the test suite
             - bundle exec rails test
+promotions:
+  - name: Heroku Staging
+    pipeline_file: heroku.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'master'"
