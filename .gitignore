@@ -377,3 +377,4 @@ config/database.yml
 
 # Semaphore CI configuration files
 !.semaphore
+!.tool-versions
