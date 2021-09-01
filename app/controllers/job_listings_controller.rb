@@ -1,10 +1,7 @@
 class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: [:index, :show]
-  # skip_before_action :authorize, only: [:index, :show]
   before_action :set_job_listing, only: [:show, :edit, :update, :destroy]
 
-  # GET /job_listings
-  # GET /job_listings.json
   def index
     query = JobListing
     if (@search_text = params[:search])
@@ -15,22 +12,16 @@ class JobListingsController < ApplicationController
     @job_listings = query.all
   end
 
-  # GET /job_listings/1
-  # GET /job_listings/1.json
   def show
   end
 
-  # GET /job_listings/new
   def new
     @job_listing = JobListing.new
   end
 
-  # GET /job_listings/1/edit
   def edit
   end
 
-  # POST /job_listings
-  # POST /job_listings.json
   def create
     employer = current_employer
     @job_listing = JobListing.new(job_listing_params.merge(employer_id: employer.id))
@@ -42,8 +33,6 @@ class JobListingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /job_listings/1
-  # PATCH/PUT /job_listings/1.json
   def update
     if @job_listing.update(job_listing_params)
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
@@ -52,14 +41,11 @@ class JobListingsController < ApplicationController
     end
   end
 
-  # DELETE /job_listings/1
-  # DELETE /job_listings/1.json
   def destroy
     @job_listing.destroy
     redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed."
   end
 
-  # GET /job_listings/search
   # just get a random #/selection of listings to display for now
   # def search
   #   search_text = params[:search]
@@ -69,11 +55,6 @@ class JobListingsController < ApplicationController
   # end
 
   def my_company
-    # random = Random.new
-    # number_of_listings = random.rand(0..5)
-    # @employer = Employer.limit(1).order("RANDOM()").first
-    # @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
-    # @employer = current_employer
     @job_listings = current_employer.job_listings
   end
 
