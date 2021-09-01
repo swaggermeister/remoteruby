@@ -8,10 +8,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def current_employer
-    @current_employer ||= Employer.find_by(id: session[:employer_id])
-  end
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end

@@ -21,13 +21,13 @@ class ActiveSupport::TestCase
 
     name ||= "Test #{random_string}"
     email ||= "#{random_string}@test.com"
-    password ||= random_string
+    # password ||= random_string
 
     Employer.create!(
       name: name,
       email: email,
-      password: password,
-      password_confirmation: password,
+      # password: password,
+      # password_confirmation: password,
     )
   end
 
