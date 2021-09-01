@@ -1,5 +1,6 @@
 class JobListingsController < ApplicationController
-  skip_before_action :authorize, only: [:index, :show]
+  skip_before_action :authenticate_employer!, only: [:index, :show]
+  # skip_before_action :authorize, only: [:index, :show]
   before_action :set_job_listing, only: [:show, :edit, :update, :destroy]
 
   # GET /job_listings
@@ -31,7 +32,7 @@ class JobListingsController < ApplicationController
   # POST /job_listings
   # POST /job_listings.json
   def create
-    employer = Employer.first
+    employer = current_employer
     @job_listing = JobListing.new(job_listing_params.merge(employer_id: employer.id))
 
     if @job_listing.save
@@ -72,8 +73,8 @@ class JobListingsController < ApplicationController
     # number_of_listings = random.rand(0..5)
     # @employer = Employer.limit(1).order("RANDOM()").first
     # @job_listings = JobListing.limit(number_of_listings).order("RANDOM()").all
-    @employer = current_employer
-    @job_listings = @employer.job_listings
+    # @employer = current_employer
+    @job_listings = current_employer.job_listings
   end
 
   private

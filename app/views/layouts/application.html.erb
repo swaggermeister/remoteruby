@@ -11,14 +11,19 @@
   <body>
     <header class="navbar">
       <section class="navbar-section">
-        <a href="/" class="navbar-brand">Ruby Remote Jobs</a>
-        <%= link_to "Employers", login_path, class: "btn btn-link" %>
-        <%= link_to "Log Out", logout_path, method: :delete, remote: true, class: "btn btn-link" %>
+        <a href="/" class="navbar-brand text-primary p-1">Ruby Remote Jobs</a>
+        <%= link_to "Employers", my_company_job_listings_path, class: "btn btn-link" %>
+        <h3><% employer_signed_in?.to_s %> </h3>
+        <% if employer_signed_in? %>
+          <%= link_to "Sign Out", destroy_employer_session_path, class: "btn btn-link" %>
+        <% else %>
+          <%= link_to "Sign In", new_employer_session_path, class: "btn btn-link" %>
+        <% end %>
       </section>
     </header>
     <div class="container mb-8">
       <div class="columns">
-        <div class="col-xl-4 col-lg-6 col-sm-8 col-xs-12 col-mx-auto">          
+        <div class="col-xl-4 col-lg-6 col-sm-8 col-xs-12 col-mx-auto">
           <div class="container">
             <%= render partial: "layouts/flash" %>
             <%= yield %>

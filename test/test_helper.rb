@@ -15,14 +15,19 @@ class ActiveSupport::TestCase
     ApplicationController.any_instance.stubs(:current_employer).returns(employer)
   end
 
-  def create_employer!(name: nil, email: nil)
+  def create_employer!(name: nil, email: nil, password: nil)
+    puts "name: #{name}"
+    puts "email: #{email}"
+
     name ||= "Test #{random_string}"
     email ||= "#{random_string}@test.com"
+    password ||= random_string
 
     Employer.create!(
       name: name,
       email: email,
-      password_digest: BCrypt::Password.create("secret"),
+      password: password,
+      password_confirmation: password,
     )
   end
 
@@ -42,6 +47,6 @@ class ActiveSupport::TestCase
   end
 
   def random_string
-    SecureRandom.hex.split("-")
+    SecureRandom.hex.split("-").join
   end
 end

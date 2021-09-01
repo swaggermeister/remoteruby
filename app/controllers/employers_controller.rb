@@ -1,5 +1,6 @@
 class EmployersController < ApplicationController
-  skip_before_action :authorize, only: %i[new create]
+  before_action :authenticate_employer!
+  # skip_before_action :authorize, only: %i[new create]
   before_action :set_employer, only: %i[show edit update destroy]
 
   def index
@@ -10,33 +11,33 @@ class EmployersController < ApplicationController
   end
 
   def new
-    @employer = Employer.new
+    # current_employer = Employer.new
   end
 
   def edit
   end
 
   def create
-    @employer = Employer.new(employer_params)
+    current_employer = Employer.new(employer_params)
 
-    if @employer.save
+    if current_employer.save
       session[:employer_id] = @employer.id
-      redirect_to @employer, notice: "Account successfully created."
+      redirect_to current_employer, notice: "Account successfully created."
     else
       render :new
     end
   end
 
   def update
-    if @employer.update(employer_params)
-      redirect_to @employer, notice: "Account successfully updated."
+    if current_employer.update(employer_params)
+      redirect_to current_employer, notice: "Account successfully updated."
     else
       render :edit
     end
   end
 
   def destroy
-    @employer.destroy
+    current_employer.destroy
     redirect_to job_listings_url, notice: "Account was successfully deleted."
   end
 

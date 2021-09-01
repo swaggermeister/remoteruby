@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  controller :sessions do
-    get "login" => :new
-    post "login" => :create
-    delete "logout" => :destroy
-  end
+  # Authentication
+  devise_for :employers
 
   resources :employers do
   end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :job_listings do
     collection do
@@ -15,5 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
+  # Home page
   root to: "job_listings#index"
 end

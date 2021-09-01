@@ -46,10 +46,25 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.employers (
     id bigint NOT NULL,
     name character varying,
-    email character varying,
-    password_digest character varying,
+    email character varying DEFAULT ''::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone
 );
 
 
@@ -167,6 +182,34 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_employers_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_employers_on_confirmation_token ON public.employers USING btree (confirmation_token);
+
+
+--
+-- Name: index_employers_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_employers_on_email ON public.employers USING btree (email);
+
+
+--
+-- Name: index_employers_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_employers_on_reset_password_token ON public.employers USING btree (reset_password_token);
+
+
+--
+-- Name: index_employers_on_unlock_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_employers_on_unlock_token ON public.employers USING btree (unlock_token);
+
+
+--
 -- Name: index_job_listings_on_employer_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -212,6 +255,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210328152618'),
 ('20210328154540'),
 ('20210328174803'),
-('20210328180857');
+('20210328180857'),
+('20210830150506'),
+('20210901012241');
 
 
