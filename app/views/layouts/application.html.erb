@@ -14,7 +14,7 @@
         <a href="/" class="navbar-brand text-primary p-1">Ruby Remote Jobs</a>
         <%= link_to "Employers", my_company_job_listings_path, class: "btn btn-link" %>
         <% if employer_signed_in? %>
-          <%= link_to "Sign Out", destroy_employer_session_path, class: "btn btn-link" %>
+          <%= link_to "Sign Out", destroy_employer_session_path, method: :delete, class: "btn btn-link" %>
         <% else %>
           <%= link_to "Sign In", new_employer_session_path, class: "btn btn-link" %>
         <% end %>
