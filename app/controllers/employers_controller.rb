@@ -10,22 +10,7 @@ class EmployersController < ApplicationController
   def show
   end
 
-  def new
-    # current_employer = Employer.new
-  end
-
   def edit
-  end
-
-  def create
-    current_employer = Employer.new(employer_params)
-
-    if current_employer.save
-      session[:employer_id] = @employer.id
-      redirect_to current_employer, notice: "Account successfully created."
-    else
-      render :new
-    end
   end
 
   def update
