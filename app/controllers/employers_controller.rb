@@ -15,8 +15,9 @@ class EmployersController < ApplicationController
 
   def update
     if current_employer.update(employer_params)
-      sign_in :employer, current_employer, bypass: true
-      redirect_to edit_employer_path(current_employer), notice: 'Account successfully updated.'
+      # todo: update bypass to bypass_sign_in
+      sign_in :employer, current_employer, bypass_sign_in: true
+      redirect_to edit_employer_path(current_employer), notice: "Account successfully updated."
     else
       render :edit
     end
@@ -24,7 +25,7 @@ class EmployersController < ApplicationController
 
   def destroy
     current_employer.destroy
-    redirect_to job_listings_url, notice: 'Account was successfully deleted.'
+    redirect_to job_listings_url, notice: "Account was successfully deleted."
   end
 
   private
