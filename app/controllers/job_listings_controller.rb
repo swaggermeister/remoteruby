@@ -46,14 +46,6 @@ class JobListingsController < ApplicationController
     redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed."
   end
 
-  # just get a random #/selection of listings to display for now
-  # def search
-  #   search_text = params[:search]
-  #   # random = Random.new
-  #   # number_of_listings = random.rand(0..5)
-  #   @job_listings = JobListing.where(["title like ? or description like ?", search_text]).all # .limit(number_of_listings).order("RANDOM()").all
-  # end
-
   def my_company
     @job_listings = current_employer.job_listings
   end

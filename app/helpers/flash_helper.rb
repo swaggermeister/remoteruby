@@ -6,6 +6,8 @@ module FlashHelper
       "toast-success"
     when "alert"
       "toast-error"
+    when "timedout"
+      "toast-error"
     else
       raise "No toast class defined for #{flash_type}"
     end

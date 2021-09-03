@@ -15,7 +15,8 @@ class EmployersController < ApplicationController
 
   def update
     if current_employer.update(employer_params)
-      redirect_to current_employer, notice: "Account successfully updated."
+      sign_in :employer, current_employer, bypass: true
+      redirect_to edit_employer_path(current_employer), notice: "Account successfully updated."
     else
       render :edit
     end
@@ -35,6 +36,6 @@ class EmployersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employer_params
-    params.require(:employer).permit(:name, :email, :password, :password_confirmation)
+    params.require(:employer).permit(:name, :email, :password, :encrypted_password, :password_confirmation)
   end
 end

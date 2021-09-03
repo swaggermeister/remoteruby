@@ -1,11 +1,11 @@
-<div class="m-2 p-2 col-9">
+<div class="m-2 p-2 col-11">
   <h3>Resend unlock instructions</h3>
   <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-    <div class="form-group my-2">
+    <%= form_group(f, :email) do %>
       <%= f.label :email %>
       <%= f.email_field :email, class:"form-input mt-2", placeholder:"Email",autofocus: true, autocomplete: "email" %>
-    </div>
+      <%= errors_hint_tag(f, :email) %>
+    <% end %>
     <div class="actions mt-4">
       <%= f.submit "Resend unlock instructions", class: "btn btn-primary mt-2" %>
     </div>
