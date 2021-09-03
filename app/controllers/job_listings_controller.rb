@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class JobListingsController < ApplicationController
-  skip_before_action :authenticate_employer!, only: [:index, :show]
-  before_action :set_job_listing, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_employer!, only: %i[index show]
+  before_action :set_job_listing, only: %i[show edit update destroy]
 
   def index
     query = JobListing
@@ -12,22 +14,20 @@ class JobListingsController < ApplicationController
     @job_listings = query.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @job_listing = JobListing.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     employer = current_employer
     @job_listing = JobListing.new(job_listing_params.merge(employer_id: employer.id))
 
     if @job_listing.save
-      redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
+      redirect_to my_company_job_listings_path, notice: 'Job listing was successfully created.'
     else
       render :new
     end
@@ -35,7 +35,7 @@ class JobListingsController < ApplicationController
 
   def update
     if @job_listing.update(job_listing_params)
-      redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
+      redirect_to my_company_job_listings_path, notice: 'Job listing was successfully updated.'
     else
       render :edit
     end
@@ -43,7 +43,7 @@ class JobListingsController < ApplicationController
 
   def destroy
     @job_listing.destroy
-    redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed."
+    redirect_to my_company_job_listings_path, notice: 'Job listing was successfully destroyed.'
   end
 
   def my_company

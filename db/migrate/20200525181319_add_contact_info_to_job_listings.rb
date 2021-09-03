@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddContactInfoToJobListings < ActiveRecord::Migration[6.0]
   def change
     add_column :job_listings, :contact_email, :string

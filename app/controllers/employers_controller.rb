@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmployersController < ApplicationController
   before_action :authenticate_employer!
   # skip_before_action :authorize, only: %i[new create]
@@ -7,16 +9,14 @@ class EmployersController < ApplicationController
     @employers = Employer.all
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if current_employer.update(employer_params)
       sign_in :employer, current_employer, bypass: true
-      redirect_to edit_employer_path(current_employer), notice: "Account successfully updated."
+      redirect_to edit_employer_path(current_employer), notice: 'Account successfully updated.'
     else
       render :edit
     end
@@ -24,7 +24,7 @@ class EmployersController < ApplicationController
 
   def destroy
     current_employer.destroy
-    redirect_to job_listings_url, notice: "Account was successfully deleted."
+    redirect_to job_listings_url, notice: 'Account was successfully deleted.'
   end
 
   private

@@ -49,6 +49,9 @@ blocks:
 
             # Run the test suite
             - bundle exec rails test
+
+            # Rubocop linter
+            - rubocop
 promotions:
   - name: Heroku Staging
     pipeline_file: heroku.yml

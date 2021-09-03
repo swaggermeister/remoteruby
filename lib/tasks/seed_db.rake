@@ -1,37 +1,39 @@
-require "securerandom"
+# frozen_string_literal: true
+
+require 'securerandom'
 random = Random.new
 
 employer_names = [
-  "DeskCorp",
-  "AutoLab",
-  "HRForce",
-  "Google",
-  "Smith & Smith",
+  'DeskCorp',
+  'AutoLab',
+  'HRForce',
+  'Google',
+  'Smith & Smith'
 ]
 
 employer_emails = [
-  "jbob@deskcorp.com",
-  "cjones@autolab.com",
-  "mdavis@hrforce.com",
-  "agail@google.com",
-  "bsmith@smithsmith.com",
+  'jbob@deskcorp.com',
+  'cjones@autolab.com',
+  'mdavis@hrforce.com',
+  'agail@google.com',
+  'bsmith@smithsmith.com'
 ]
 
-employer_passwords = [
-  "test1234",
-  "pass7890",
-  "dogs1267",
-  "cats2345",
-  "bananas5678",
+employer_passwords = %w[
+  test1234
+  pass7890
+  dogs1267
+  cats2345
+  bananas5678
 ]
 
 job_titles = [
-  "Senior Ruby on Rails Engineer",
-  "Full Stack Rails Engineer",
-  "Rails Backend Specialist",
-  "Rails Developer with React experience",
-  "Rails API Scalability Expert",
-  "Ruby Developer with 20 Years Experience",
+  'Senior Ruby on Rails Engineer',
+  'Full Stack Rails Engineer',
+  'Rails Backend Specialist',
+  'Rails Developer with React experience',
+  'Rails API Scalability Expert',
+  'Ruby Developer with 20 Years Experience'
 ]
 
 job_description = <<~JOBDESC
@@ -103,28 +105,28 @@ job_description = <<~JOBDESC
 JOBDESC
 
 job_locations = [
-  "Littleton",
-  "Boston, MA",
-  "NYC",
-  "Philly",
-  "Toronto",
+  'Littleton',
+  'Boston, MA',
+  'NYC',
+  'Philly',
+  'Toronto'
 ]
 
 job_salaries = [
-  "20000",
-  "200k",
-  "15k plus equity",
-  "97$/hr",
-  "120000",
+  '20000',
+  '200k',
+  '15k plus equity',
+  '97$/hr',
+  '120000'
 ]
 
-desc "custom task to seed the db with test employer/job listing data"
-task :seed => :environment do
-  Rake::Task["seed_employers"].invoke
-  Rake::Task["seed_job_listings"].invoke
+desc 'custom task to seed the db with test employer/job listing data'
+task seed: :environment do
+  Rake::Task['seed_employers'].invoke
+  Rake::Task['seed_job_listings'].invoke
 end
 
-desc "custom task to seed the db with test employers"
+desc 'custom task to seed the db with test employers'
 task :seed_employers do
   100.times.map do
     pw = employer_passwords.sample
@@ -135,7 +137,7 @@ task :seed_employers do
   end
 end
 
-desc "custom task to seed the db with test job listings"
+desc 'custom task to seed the db with test job listings'
 task :seed_job_listings do
   employers = Employer.select(:id, :name).limit(100)
 

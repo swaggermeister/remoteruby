@@ -1,3 +1,3 @@
-if defined?(BetterErrors)
-  BetterErrors.editor = "vscode://file/%{file}:%{line}"
-end
+# frozen_string_literal: true
+
+BetterErrors.editor = 'vscode://file/%{file}:%{line}' if defined?(BetterErrors)
