@@ -2,60 +2,70 @@
 
 class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: %i[index show]
-  before_action :set_job_listing, only: %i[show edit update destroy]
 
   def index
-    query = JobListing
-    if (@search_text = params[:search])
-      query = JobListing.search(@search_text)
-      # query = query.where(["title ilike :search or description ilike :search", search: "%#{@search_text}%"])
-    end
+    result = JobListings::IndexUseCase.call(query: params[:search])
 
-    @job_listings = query.all
+    @search_text = result.query
+    @job_listings = result.job_listings
   end
 
-  def show; end
+  def show
+    result = JobListings::ShowUseCase.call(id: params.fetch(:id))
+
+    @presenter = JobListings::ShowPresenter.new(
+      job_listing: result.job_listing,
+    )
+  end
 
   def new
-    @job_listing = JobListing.new
+    result = JobListings::NewUseCase.call
+    @job_listing = result.job_listing
   end
 
-  def edit; end
+  def edit
+    result = JobListings::EditUseCase.call(id: params.fetch(:id))
+    @job_listing = result.job_listing
+  end
 
   def create
-    employer = current_employer
-    @job_listing = JobListing.new(job_listing_params.merge(employer_id: employer.id))
+    result = JobListings::CreateUseCase.call(attrs: job_listing_params, employer_id: current_employer.id)
 
-    if @job_listing.save
-      redirect_to my_company_job_listings_path, notice: 'Job listing was successfully created.'
+    if result.success
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
     else
+      @job_listing = result.job_listing
       render :new
     end
   end
 
   def update
-    if @job_listing.update(job_listing_params)
-      redirect_to my_company_job_listings_path, notice: 'Job listing was successfully updated.'
+    result = JobListings::UpdateUseCase.call(id: params.fetch(:id), attrs: job_listing_params)
+
+    if result.success
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
     else
       render :edit
     end
   end
 
   def destroy
-    @job_listing.destroy
-    redirect_to my_company_job_listings_path, notice: 'Job listing was successfully destroyed.'
+    result = JobListings::DestroyUseCase.call(id: params.fetch(:id))
+
+    if result.success
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed."
+    else
+      @job_listing
+    end
   end
 
   def my_company
-    @job_listings = current_employer.job_listings
+    result = JobListings::MyCompanyUseCase.call(employer: current_employer)
+
+    @job_listings = result.job_listings
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_job_listing
-    @job_listing = JobListing.find(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def job_listing_params

@@ -5,10 +5,6 @@ class EmployersController < ApplicationController
   # skip_before_action :authorize, only: %i[new create]
   # before_action :set_employer, only: %i[show edit update destroy]
 
-  def index
-    @employers = Employer.all
-  end
-
   def show; end
 
   def edit; end

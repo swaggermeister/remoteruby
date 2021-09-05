@@ -1,23 +1,23 @@
 <%= render 'search' %>
 <div class="columns">
   <div class="joblisting col-12">
-    <span class="text-bold h3"><%= @job_listing.title %></span>
+    <span class="text-bold h3"><%= presenter.title %></span>
     <span> - </span>
-    <span class="h4"><%= @job_listing.salary %></span>
+    <span class="h4"><%= presenter.salary %></span>
     <div class="employer-info mt-2">
       <span class="employer h5">
-        <img class="avatar" src="<%="/images/logo#{(1..6).to_a.shuffle.first}.jpeg"%>" />
-        <%= @job_listing.employer_name %> - 
-        <%= @job_listing.location %>
+        <img class="avatar" src="<%= presenter.avatar_url %>" />
+        <%= presenter.employer_name %> - 
+        <%= presenter.location %>
       </span>
     </div>
     <div class="description mt-2">
-      <%= markdown(@job_listing.description) %>
+      <%= presenter.description %>
     </div>
-    <% if @job_listing.contact_url.blank? %>
-      <%= mail_to @job_listing.contact_email, 'Apply Now', class: 'btn btn-primary' %>
+    <% if presenter.has_contact_url? %>
+      <%= link_to 'Apply Now', presenter.contact_url, class: 'btn btn-primary' %>
     <% else %>
-      <%= link_to 'Apply Now', @job_listing.contact_url, class: 'btn btn-primary' %>
+      <%= mail_to presenter.contact_email, 'Apply Now', class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>
