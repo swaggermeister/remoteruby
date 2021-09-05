@@ -2,34 +2,43 @@
 
 class EmployersController < ApplicationController
   before_action :authenticate_employer!
-  # skip_before_action :authorize, only: %i[new create]
-  # before_action :set_employer, only: %i[show edit update destroy]
 
-  def show; end
+  def show
+    result = Employers::ShowUseCase.call(id: params.fetch(:id))
 
-  def edit; end
+    @employer = result.employer
+  end
+
+  def edit
+    result = Employers::EditUseCase.call(id: params.fetch(:id))
+
+    @employer = result.employer
+  end
 
   def update
-    if current_employer.update(employer_params)
+    result = Employers::UpdateUseCase.call(id: params.fetch(:id), attrs: employer_params)
+
+    if result.success
       # todo: update bypass to bypass_sign_in
-      sign_in :employer, current_employer, bypass: true
-      redirect_to edit_employer_path(current_employer), notice: "Account successfully updated."
+      sign_in :employer, result.employer, bypass: true
+
+      redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
     else
       render :edit
     end
   end
 
   def destroy
-    current_employer.destroy
-    redirect_to job_listings_url, notice: "Account was successfully deleted."
+    result = Employers::DestroyUseCase.call(id: params.fetch(:id))
+
+    if result.success
+      redirect_to job_listings_url, notice: "Account was successfully deleted."
+    else
+      current_employer
+    end
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  # def set_employer
-  #   @employer = Employer.find(params[:id])
-  # end
 
   # Only allow a list of trusted parameters through.
   def employer_params
