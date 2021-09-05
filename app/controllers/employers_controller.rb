@@ -16,7 +16,7 @@ class EmployersController < ApplicationController
   def update
     if current_employer.update(employer_params)
       # todo: update bypass to bypass_sign_in
-      sign_in :employer, current_employer, bypass_sign_in: true
+      sign_in :employer, current_employer, bypass: true
       redirect_to edit_employer_path(current_employer), notice: "Account successfully updated."
     else
       render :edit
