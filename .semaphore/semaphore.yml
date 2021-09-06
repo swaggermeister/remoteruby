@@ -51,7 +51,7 @@ blocks:
             - bundle exec rails test
 
             # Rubocop linter
-            - rubocop
+            - bundle exec rubocop
 promotions:
   - name: Heroku Staging
     pipeline_file: heroku.yml
