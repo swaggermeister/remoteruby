@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JobListings
   module ShowUseCase
     Result = Struct.new(:job_listing, keyword_init: true)

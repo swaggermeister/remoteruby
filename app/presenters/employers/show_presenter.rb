@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Employers
   class ShowPresenter
     attr_reader :employer

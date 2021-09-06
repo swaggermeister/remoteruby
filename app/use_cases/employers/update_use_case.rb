@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Employers
   module UpdateUseCase
     Result = Struct.new(:success, :employer, keyword_init: true)

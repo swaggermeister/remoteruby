@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Employers
   module DestroyUseCase
     Result = Struct.new(:success, :employer, keyword_init: true)

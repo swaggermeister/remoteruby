@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-rails test && rubocop -A
+rails test && rails test:system && rubocop -A

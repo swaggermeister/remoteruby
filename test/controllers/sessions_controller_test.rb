@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require "test_helper"
-require "devise"
+require 'test_helper'
+require 'devise'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   # include Devise::Test::IntegrationHelpers
   # include Warden::Test::Helpers
 
-  test "should prompt for login" do
+  test 'should prompt for login' do
     get new_employer_session_path
 
     assert_response :success
   end
 
-  test "should login" do
-    password = "password1234"
+  test 'should login' do
+    password = 'password1234'
     employer = create_employer!(password: password)
 
     post employer_session_path, params: { employer: { email: employer.email, password: password } }
@@ -22,10 +22,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to my_company_job_listings_path
   end
 
-  test "should fail login" do
+  test 'should fail login' do
     employer = create_employer!
 
-    post employer_session_path, params: { employer: { email: employer.email, password: "wrong" } }
+    post employer_session_path, params: { employer: { email: employer.email, password: 'wrong' } }
     assert_response 200
   end
 
@@ -41,7 +41,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   #   end
   # end
 
-  test "should log out" do
+  test 'should log out' do
     delete destroy_employer_session_path
     assert_redirected_to root_path
   end

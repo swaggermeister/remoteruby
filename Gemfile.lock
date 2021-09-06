@@ -183,6 +183,13 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.11.0)
       parser (>= 3.0.1.1)
+    rubocop-performance (1.11.5)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
+    rubocop-rails (2.11.3)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.7.0, < 2.0)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
     selenium-webdriver (3.142.7)
@@ -200,6 +207,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    strong_migrations (0.7.8)
+      activerecord (>= 5)
     thor (1.1.0)
     thread_safe (0.3.6)
     turbolinks (5.2.1)
@@ -251,9 +260,12 @@ DEPENDENCIES
   rails (~> 6.0.2, >= 6.0.2.2)
   redcarpet (~> 3.5.0)
   rubocop
+  rubocop-performance
+  rubocop-rails
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
+  strong_migrations
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)

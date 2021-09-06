@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
-require "mocha/minitest" # mocks and stubs
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
+require 'mocha/minitest' # mocks and stubs
 
 module ActiveSupport
   class TestCase
@@ -27,7 +27,7 @@ module ActiveSupport
         name: name,
         email: email,
         password: password,
-        confirmed_at: Time.now,
+        confirmed_at: Time.zone.now
       )
       employer.save
 
@@ -37,20 +37,20 @@ module ActiveSupport
     def create_job_listing!(employer:, title: nil, description: nil, location: nil, salary: nil)
       title ||= "A Great Job #{random_string}"
       description ||= "The best job you will ever have you will love it #{random_string}"
-      location ||= "Randomville, CA"
-      salary ||= "99,500"
+      location ||= 'Randomville, CA'
+      salary ||= '99,500'
 
       JobListing.create!(
         title: title,
         description: description,
         location: location,
         salary: salary,
-        employer: employer,
+        employer: employer
       )
     end
 
     def random_string
-      SecureRandom.hex.split("-").join
+      SecureRandom.hex.split('-').join
     end
   end
 end

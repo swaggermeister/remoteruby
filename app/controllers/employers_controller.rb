@@ -7,7 +7,7 @@ class EmployersController < ApplicationController
     result = Employers::ShowUseCase.call(id: params.fetch(:id))
 
     @presenter = Employers::ShowPresenter.new(
-      employer: result.employer,
+      employer: result.employer
     )
   end
 
@@ -15,7 +15,7 @@ class EmployersController < ApplicationController
     result = Employers::EditUseCase.call(id: params.fetch(:id))
 
     @presenter = Employers::EditPresenter.new(
-      employer: result.employer,
+      employer: result.employer
     )
   end
 
@@ -23,10 +23,10 @@ class EmployersController < ApplicationController
     result = Employers::UpdateUseCase.call(id: params.fetch(:id), attrs: employer_params)
 
     if result.success
-      # todo: update bypass to bypass_sign_in
+      # TODO: update bypass to bypass_sign_in
       sign_in :employer, result.employer, bypass: true
 
-      redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
+      redirect_to edit_employer_path(result.employer), notice: 'Account successfully updated.'
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class EmployersController < ApplicationController
     result = Employers::DestroyUseCase.call(id: params.fetch(:id))
 
     if result.success
-      redirect_to job_listings_url, notice: "Account was successfully deleted."
+      redirect_to job_listings_url, notice: 'Account was successfully deleted.'
     else
       current_employer
     end

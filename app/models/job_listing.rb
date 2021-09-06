@@ -17,9 +17,9 @@ class JobListing < ApplicationRecord
                   }
 
   def contact_email_or_url
-    unless :contact_email.present? || :contact_url.present?
-      errors.add(:contact_email,
-                 'Please add a contact email or URL')
-    end
+    return if :contact_email.present? || :contact_url.present?
+
+    errors.add(:contact_email,
+               'Please add a contact email or URL')
   end
 end

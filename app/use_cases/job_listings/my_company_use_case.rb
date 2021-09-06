@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JobListings
   module MyCompanyUseCase
     Result = Struct.new(:job_listings, keyword_init: true)

@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class JobListingsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   test 'should get index' do
     get job_listings_url
     assert_response :success
@@ -10,7 +12,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     employer = create_employer!
-    login_employer(employer)
+    sign_in employer
 
     get new_job_listing_url
     assert_response :success
@@ -18,7 +20,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create job_listing' do
     employer = create_employer!
-    login_employer(employer)
+    sign_in employer
 
     assert_difference('JobListing.count') do
       post job_listings_url,
@@ -41,7 +43,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     employer = create_employer!
     job_listing = create_job_listing!(employer: employer)
 
-    login_employer(employer)
+    sign_in employer
     get edit_job_listing_url(job_listing)
     assert_response :success
   end
@@ -50,7 +52,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     employer = create_employer!
     job_listing = create_job_listing!(employer: employer)
 
-    login_employer(employer)
+    sign_in employer
     patch job_listing_url(job_listing),
           params: { job_listing: { description: job_listing.description, location: job_listing.location,
                                    salary: job_listing.salary, title: job_listing.title } }
@@ -61,7 +63,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     employer = create_employer!
     job_listing = create_job_listing!(employer: employer)
 
-    login_employer(employer)
+    sign_in employer
     assert_difference('JobListing.count', -1) do
       delete job_listing_url(job_listing)
     end

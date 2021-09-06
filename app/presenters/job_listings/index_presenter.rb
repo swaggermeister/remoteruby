@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JobListings
   class IndexPresenter
     attr_reader :job_listings, :search_text
@@ -31,8 +33,8 @@ module JobListings
       job_listing.location
     end
 
-    def avatar_url(job_listing)
-      "/images/logo#{(1..6).to_a.shuffle.first}.jpeg"
+    def avatar_url(_job_listing)
+      "/images/logo#{(1..6).to_a.sample}.jpeg"
     end
   end
 end

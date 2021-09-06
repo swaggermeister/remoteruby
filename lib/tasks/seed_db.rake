@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'securerandom'
-random = Random.new
 
 employer_names = [
   'DeskCorp',
@@ -9,14 +8,6 @@ employer_names = [
   'HRForce',
   'Google',
   'Smith & Smith'
-]
-
-employer_emails = [
-  'jbob@deskcorp.com',
-  'cjones@autolab.com',
-  'mdavis@hrforce.com',
-  'agail@google.com',
-  'bsmith@smithsmith.com'
 ]
 
 employer_passwords = %w[
@@ -127,8 +118,8 @@ task seed: :environment do
 end
 
 desc 'custom task to seed the db with test employers'
-task :seed_employers do
-  100.times.map do
+task seed_employers: :environment do
+  Array.new(100) do
     pw = employer_passwords.sample
     Employer.create!(name: employer_names.sample,
                      email: "#{SecureRandom.hex}@test.com",
@@ -138,10 +129,10 @@ task :seed_employers do
 end
 
 desc 'custom task to seed the db with test job listings'
-task :seed_job_listings do
+task seed_job_listings: :environment do
   employers = Employer.select(:id, :name).limit(100)
 
-  100.times.map do
+  Array.new(100) do
     JobListing.create!(title: job_titles.sample,
                        description: job_description,
                        location: job_locations.sample,

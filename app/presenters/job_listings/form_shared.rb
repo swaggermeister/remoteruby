@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module JobListings
   module FormShared
     def show_email_input?
@@ -10,7 +11,7 @@ module JobListings
     end
 
     def submit_button_text
-      job_listing.new_record? ? "Create Listing" : "Update Listing"
+      job_listing.new_record? ? 'Create Listing' : 'Update Listing'
     end
   end
 end

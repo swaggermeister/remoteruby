@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   # Authentication
   devise_for :employers
 
-  resources :employers do
-  end
+  resources :employers
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :job_listings do

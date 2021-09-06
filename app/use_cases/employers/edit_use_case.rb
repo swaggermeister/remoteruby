@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Employers
   module EditUseCase
     Result = Struct.new(:employer, keyword_init: true)

@@ -6,7 +6,7 @@ module FormHelper
       return nil
     end
 
-    content_tag(:p, "#{attr.to_s.upcase_first} #{errors}", class: 'form-input-hint')
+    tag.p("#{attr.to_s.upcase_first} #{errors}", class: 'form-input-hint')
   end
 
   def errors_hint_tag_no_field_name(form, attr)
@@ -14,11 +14,11 @@ module FormHelper
       return nil
     end
 
-    content_tag(:p, errors, class: 'form-input-hint')
+    tag.p(errors, class: 'form-input-hint')
   end
 
   def form_group(form, attr)
-    content_tag(:div, yield, class: "form-group #{form_group_error_class(form, attr)}")
+    tag.div(yield, class: "form-group #{form_group_error_class(form, attr)}")
   end
 
   private

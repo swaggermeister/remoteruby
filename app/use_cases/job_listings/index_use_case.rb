@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JobListings
   module IndexUseCase
     Result = Struct.new(:job_listings, :query, keyword_init: true)
@@ -16,11 +18,11 @@ module JobListings
         scope = JobListing
 
         scope = if query.present?
-            scope.search(query)
-            # query = query.where(["title ilike :search or description ilike :search", search: "%#{@search_text}%"])
-          else
-            scope
-          end
+                  scope.search(query)
+                # query = query.where(["title ilike :search or description ilike :search", search: "%#{@search_text}%"])
+                else
+                  scope
+                end
 
         scope.all
       end

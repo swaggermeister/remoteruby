@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JobListings
   class ShowPresenter
     delegate :contact_url, :contact_email, :employer_name, :location, :title, :salary, to: :job_listing
@@ -13,12 +15,15 @@ module JobListings
     public
 
     def avatar_url
-      "/images/logo#{(1..6).to_a.shuffle.first}.jpeg"
+      "/images/logo#{(1..6).to_a.sample}.jpeg"
     end
 
+    # rubocop:disable Naming/PredicateName
     def has_contact_url?
       contact_url.present?
     end
+
+    # rubocop:enable Naming/PredicateName
 
     def description
       MarkdownConverter.markdown(job_listing.description)
