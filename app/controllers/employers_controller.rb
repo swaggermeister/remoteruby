@@ -23,8 +23,8 @@ class EmployersController < ApplicationController
     result = Employers::UpdateUseCase.call(id: params.fetch(:id), attrs: employer_params)
 
     if result.success
-      # TODO: update bypass to bypass_sign_in
-      sign_in :employer, result.employer, bypass: true
+      # keep employer signed in after successfully updating profile/changing password
+      bypass_sign_in result.employer
 
       redirect_to edit_employer_path(result.employer), notice: 'Account successfully updated.'
     else
