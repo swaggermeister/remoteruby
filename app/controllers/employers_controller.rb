@@ -6,13 +6,17 @@ class EmployersController < ApplicationController
   def show
     result = Employers::ShowUseCase.call(id: params.fetch(:id))
 
-    @employer = result.employer
+    @presenter = Employers::ShowPresenter.new(
+      employer: result.employer,
+    )
   end
 
   def edit
     result = Employers::EditUseCase.call(id: params.fetch(:id))
 
-    @employer = result.employer
+    @presenter = Employers::EditPresenter.new(
+      employer: result.employer,
+    )
   end
 
   def update

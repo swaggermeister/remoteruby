@@ -1,3 +1,2 @@
 <h1>Editing Job Listing</h1>
-<%= render 'form', job_listing: @job_listing %>
-<%#= render 'edit_job_listing_button' %>
+<%= render partial: 'form', locals: { presenter: presenter }  %>

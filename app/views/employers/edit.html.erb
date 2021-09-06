@@ -1,5 +1,5 @@
 <h1>Editing Profile</h1>
-<%= render 'form', employer: current_employer %>
+<%= render 'form', partial: 'form', locals: { presenter: presenter }  %>
 <div class="mt-8">
   <%= link_to 'My Job Listings', my_company_job_listings_path %>
 </div>

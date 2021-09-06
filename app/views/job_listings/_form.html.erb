@@ -1,4 +1,4 @@
-<%= form_with(model: job_listing, local: true) do |form| %>
+<%= form_with(model: presenter.job_listing) do |form| %>
   <%= form_group(form, :title) do %>
     <%= form.label :title, class: "form-label" %>
     <%= form.text_field :title, class: "form-input", placeholder: "Senior Software Engineer" %>
@@ -18,17 +18,17 @@
     <label class="form-label">Preferred Contact Method</label>
     <!-- email -->
     <%= label_tag "contact_method_email", class: "form-radio" do %>
-      <%= radio_button_tag 'contact_method', "email", show_email_input?(job_listing) %>
+      <%= radio_button_tag 'contact_method', "email", presenter.show_email_input? %>
       <i class="form-icon"></i> Email
     <% end %>
-    <%= form.email_field :contact_email, class: "form-input #{show_email_input?(job_listing) ? '' : 'd-none' }"%>
+    <%= form.email_field :contact_email, class: "form-input #{presenter.show_email_input? ? '' : 'd-none' }"%>
     <%= errors_hint_tag_no_field_name(form, :contact_email) %>
     <!-- url -->
     <%= label_tag "contact_method_url", class: "form-radio" do %>
-      <%= radio_button_tag 'contact_method', "url", show_url_input?(job_listing) %>
+      <%= radio_button_tag 'contact_method', "url", presenter.show_url_input? %>
       <i class="form-icon"></i> External site
     <% end %>
-    <%= form.url_field :contact_url, class: "form-input #{show_url_input?(job_listing) ? '' : 'd-none' }", placeholder:"http://" %>
+    <%= form.url_field :contact_url, class: "form-input #{presenter.show_url_input? ? '' : 'd-none' }", placeholder:"http://" %>
     <%= errors_hint_tag_no_field_name(form, :contact_url) %>
   </div>
   <ul class="tab">
@@ -46,6 +46,6 @@
   <% end %>
   <div id="preview-description" class="d-none"></div>
   <div class="submit">
-    <%= submit_tag form.object.new_record? ? 'Create Listing' : 'Update Listing', class: 'btn btn-primary' %>
+    <%= submit_tag presenter.submit_button_text, class: 'btn btn-primary' %>
   </div>
 <% end %>

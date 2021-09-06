@@ -6,8 +6,10 @@ class JobListingsController < ApplicationController
   def index
     result = JobListings::IndexUseCase.call(query: params[:search])
 
-    @search_text = result.query
-    @job_listings = result.job_listings
+    @presenter = JobListings::IndexPresenter.new(
+      search_text: result.query,
+      job_listings: result.job_listings,
+    )
   end
 
   def show
@@ -20,12 +22,18 @@ class JobListingsController < ApplicationController
 
   def new
     result = JobListings::NewUseCase.call
-    @job_listing = result.job_listing
+
+    @presenter = JobListings::NewPresenter.new(
+      job_listing: result.job_listing,
+    )
   end
 
   def edit
     result = JobListings::EditUseCase.call(id: params.fetch(:id))
-    @job_listing = result.job_listing
+
+    @presenter = JobListings::EditPresenter.new(
+      job_listing: result.job_listing,
+    )
   end
 
   def create
@@ -62,7 +70,9 @@ class JobListingsController < ApplicationController
   def my_company
     result = JobListings::MyCompanyUseCase.call(employer: current_employer)
 
-    @job_listings = result.job_listings
+    @presenter = JobListings::MyCompanyPresenter.new(
+      job_listings: result.job_listings,
+    )
   end
 
   private

@@ -1,4 +1,4 @@
-<%= form_with(model: employer, local: true) do |form| %>
+<%= form_with(model: presenter.employer, local: true) do |form| %>
   <%= form_group(form, :name) do %>
     <%= form.label :name, "Company Name", class:"form-label" %>
     <%= form.text_field :name, class:"form-input " %>
