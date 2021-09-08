@@ -1,0 +1,23 @@
+<div class="m-2 p-2 col-9">
+  <h3>Log in</h3>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group my-2">
+      <%= f.label :email %>
+      <%= f.email_field :email, class:"form-input mt-2", placeholder:"Email", autofocus: true, autocomplete: "email" %>
+    </div>
+    <div class="form-group my-2">
+      <%= f.label :password %>
+      <%= f.password_field :password, class:"form-input mt-2", placeholder:"Password", autocomplete: "current-password" %>
+    </div>
+    <% if devise_mapping.rememberable? %>
+      <div class="field my-2">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+    <div>
+      <%= f.submit "Log in", class: "btn btn-primary mt-2" %>
+    </div>
+  <% end %>
+</div>
+<%= render "devise/shared/links" %>

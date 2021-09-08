@@ -377,4 +377,8 @@ config/database.yml
 
 # Semaphore CI configuration files
 !.semaphore
+
+# Rubocop rules file
+!.rubocop.yml
+
 !.tool-versions

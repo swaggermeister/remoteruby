@@ -1,47 +1,56 @@
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
-require "mocha/minitest" #mocks and stubs
+# frozen_string_literal: true
 
-class ActiveSupport::TestCase
-  # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
+require 'mocha/minitest' # mocks and stubs
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+module ActiveSupport
+  class TestCase
+    # Run tests in parallel with specified workers
+    parallelize(workers: :number_of_processors)
 
-  # Add more helper methods to be used by all tests here...
-  def login_employer(employer)
-    ApplicationController.any_instance.stubs(:current_employer).returns(employer)
-  end
+    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+    fixtures :all
 
-  def create_employer!(name: nil, email: nil)
-    name ||= "Test #{random_string}"
-    email ||= "#{random_string}@test.com"
+    # Add more helper methods to be used by all tests here...
+    def login_employer(employer)
+      ApplicationController.any_instance.stubs(:current_employer).returns(employer)
+    end
 
-    Employer.create!(
-      name: name,
-      email: email,
-      password_digest: BCrypt::Password.create("secret"),
-    )
-  end
+    def create_employer!(name: nil, email: nil, password: nil)
+      name ||= "Test #{random_string}"
+      email ||= "#{random_string}@test.com"
+      password ||= random_string
 
-  def create_job_listing!(employer:, title: nil, description: nil, location: nil, salary: nil)
-    title ||= "A Great Job #{random_string}"
-    description ||= "The best job you will ever have you will love it #{random_string}"
-    location ||= "Randomville, CA"
-    salary ||= "99,500"
+      employer = Employer.create!(
+        name: name,
+        email: email,
+        password: password,
+        confirmed_at: Time.zone.now
+      )
+      employer.save
 
-    JobListing.create!(
-      title: title,
-      description: description,
-      location: location,
-      salary: salary,
-      employer: employer,
-    )
-  end
+      employer
+    end
 
-  def random_string
-    SecureRandom.hex.split("-")
+    def create_job_listing!(employer:, title: nil, description: nil, location: nil, salary: nil)
+      title ||= "A Great Job #{random_string}"
+      description ||= "The best job you will ever have you will love it #{random_string}"
+      location ||= 'Randomville, CA'
+      salary ||= '99,500'
+
+      JobListing.create!(
+        title: title,
+        description: description,
+        location: location,
+        salary: salary,
+        employer: employer
+      )
+    end
+
+    def random_string
+      SecureRandom.hex.split('-').join
+    end
   end
 end

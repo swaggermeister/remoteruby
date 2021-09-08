@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateJobListings < ActiveRecord::Migration[6.0]
   def change
     create_table :job_listings do |t|

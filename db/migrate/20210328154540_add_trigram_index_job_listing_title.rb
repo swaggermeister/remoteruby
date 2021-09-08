@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTrigramIndexJobListingTitle < ActiveRecord::Migration[6.0]
   disable_ddl_transaction!
 
@@ -7,6 +9,6 @@ class AddTrigramIndexJobListingTitle < ActiveRecord::Migration[6.0]
               opclass: :gin_trgm_ops,
               using: :gin,
               algorithm: :concurrently,
-              name: "index_joblistings_on_title_trgm"
+              name: 'index_joblistings_on_title_trgm'
   end
 end

@@ -1,40 +1,35 @@
-<%= form_with(model: job_listing, local: true) do |form| %>
-  <% if job_listing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(job_listing.errors.count, "error") %> prohibited this job_listing from being saved:</h2>
-      <ul>
-        <% job_listing.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="form-group">
+<%= form_with(model: presenter.job_listing) do |form| %>
+  <%= form_group(form, :title) do %>
     <%= form.label :title, class: "form-label" %>
     <%= form.text_field :title, class: "form-input", placeholder: "Senior Software Engineer" %>
-  </div>
-  <div class="form-group">
+    <%= errors_hint_tag(form, :title) %>
+  <% end %>
+  <%= form_group(form, :salary) do %>
     <%= form.label :salary, class: "form-label" %>
     <%= form.text_field :salary, class: "form-input", placeholder: "$100,000" %>
-  </div>
-  <div class="form-group">
+    <%= errors_hint_tag(form, :salary) %>
+  <% end %>
+  <%= form_group(form, :location) do %>
     <%= form.label :location, class: "form-label" %>
     <%= form.text_field :location, class: "form-input", placeholder: "NYC" %>
-  </div>
+    <%= errors_hint_tag(form, :location) %>
+  <% end %>
   <div class="form-group">
     <label class="form-label">Preferred Contact Method</label>
     <!-- email -->
     <%= label_tag "contact_method_email", class: "form-radio" do %>
-      <%= radio_button_tag 'contact_method', "email", show_email_input?(job_listing) %>
+      <%= radio_button_tag 'contact_method', "email", presenter.show_email_input? %>
       <i class="form-icon"></i> Email
     <% end %>
-    <%= form.email_field :contact_email, class: "form-input #{show_email_input?(job_listing) ? '' : 'd-none' }"%>
+    <%= form.email_field :contact_email, class: "form-input #{presenter.show_email_input? ? '' : 'd-none' }"%>
+    <%= errors_hint_tag_no_field_name(form, :contact_email) %>
     <!-- url -->
     <%= label_tag "contact_method_url", class: "form-radio" do %>
-      <%= radio_button_tag 'contact_method', "url", show_url_input?(job_listing) %>
+      <%= radio_button_tag 'contact_method', "url", presenter.show_url_input? %>
       <i class="form-icon"></i> External site
     <% end %>
-    <%= form.url_field :contact_url, class: "form-input #{show_url_input?(job_listing) ? '' : 'd-none' }" %>
+    <%= form.url_field :contact_url, class: "form-input #{presenter.show_url_input? ? '' : 'd-none' }", placeholder:"http://" %>
+    <%= errors_hint_tag_no_field_name(form, :contact_url) %>
   </div>
   <ul class="tab">
     <li class="tab-item">
@@ -44,12 +39,13 @@
       <a id="preview-description-tab" href="#">Preview</a>
     </li>
   </ul>
-  <div class="form-group">
+  <%= form_group(form, :description) do %>
     <%= form.label :description, 'Description (markdown format)', class: "form-label" %>
     <%= form.text_area :description, id: "write-description", class: "form-input", placeholder: "Seeking a Senior Level Developer..." %>
-  </div>
+    <%= errors_hint_tag(form, :description) %>
+  <% end %>
   <div id="preview-description" class="d-none"></div>
   <div class="submit">
-    <%= submit_tag form.object.new_record? ? 'Create Listing' : 'Update Listing', class: 'btn btn-primary' %>
+    <%= submit_tag presenter.submit_button_text, class: 'btn btn-primary' %>
   </div>
 <% end %>

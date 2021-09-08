@@ -1,40 +1,48 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'devise'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  test "should prompt for login" do
-    get login_url
+  # include Devise::Test::IntegrationHelpers
+  # include Warden::Test::Helpers
+
+  test 'should prompt for login' do
+    get new_employer_session_path
+
     assert_response :success
   end
 
-  test "should login" do
-    employer = create_employer!
+  test 'should login' do
+    password = 'password1234'
+    employer = create_employer!(password: password)
 
-    post login_url, params: { email: employer.email, password: "secret" }
+    post employer_session_path, params: { employer: { email: employer.email, password: password } }
+
     assert_redirected_to my_company_job_listings_path
-    assert_equal employer.id, session[:employer_id]
   end
 
-  test "should fail login" do
+  test 'should fail login' do
     employer = create_employer!
 
-    post login_url, params: { email: employer.email, password: "wrong" }
-    assert_redirected_to login_url
+    post employer_session_path, params: { employer: { email: employer.email, password: 'wrong' } }
+    assert_response 200
   end
 
-  test "should fail to create account when missing PW confirmation" do
-    assert_no_difference("Employer.count") do
-      post employers_url, params: {
-                                    employer: {
-                                      email: "anemployer@test.com",
-                                      name: "A New Employer",
-                                      password: "newtestpassword",
-                                    },
-                                  }
-    end
-  end
+  # test "should fail to create account when missing PW confirmation" do
+  #   assert_no_difference("Employer.count") do
+  #     post employer_registration_path, params: {
+  #                                        employer: {
+  #                                          email: "anemployer@test.com",
+  #                                          name: "A New Employer",
+  #                                          password: "newtestpassword",
+  #                                        },
+  #                                      }
+  #   end
+  # end
 
-  test "should log out" do
-    delete logout_url
-    assert_redirected_to job_listings_url
+  test 'should log out' do
+    delete destroy_employer_session_path
+    assert_redirected_to root_path
   end
 end

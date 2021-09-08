@@ -4,10 +4,10 @@
     <button class="btn btn-link">Sort Jobs by Salary</button>
   </div>
   <div class="joblistings col-12">
-    <% if @job_listings.empty? %>
-      <%= render 'no_search_results' %>
+    <% if presenter.job_listings? %>
+      <%= render presenter.job_listings, locals: {presenter: presenter} %>
     <% else %>
-      <%= render @job_listings %>
+      <%= render 'no_search_results' %>
     <% end %>
   </div>
 </div>
