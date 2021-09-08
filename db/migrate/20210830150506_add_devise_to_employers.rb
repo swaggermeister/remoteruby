@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class AddDeviseToEmployers < ActiveRecord::Migration[6.0]
-  # rubocop:disable Rails/BulkChangeTable
   # rubocop:disable Metrics/AbcSize
   def self.up
-    change_table :employers do |t|
+    change_table :employers, bulk: true do |t|
       ## Database authenticatable
       t.change :email, :string, null: false, default: ''
       t.string :encrypted_password, null: false, default: ''
@@ -48,7 +47,7 @@ class AddDeviseToEmployers < ActiveRecord::Migration[6.0]
     # By default, we don't want to make any assumption about how to roll back a migration when your
     # model already existed. Please edit below which fields you would like to remove in this migration.
     # raise ActiveRecord::IrreversibleMigration
-    change_table(:employers) do |t|
+    change_table :employers, bulk: true do |t|
       t.remove :encrypted_password
 
       ## Recoverable
@@ -77,6 +76,5 @@ class AddDeviseToEmployers < ActiveRecord::Migration[6.0]
       t.remove :locked_at
     end
   end
-  # rubocop:enable Rails/BulkChangeTable
   # rubocop:enable Metrics/AbcSize
 end
