@@ -380,3 +380,5 @@ config/database.yml
 
 # Rubocop rules file
 !.rubocop.yml
+
+!.tool-versions
