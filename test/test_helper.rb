@@ -34,6 +34,23 @@ module ActiveSupport
       employer
     end
 
+    def mock_google_auth_hash
+      OmniAuth.config.mock_auth[:Google] = OmniAuth::AuthHash.new({
+                                                                    provider: 'Google',
+                                                                    uid: '123545',
+                                                                    info: {
+                                                                      name: 'mockuser',
+                                                                      email: 'mock_user@mock.com'
+                                                                    },
+                                                                    credentials: {
+                                                                      token: 'token',
+                                                                      refresh_token: 'another_token',
+                                                                      expires_at: 1_354_920_555,
+                                                                      expires: true
+                                                                    }
+                                                                  })
+    end
+
     def create_job_listing!(employer:, title: nil, description: nil, location: nil, salary: nil)
       title ||= "A Great Job #{random_string}"
       description ||= "The best job you will ever have you will love it #{random_string}"
@@ -51,6 +68,10 @@ module ActiveSupport
 
     def random_string
       SecureRandom.hex.split('-').join
+    end
+
+    def enable_omniauth_test_mode
+      OmniAuth.config.test_mode = true
     end
   end
 end

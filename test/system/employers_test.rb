@@ -5,12 +5,16 @@ require 'application_system_test_case'
 class EmployersTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
+  setup do
+    OmniAuth.config.mock_auth[:Google] = nil
+  end
+
   test 'Visiting the index' do
     visit job_listings_url
     assert_selector 'button', text: 'Sort Jobs by Salary'
   end
 
-  test 'Creating an Employer successfully' do
+  test 'Creating an Employer successfully via regular authentication' do
     visit job_listings_url
     click_on 'Employers'
 
@@ -22,6 +26,32 @@ class EmployersTest < ApplicationSystemTestCase
 
     assert_current_path root_path
     assert_text 'A message with a confirmation link has been sent to your email'
+  end
+
+  test 'Creating an Employer successfully via OmniAuth Google' do
+    visit job_listings_url
+    click_on 'Employers'
+
+    enable_omniauth_test_mode
+    mock_google_auth_hash
+
+    click_on 'Sign in with Google'
+
+    assert_current_path my_company_job_listings_path
+    assert_text 'Successfully authenticated from Google account.'
+  end
+
+  test 'Does not create Employer with invalid OmniAuth credentials' do
+    visit job_listings_url
+    click_on 'Employers'
+
+    enable_omniauth_test_mode
+    OmniAuth.config.mock_auth[:Google] = :invalid_credentials
+
+    click_on 'Sign in with Google'
+
+    assert_current_path new_employer_session_path
+    assert_text 'Could not authenticate you from Google because "Invalid credentials".'
   end
 
   test 'Updating an Employer' do
