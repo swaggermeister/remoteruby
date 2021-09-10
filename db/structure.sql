@@ -64,7 +64,9 @@ CREATE TABLE public.employers (
     unconfirmed_email character varying,
     failed_attempts integer DEFAULT 0 NOT NULL,
     unlock_token character varying,
-    locked_at timestamp without time zone
+    locked_at timestamp without time zone,
+    provider character varying,
+    uid character varying
 );
 
 
@@ -257,6 +259,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210328174803'),
 ('20210328180857'),
 ('20210830150506'),
-('20210901012241');
+('20210901012241'),
+('20210908205311');
 
 
