@@ -7,6 +7,8 @@ agent:
 blocks:
   - name: Test
     task:
+      secrets:
+        - name: Remoteruby
       env_vars:
         - name: DATABASE_URL
           value: "postgresql://postgres:@0.0.0.0:5432/myapp_test"

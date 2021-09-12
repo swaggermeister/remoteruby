@@ -32,17 +32,22 @@ gem 'devise', '~>4.8.0'
 # Pagy for pagination
 gem 'pagy'
 
+# OAuth gems
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# Linter for PG migrations
+gem 'strong_migrations'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  # Linter for PG migrations
-  gem 'strong_migrations'
 end
 
 group :development do

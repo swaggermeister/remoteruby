@@ -5,17 +5,20 @@ module JobListings
     PAGINATION_COUNT = 15
 
     Pagination = Struct.new(:paginator, :job_listings, keyword_init: true)
-    Result = Struct.new(:paginator, :job_listings, :query, keyword_init: true)
+    Result = Struct.new(:paginator, :job_listings, :query, :sortcolumn, keyword_init: true)
 
     class << self
       include ::Pagy::Backend
 
-      def call(query:, page_num:)
+      def call(query:, page_num:, sortcolumn:)
         query = query&.strip
-        pagination = find_paginated_job_listings(query: query, page_num: page_num)
+        sortcolumn ||= 'created_at'
+        
+        job_listings = find_paginated_job_listings(query: query, page_num: page_num)
+        pagination = order_job_listings(job_listings: job_listings, sortcolumn: sortcolumn)
 
-        Result.new(paginator: pagination.paginator, job_listings: pagination.job_listings, query: query)
-      end
+        Result.new(paginator: pagination.paginator, job_listings: pagination.job_listings, query: query, sortcolumn: sortcolumn)
+        Result = Struct.new(:job_listings, :query,  keyword_init: true)
 
       private
 
@@ -32,6 +35,14 @@ module JobListings
         paginator, job_listings = pagy(scope, items: PAGINATION_COUNT, page: page_num)
 
         Pagination.new(paginator: paginator, job_listings: job_listings)
+      end
+
+      VALID_SORT_COLUMNS = %w[salary created_at].freeze
+
+      def order_job_listings(job_listings:, sortcolumn:)
+        raise "Invalid sort column #{sortcolumn}" unless VALID_SORT_COLUMNS.include?(sortcolumn)
+
+        job_listings.order({ sortcolumn => :desc })
       end
     end
   end

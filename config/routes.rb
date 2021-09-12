@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   # Authentication
-  devise_for :employers
+  devise_for :employers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   resources :employers
 
