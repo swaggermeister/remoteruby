@@ -11,7 +11,7 @@ class EmployersTest < ApplicationSystemTestCase
 
   test 'Visiting the index' do
     visit job_listings_url
-    assert_selector 'button', text: 'Sort Jobs by Salary'
+    assert_selector 'a', text: 'Sort Jobs by Salary'
   end
 
   test 'Creating an Employer successfully via regular authentication' do
