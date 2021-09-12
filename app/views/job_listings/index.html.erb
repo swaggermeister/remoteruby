@@ -1,7 +1,11 @@
 <%= render 'search' %>
 <div class="columns">
   <div class="sort col-12 text-center">
-    <button class="btn btn-link">Sort Jobs by Salary</button>
+    <% if presenter.sortcolumn != 'salary' %>
+      <%= link_to 'Sort Jobs by Salary', job_listings_path(search: @search_text, sortcolumn: 'salary') %>
+    <% else %>
+      <%= link_to 'Sort Jobs by Newest', job_listings_path(search: @search_text) %>
+    <% end %>
   </div>
   <div class="joblistings col-12">
     <% if presenter.job_listings? %>
