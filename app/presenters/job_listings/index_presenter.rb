@@ -2,12 +2,13 @@
 
 module JobListings
   class IndexPresenter
-    attr_reader :job_listings, :search_text
+    attr_reader :job_listings, :search_text, :paginator
 
     private
 
-    def initialize(job_listings:, search_text:)
+    def initialize(job_listings:, paginator:, search_text:)
       @job_listings = job_listings
+      @paginator = paginator
       @search_text = search_text
     end
 
