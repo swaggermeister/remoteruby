@@ -303,9 +303,9 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (>= 3.3.0)
   mocha
-  pagy
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  pagy
   pg
   pg_search
   puma (~> 4.1)

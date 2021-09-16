@@ -12,17 +12,16 @@ module JobListings
 
       def call(query:, page_num:, sortcolumn:)
         query = query&.strip
-        sortcolumn ||= 'created_at'
-        
-        job_listings = find_paginated_job_listings(query: query, page_num: page_num)
-        pagination = order_job_listings(job_listings: job_listings, sortcolumn: sortcolumn)
+        sortcolumn ||= "created_at"
+
+        pagination = find_paginated_job_listings(query: query, page_num: page_num, sortcolumn: sortcolumn)
 
         Result.new(paginator: pagination.paginator, job_listings: pagination.job_listings, query: query, sortcolumn: sortcolumn)
-        Result = Struct.new(:job_listings, :query,  keyword_init: true)
+      end
 
       private
 
-      def find_paginated_job_listings(query:, page_num:)
+      def find_paginated_job_listings(query:, page_num:, sortcolumn:)
         scope = JobListing
 
         scope = if query.present?
@@ -33,6 +32,7 @@ module JobListings
           end
 
         paginator, job_listings = pagy(scope, items: PAGINATION_COUNT, page: page_num)
+        job_listings = order_job_listings(job_listings: job_listings, sortcolumn: sortcolumn)
 
         Pagination.new(paginator: paginator, job_listings: job_listings)
       end
