@@ -4,12 +4,13 @@ class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: %i[index show]
 
   def index
-    result = ::JobListings::IndexUseCase.call(query: params[:search], sortcolumn: params[:sortcolumn])
+    result = ::JobListings::IndexUseCase.call(query: params[:search], sortcolumn: params[:sortcolumn], page_num: params[:page] || 1)
 
     @presenter = ::JobListings::IndexPresenter.new(
       search_text: result.query,
+      paginator: result.paginator,
       job_listings: result.job_listings,
-      sortcolumn: result.sortcolumn
+      sortcolumn: result.sortcolumn,
     )
   end
 
@@ -17,7 +18,7 @@ class JobListingsController < ApplicationController
     result = JobListings::ShowUseCase.call(id: params.fetch(:id))
 
     @presenter = JobListings::ShowPresenter.new(
-      job_listing: result.job_listing
+      job_listing: result.job_listing,
     )
   end
 
@@ -25,7 +26,7 @@ class JobListingsController < ApplicationController
     result = JobListings::NewUseCase.call
 
     @presenter = JobListings::NewPresenter.new(
-      job_listing: result.job_listing
+      job_listing: result.job_listing,
     )
   end
 
@@ -33,7 +34,7 @@ class JobListingsController < ApplicationController
     result = JobListings::EditUseCase.call(id: params.fetch(:id))
 
     @presenter = JobListings::EditPresenter.new(
-      job_listing: result.job_listing
+      job_listing: result.job_listing,
     )
   end
 
@@ -41,7 +42,7 @@ class JobListingsController < ApplicationController
     result = JobListings::CreateUseCase.call(attrs: job_listing_params, employer_id: current_employer.id)
 
     if result.success
-      redirect_to my_company_job_listings_path, notice: 'Job listing was successfully created.'
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
     else
       @job_listing = result.job_listing
       render :new
@@ -52,7 +53,7 @@ class JobListingsController < ApplicationController
     result = JobListings::UpdateUseCase.call(id: params.fetch(:id), attrs: job_listing_params)
 
     if result.success
-      redirect_to my_company_job_listings_path, notice: 'Job listing was successfully updated.'
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
     else
       render :edit
     end
@@ -62,7 +63,7 @@ class JobListingsController < ApplicationController
     result = JobListings::DestroyUseCase.call(id: params.fetch(:id))
 
     if result.success
-      redirect_to my_company_job_listings_path, notice: 'Job listing was successfully destroyed.'
+      redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed."
     else
       @job_listing
     end
@@ -72,7 +73,7 @@ class JobListingsController < ApplicationController
     result = JobListings::MyCompanyUseCase.call(employer: current_employer)
 
     @presenter = JobListings::MyCompanyPresenter.new(
-      job_listings: result.job_listings
+      job_listings: result.job_listings,
     )
   end
 

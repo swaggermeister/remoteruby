@@ -10,6 +10,7 @@
   <div class="joblistings col-12">
     <% if presenter.job_listings? %>
       <%= render presenter.job_listings, locals: {presenter: presenter} %>
+      <%== pagy_bootstrap_nav(presenter.paginator) %>
     <% else %>
       <%= render 'no_search_results' %>
     <% end %>

@@ -29,6 +29,9 @@ gem 'redcarpet', '~> 3.5.0'
 # Use Devise for authentication
 gem 'devise', '~>4.8.0'
 
+# Pagy for pagination
+gem 'pagy'
+
 # OAuth gems
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
