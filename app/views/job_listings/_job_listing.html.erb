@@ -6,7 +6,7 @@
   </div>
   <div class="card-body">
     <span class="employer">
-      <img class="avatar" src="<%= presenter.avatar_url(job_listing) %>" />
+      <%= image_tag avatar_url(job_listing.employer), class: "avatar avatar-lg mr-1", alt: presenter.employer_name(job_listing), title: presenter.employer_name(job_listing) %>
       <%= presenter.employer_name(job_listing) %> - 
       <%= presenter.location(job_listing) %>
     </span>

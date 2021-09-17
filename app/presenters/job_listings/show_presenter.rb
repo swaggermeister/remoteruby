@@ -14,10 +14,6 @@ module JobListings
 
     public
 
-    def avatar_url
-      "/images/logo#{(1..6).to_a.sample}.jpeg"
-    end
-
     # rubocop:disable Naming/PredicateName
     def has_contact_url?
       contact_url.present?
