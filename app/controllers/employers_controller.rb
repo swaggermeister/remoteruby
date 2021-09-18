@@ -28,7 +28,7 @@ class EmployersController < ApplicationController
 
       redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
     else
-      render :edit
+      current_employer
     end
   end
 
