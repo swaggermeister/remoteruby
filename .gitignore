@@ -383,3 +383,6 @@ yarn-debug.log*
 !.env.production
 !.env.development
 !.env.test
+
+# ignore database.yml since semaphore and heroku use their own version
+database.yml
