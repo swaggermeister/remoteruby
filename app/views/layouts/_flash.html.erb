@@ -1,7 +1,9 @@
 <div id='flash'>
   <% flash.each do |type, msg| %>
-    <div class="<%= toast_class(flash_type: type) %>">
-      <%= msg %>
-    </div>
-  <% end %>
-</div>
+    <% unless type.to_s == 'timedout' %>< %# to avoid extra "true" flash message from devise showing under the expected timeout flash %>
+        <div class="<%= toast_class(flash_type: type) %>">
+          <%= msg %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>

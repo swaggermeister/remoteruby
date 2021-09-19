@@ -12,11 +12,11 @@
     <header class="navbar">
       <section class="navbar-section">
         <a href="/" class="navbar-brand text-primary p-1">Ruby Remote Jobs</a>
-        <%=
-          link_to_if(!employer_signed_in?, "Employers", new_registration_path("employer"), class: "btn btn-link") do
-            link_to("My Listings", my_company_job_listings_path, class: "btn btn-link")
-          end
-        %>
+        <% if employer_signed_in? %>
+          <%= link_to("My Listings", my_company_job_listings_path, class: "btn btn-link") %>
+        <% else %>
+          <%= link_to("Employers", new_registration_path("employer"), class: "btn btn-link") %>
+        <% end %>
         <% if employer_signed_in? %>
           <%= link_to "Sign Out", destroy_employer_session_path, method: :delete, class: "btn btn-link" %>
         <% else %>
