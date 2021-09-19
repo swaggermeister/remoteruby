@@ -6,7 +6,7 @@
     <span class="h4"><%= presenter.salary %></span>
     <div class="employer-info mt-2">
       <span class="employer h5">
-        <img class="avatar" src="<%= presenter.avatar_url %>" />
+        <%= image_tag avatar_url(presenter.job_listing.employer), class: "avatar avatar-lg", alt: presenter.employer_name, title: presenter.employer_name %>
         <%= presenter.employer_name %> - 
         <%= presenter.location %>
       </span>

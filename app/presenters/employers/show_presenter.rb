@@ -2,6 +2,8 @@
 
 module Employers
   class ShowPresenter
+    delegate :avatar, to: :employer
+
     attr_reader :employer
 
     private
@@ -9,7 +11,5 @@ module Employers
     def initialize(employer:)
       @employer = employer
     end
-
-    # public
   end
 end

@@ -1,8 +1,13 @@
 <%= form_with(model: presenter.employer, local: true) do |form| %>
   <%= form_group(form, :name) do %>
     <%= form.label :name, "Company Name", class:"form-label" %>
-    <%= form.text_field :name, class:"form-input " %>
+    <%= form.text_field :name, class:"form-input" %>
     <%= errors_hint_tag(form, :name) %>
+  <% end %>
+  <%= form_group(form, :avatar) do %>
+    <%= form.label :avatar, "Logo", class:"form-label" %>
+    <%= image_tag avatar_url(presenter.employer), class: "avatar avatar-lg mb-2" %>
+    <%= form.file_field :avatar, class:"form-input" %>
   <% end %>
   <%= form_group(form, :email) do %>
     <%= form.label :email, class:"form-label" %>

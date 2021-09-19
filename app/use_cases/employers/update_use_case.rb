@@ -23,6 +23,7 @@ module Employers
 
       def update_employer(employer:, attrs:)
         employer.update(attrs)
+        employer.avatar.attach(attrs[:avatar])
       end
     end
   end

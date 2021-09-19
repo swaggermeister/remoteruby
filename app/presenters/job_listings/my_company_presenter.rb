@@ -31,9 +31,5 @@ module JobListings
     def location(job_listing)
       job_listing.location
     end
-
-    def avatar_url(_job_listing)
-      "/images/logo#{(1..6).to_a.sample}.jpeg"
-    end
   end
 end

@@ -8,6 +8,8 @@ class Employer < ApplicationRecord
          :confirmable, :lockable, :timeoutable,
          :omniauthable, omniauth_providers: %i[Google]
 
+  has_one_attached :avatar
+
   # Validation
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true

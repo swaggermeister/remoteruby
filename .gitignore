@@ -371,10 +371,6 @@ x509.genkey
 yarn-debug.log*
 .yarn-integrity
 
-
-# app-specific 
-config/database.yml
-
 # Semaphore CI configuration files
 !.semaphore
 
@@ -382,3 +378,11 @@ config/database.yml
 !.rubocop.yml
 
 !.tool-versions
+
+!.env
+!.env.production
+!.env.development
+!.env.test
+
+# ignore database.yml since semaphore and heroku use their own version
+database.yml
