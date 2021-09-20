@@ -11,6 +11,7 @@ class JobListingsController < ApplicationController
       paginator: result.paginator,
       job_listings: result.job_listings,
       sortcolumn: result.sortcolumn,
+      request: request,
     )
   end
 

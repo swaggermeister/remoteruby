@@ -40,14 +40,14 @@ module ActiveSupport
                                                                     uid: "123545",
                                                                     info: {
                                                                       name: "mockuser",
-                                                                      email: "mock_user@mock.com",
+                                                                      email: "mock_user@mock.com"
                                                                     },
                                                                     credentials: {
                                                                       token: "token",
                                                                       refresh_token: "another_token",
                                                                       expires_at: 1_354_920_555,
-                                                                      expires: true,
-                                                                    },
+                                                                      expires: true
+                                                                    }
                                                                   })
     end
 

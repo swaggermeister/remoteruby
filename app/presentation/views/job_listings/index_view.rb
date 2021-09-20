@@ -4,15 +4,18 @@ module JobListings
   class IndexView
     include Shared::WebShared
 
-    attr_reader :job_listings, :search_text, :paginator, :sortcolumn
+    attr_reader :job_listings, :search_text, :sortcolumn
 
     private
 
-    def initialize(job_listings:, paginator:, search_text:, sortcolumn:)
+    attr_reader :paginator, :request
+
+    def initialize(job_listings:, paginator:, search_text:, sortcolumn:, request:)
       @job_listings = job_listings
       @paginator = paginator
       @search_text = search_text
       @sortcolumn = sortcolumn
+      @request = request
     end
 
     public
@@ -39,6 +42,11 @@ module JobListings
 
     def avatar_url(job_listing)
       AvatarUrlBuilder.build(employer: job_listing.employer)
+    end
+
+    def pagination_nav
+      nav_builder = PaginationNavBuilder.new(paginator: paginator, request: request)
+      nav_builder.build
     end
   end
 end

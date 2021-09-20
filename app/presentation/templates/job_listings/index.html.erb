@@ -10,7 +10,7 @@
   <div class="joblistings col-12">
     <% if view.job_listings? %>
       <%= render view.job_listings %>
-      <%== pagy_bootstrap_nav(view.paginator) %>
+      <%== view.pagination_nav %>
     <% else %>
       <%= render 'no_search_results' %>
     <% end %>
