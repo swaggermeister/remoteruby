@@ -1,0 +1,23 @@
+<%= render partial: "search", locals: {search_text: view.search_text} %>
+<div class="columns">
+  <div class="joblisting col-12">
+    <span class="text-bold h3"><%= view.title %></span>
+    <span> - </span>
+    <span class="h4"><%= view.salary %></span>
+    <div class="employer-info mt-2">
+      <span class="employer h5">
+        <%= image_tag view.avatar_url, class: "avatar avatar-lg", alt: view.employer_name, title: view.employer_name %>
+        <%= view.employer_name %> - 
+        <%= view.location %>
+      </span>
+    </div>
+    <div class="description mt-2">
+      <%= view.description %>
+    </div>
+    <% if view.has_contact_url? %>
+      <%= link_to "Apply Now", view.contact_url, class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-url" %>
+    <% else %>
+      <%= mail_to "mailto:#{view.contact_email}", "Apply Now", class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-email" %>
+    <% end %>
+  </div>
+</div>

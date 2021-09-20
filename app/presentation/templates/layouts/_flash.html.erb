@@ -1,0 +1,7 @@
+<div id='flash'>
+  <% view.toast_flashes(flash: flash).each do |type, msg| %>
+    <div class="<%= view.flash_toast_class(flash_type: type) %>">
+      <%= msg %>
+    </div>
+  <% end %>
+</div>

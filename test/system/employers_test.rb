@@ -9,11 +9,6 @@ class EmployersTest < ApplicationSystemTestCase
     OmniAuth.config.mock_auth[:Google] = nil
   end
 
-  test "Visiting the index" do
-    visit job_listings_url
-    assert_selector "a", text: "Sort Jobs by Salary"
-  end
-
   test "Creating an Employer successfully via regular authentication" do
     visit job_listings_url
     click_on "Employers"
@@ -26,6 +21,9 @@ class EmployersTest < ApplicationSystemTestCase
 
     assert_current_path root_path
     assert_text "A message with a confirmation link has been sent to your email"
+  end
+
+  test "failing to create an employer with missing fields" do
   end
 
   test "Creating an Employer successfully via OmniAuth Google" do
@@ -72,6 +70,15 @@ class EmployersTest < ApplicationSystemTestCase
     assert_text "Account successfully updated."
     assert employer.avatar.attached?
     click_on "My Job Listings"
+  end
+
+  test "failing to update an employer with missing fields" do
+  end
+
+  test 'profile page with no listings added yet' do
+  end
+
+  test "profile page shows only the employer's listings" do
   end
 
   test "Destroying an Employer" do
