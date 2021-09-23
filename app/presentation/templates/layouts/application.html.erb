@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Remote Ruby on Rails Jobs</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
+  </head>
+  <body>
+    <header class="navbar">
+      <section class="navbar-section">
+        <a href="/" class="navbar-brand text-primary p-1">Ruby Remote Jobs</a>
+        <% if employer_signed_in? %>
+          <%= link_to("My Listings", my_company_job_listings_path, class: "btn btn-link") %>
+        <% else %>
+          <%= link_to("Employers", new_registration_path("employer"), class: "btn btn-link") %>
+        <% end %>
+        <% if employer_signed_in? %>
+          <%= link_to "Sign Out", destroy_employer_session_path, method: :delete, class: "btn btn-link" %>
+        <% else %>
+          <%= link_to "Sign In", new_employer_session_path, class: "btn btn-link" %>
+        <% end %>
+      </section>
+    </header>
+    <div class="container mb-8">
+      <div class="columns">
+        <div class="col-xl-4 col-lg-6 col-sm-8 col-xs-12 col-mx-auto">
+          <div class="container" id="app-layout-container">
+            <%= render partial: "layouts/flash" %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

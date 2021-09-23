@@ -1,0 +1,17 @@
+<div class="card s-rounded mb-2 mt-2 job-listing" id="<% dom_id(job_listing) %>">
+  <div class="card-header">
+    <%= link_to job_listing_path(job_listing) do %>
+      <span class="text-bold"><%= view.title(job_listing) %></span> - <%= view.salary(job_listing) %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <span class="employer">
+      <%= image_tag view.avatar_url(job_listing), class: "avatar avatar-lg mr-1", alt: view.employer_name(job_listing), title: view.employer_name(job_listing) %>
+      <%= view.employer_name(job_listing) %> - 
+      <%= view.location(job_listing) %>
+    </span>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'View Full Listing', job_listing_path(job_listing, search_text: view.search_text), class: 'btn btn-primary' %>
+  </div>
+</div>

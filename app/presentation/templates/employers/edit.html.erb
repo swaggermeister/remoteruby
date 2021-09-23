@@ -1,0 +1,8 @@
+<h1>Editing Profile</h1>
+<%= render 'form', partial: 'form' %>
+<div class="mt-8">
+  <%= link_to 'My Job Listings', my_company_job_listings_path %>
+</div>
+<div class="my-4">
+  <%= link_to 'Delete Account', employer_path(current_employer), method: :delete, data:{ confirm: 'Are you sure you want to delete your account?' } %>
+</div>

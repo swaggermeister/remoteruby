@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] ||= 'test'
-require_relative '../config/environment'
-require 'rails/test_help'
-require 'mocha/minitest' # mocks and stubs
+ENV["RAILS_ENV"] ||= "test"
+require_relative "../config/environment"
+require "rails/test_help"
+require "mocha/minitest" # mocks and stubs
 
 module ActiveSupport
   class TestCase
@@ -18,17 +18,20 @@ module ActiveSupport
       ApplicationController.any_instance.stubs(:current_employer).returns(employer)
     end
 
-    def create_employer!(name: nil, email: nil, password: nil)
+    def create_employer!(name: nil, email: nil, password: nil, avatar: nil)
       name ||= "Test #{random_string}"
       email ||= "#{random_string}@test.com"
       password ||= random_string
+      avatar ||= Rack::Test::UploadedFile.new(file_fixture("bread.jpg"), "image/jpg")
 
       employer = Employer.create!(
         name: name,
         email: email,
         password: password,
-        confirmed_at: Time.zone.now
+        avatar: avatar,
+        confirmed_at: Time.zone.now,
       )
+      employer.avatar.attach(avatar)
       employer.save
 
       employer
@@ -36,38 +39,50 @@ module ActiveSupport
 
     def mock_google_auth_hash
       OmniAuth.config.mock_auth[:Google] = OmniAuth::AuthHash.new({
-                                                                    provider: 'Google',
-                                                                    uid: '123545',
+                                                                    provider: "Google",
+                                                                    uid: "123545",
                                                                     info: {
-                                                                      name: 'mockuser',
-                                                                      email: 'mock_user@mock.com'
+                                                                      name: "mockuser",
+                                                                      email: "mock_user@mock.com"
                                                                     },
                                                                     credentials: {
-                                                                      token: 'token',
-                                                                      refresh_token: 'another_token',
+                                                                      token: "token",
+                                                                      refresh_token: "another_token",
                                                                       expires_at: 1_354_920_555,
                                                                       expires: true
                                                                     }
                                                                   })
     end
 
-    def create_job_listing!(employer:, title: nil, description: nil, location: nil, salary: nil)
+    # rubocop:disable Metrics/ParameterLists
+    def create_job_listing!(employer:,
+                            title: nil,
+                            description: nil,
+                            location: nil,
+                            salary: nil,
+                            contact_email: nil,
+                            contact_url: nil)
       title ||= "A Great Job #{random_string}"
       description ||= "The best job you will ever have you will love it #{random_string}"
-      location ||= 'Randomville, CA'
-      salary ||= '99,500'
+      location ||= "Randomville, CA"
+      salary ||= "99,500"
+      contact_url ||= contact_email.nil? ? "http://test.com" : nil
 
       JobListing.create!(
         title: title,
         description: description,
         location: location,
         salary: salary,
-        employer: employer
+        employer: employer,
+        contact_email: contact_email,
+        contact_url: contact_url,
       )
     end
 
+    # rubocop:enable Metrics/ParameterLists
+
     def random_string
-      SecureRandom.hex.split('-').join
+      SecureRandom.hex.split("-").join
     end
 
     def enable_omniauth_test_mode
