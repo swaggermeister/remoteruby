@@ -2,12 +2,14 @@
 
 module Shared
   module FormShared
+    include ActionView::Helpers::TagHelper
+
     def errors_hint_tag(form, attr)
       if (errors = errors_for(form, attr)).blank?
         return nil
       end
 
-      tag.p("#{attr.to_s.upcase_first} #{errors}", class: "form-input-hint")
+      tag.div("#{attr.to_s.humanize} #{errors}", class: "form-input-hint")
     end
 
     def errors_hint_tag_no_field_name(form, attr)
@@ -15,11 +17,12 @@ module Shared
         return nil
       end
 
-      tag.p(errors, class: "form-input-hint")
+      tag.div(errors, class: "form-input-hint")
     end
 
-    def form_group(form, attr)
-      tag.div(yield, class: "form-group #{form_group_error_class(form, attr)}")
+    def form_group(view_context, form, attr, &block)
+      content = view_context.capture(&block)
+      tag.div(content, class: "form-group #{form_group_error_class(form, attr)}")
     end
 
     private

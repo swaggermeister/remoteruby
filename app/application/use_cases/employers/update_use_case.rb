@@ -22,8 +22,10 @@ module Employers
       end
 
       def update_employer(employer:, attrs:)
+        # keep existing avatar if they didn't pick a new one
+        employer.avatar.attach(attrs[:avatar]) if attrs[:avatar].present?
+
         employer.update(attrs)
-        employer.avatar.attach(attrs[:avatar])
       end
     end
   end

@@ -17,7 +17,7 @@
     <% if view.has_contact_url? %>
       <%= link_to "Apply Now", view.contact_url, class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-url" %>
     <% else %>
-      <%= mail_to "mailto:#{view.contact_email}", "Apply Now", class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-email" %>
+      <%= mail_to "#{view.contact_email}", "Apply Now", class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-email" %>
     <% end %>
   </div>
 </div>

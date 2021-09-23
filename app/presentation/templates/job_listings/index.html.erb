@@ -1,8 +1,8 @@
 <%= render partial: "search", locals: {search_text: view.search_text} %>
 <div class="columns">
   <div class="sort col-12 text-center">
-    <% if view.sortcolumn != 'salary' %>
-      <%= link_to 'Sort Jobs by Salary', job_listings_path(search: view.search_text, sortcolumn: 'salary') %>
+    <% if view.sort_column != 'salary' %>
+      <%= link_to 'Sort Jobs by Salary', job_listings_path(search: view.search_text, sort_column: 'salary') %>
     <% else %>
       <%= link_to 'Sort Jobs by Newest', job_listings_path(search: view.search_text) %>
     <% end %>

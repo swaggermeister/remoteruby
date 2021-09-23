@@ -13,8 +13,8 @@ class JobListing < ApplicationRecord
                     tsearch: {
                       dictionary: "english",
                       tsvector_column: "searchable",
-                      prefix: true,
-                    },
+                      prefix: true
+                    }
                   }
 
   private
@@ -27,7 +27,7 @@ class JobListing < ApplicationRecord
   end
 
   def validate_contact_url_format
-    return if UrlFormatValidator.valid?(url: contact_url)
+    return if contact_email.present? || UrlFormatValidator.valid?(url: contact_url)
 
     errors.add(:contact_url,
                "must start with https:// or http://")

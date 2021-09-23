@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class JobListingsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  test 'should get index' do
+  test "should get index" do
     get job_listings_url
     assert_response :success
   end
 
-  test 'should get new' do
+  test "should get new" do
     employer = create_employer!
     sign_in employer
 
@@ -18,20 +18,20 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should create job_listing' do
+  test "should create job_listing" do
     employer = create_employer!
     sign_in employer
 
-    assert_difference('JobListing.count') do
+    assert_difference("JobListing.count") do
       post job_listings_url,
-           params: { job_listing: { description: 'A test job description', location: 'Washington DC', salary: '150000',
-                                    title: 'Senior Architect' } }
+           params: { job_listing: { description: "A test job description", location: "Washington DC", salary: "150000",
+                                    title: "Senior Architect", contact_url: "http://bread.com" } }
     end
 
     assert_redirected_to my_company_job_listings_path
   end
 
-  test 'should show job_listing' do
+  test "should show job_listing" do
     employer = create_employer!
     job_listing = create_job_listing!(employer: employer)
 
@@ -39,7 +39,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get edit' do
+  test "should get edit" do
     employer = create_employer!
     job_listing = create_job_listing!(employer: employer)
 
@@ -48,7 +48,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should update job_listing' do
+  test "should update job_listing" do
     employer = create_employer!
     job_listing = create_job_listing!(employer: employer)
 
@@ -59,12 +59,12 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to my_company_job_listings_path
   end
 
-  test 'should destroy job_listing' do
+  test "should destroy job_listing" do
     employer = create_employer!
     job_listing = create_job_listing!(employer: employer)
 
     sign_in employer
-    assert_difference('JobListing.count', -1) do
+    assert_difference("JobListing.count", -1) do
       delete job_listing_url(job_listing)
     end
 

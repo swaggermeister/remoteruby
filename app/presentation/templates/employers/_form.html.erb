@@ -1,25 +1,25 @@
-<%= form_with(model: view.employer, local: true) do |form| %>
-  <%= view.form_group(form, :name) do %>
+<%= form_with(model: view.employer) do |form| %>
+  <%= view.form_group(self, form, :name) do %>
     <%= form.label :name, "Company Name", class:"form-label" %>
     <%= form.text_field :name, class:"form-input" %>
     <%= view.errors_hint_tag(form, :name) %>
   <% end %>
-  <%= view.form_group(form, :avatar) do %>
+  <%= view.form_group(self, form, :avatar) do %>
     <%= form.label :avatar, "Logo", class:"form-label" %>
     <%= image_tag view.avatar_url, class: "avatar avatar-lg mb-2" %>
     <%= form.file_field :avatar, class:"form-input" %>
   <% end %>
-  <%= view.form_group(form, :email) do %>
+  <%= view.form_group(self, form, :email) do %>
     <%= form.label :email, class:"form-label" %>
     <%= form.text_field :email, class:"form-input " %>
     <%= view.errors_hint_tag(form, :email) %>
   <% end %>
-  <%= view.form_group(form, :password) do %>
+  <%= view.form_group(self, form, :password) do %>
     <%= form.label :password, class:"form-label " %>
     <%= form.password_field :password, class:"form-input " %>
     <%= view.errors_hint_tag(form, :password) %>
   <% end %>
-  <%= view.form_group(form, :password_confirmation) do %>
+  <%= view.form_group(self, form, :password_confirmation) do %>
     <%= form.label :password_confirmation, "Confirm:", class:"form-label " %>
     <%= form.password_field :password_confirmation, class:"form-input " %>
     <%= view.errors_hint_tag(form, :password_confirmation) %>

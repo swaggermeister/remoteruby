@@ -4,13 +4,13 @@ class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: %i[index show]
 
   def index
-    result = ::JobListings::IndexUseCase.call(query: params[:search], sortcolumn: params[:sortcolumn], page_num: params[:page] || 1)
+    result = ::JobListings::IndexUseCase.call(query: params[:search], sort_column: params[:sort_column], page_num: params[:page] || 1)
 
     @view = ::JobListings::IndexView.new(
       search_text: result.query,
       paginator: result.paginator,
       job_listings: result.job_listings,
-      sortcolumn: result.sortcolumn,
+      sort_column: result.sort_column,
       request: request,
     )
   end
@@ -46,8 +46,9 @@ class JobListingsController < ApplicationController
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
     else
-      @job_listing = result.job_listing
-      render :new
+      @view = JobListings::NewView.new(
+        job_listing: result.job_listing,
+      )
     end
   end
 
@@ -57,7 +58,9 @@ class JobListingsController < ApplicationController
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
     else
-      render :edit
+      @view = JobListings::EditView.new(
+        job_listing: result.job_listing,
+      )
     end
   end
 

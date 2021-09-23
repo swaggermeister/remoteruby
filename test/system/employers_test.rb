@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "application_system_test_case"
-
+# rubocop:disable Metrics/ClassLength
 class EmployersTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
@@ -23,7 +23,16 @@ class EmployersTest < ApplicationSystemTestCase
     assert_text "A message with a confirmation link has been sent to your email"
   end
 
-  test "failing to create an employer with missing fields" do
+  test "Failing to create an employer with missing fields" do
+    visit job_listings_url
+    click_on "Employers"
+
+    fill_in "Email", with: "YetAnotherEmail@email.com"
+    fill_in "Password", with: "testsecretpassword"
+    fill_in "Password confirmation", with: "testsecretpassword"
+    click_on "Create Account"
+
+    assert_text "Name can't be blank"
   end
 
   test "Creating an Employer successfully via OmniAuth Google" do
@@ -52,7 +61,7 @@ class EmployersTest < ApplicationSystemTestCase
     assert_text 'Could not authenticate you from Google because "Invalid credentials".'
   end
 
-  test "Updating an Employer" do
+  test "Updating an Employer successfully" do
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
@@ -72,13 +81,71 @@ class EmployersTest < ApplicationSystemTestCase
     click_on "My Job Listings"
   end
 
-  test "failing to update an employer with missing fields" do
+  test "Failing to update an employer with missing fields" do
+    employer = create_employer!(password: "systemtestpw")
+
+    visit job_listings_url
+    click_on "Sign In"
+    sign_in employer
+    visit my_company_job_listings_path
+    click_on "View Profile"
+
+    fill_in "Company Name", with: "A Test String"
+    name_field = find("#employer_name")
+    name_field.native.clear
+    attach_file "Logo", file_fixture("bread.jpg")
+    fill_in "Password", with: "systemtestpw"
+    fill_in "Confirm:", with: "systemtestpw"
+    click_on "Update Account"
+
+    assert_text "Name can't be blank"
+    assert employer.avatar.attached?
   end
 
-  test 'profile page with no listings added yet' do
+  test "avatar persists when updating profile if no new one was picked" do
+    employer = create_employer!(password: "systemtestpw")
+
+    visit job_listings_url
+    click_on "Sign In"
+    sign_in employer
+    visit my_company_job_listings_path
+    click_on "View Profile"
+
+    fill_in "Company Name", with: "A Test String"
+    fill_in "Password", with: "systemtestpw"
+    fill_in "Confirm:", with: "systemtestpw"
+    click_on "Update Account"
+
+    assert_text "Account successfully updated."
+    assert employer.avatar.attached?
   end
 
-  test "profile page shows only the employer's listings" do
+  test "Profile page with no listings added yet" do
+    employer = create_employer!
+
+    visit job_listings_url
+    click_on "Sign In"
+    sign_in employer
+    visit my_company_job_listings_path
+
+    assert_text "You don't have any listings yet!"
+  end
+
+  test "Profile page shows only the employer's own listings" do
+    employer = create_employer!
+    create_job_listing!(employer: employer, title: "Job for Employer")
+    other_employer = create_employer!
+    create_job_listing!(employer: other_employer, title: "Job for Other Employer")
+    selector = "div.card"
+
+    visit job_listings_url
+    click_on "Sign In"
+    sign_in employer
+    visit my_company_job_listings_path
+
+    assert has_css?(selector, count: 1)
+    assert_text "Job for Employer"
+    refute_text "Job for Other Employer"
   end
 
   test "Destroying an Employer" do
@@ -98,3 +165,5 @@ class EmployersTest < ApplicationSystemTestCase
     assert_text "Account was successfully deleted."
   end
 end
+
+# rubocop:enable Metrics/ClassLength

@@ -28,19 +28,18 @@ class EmployersController < ApplicationController
 
       redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
     else
-      # TODO: handle errors on the form
+      @view = Employers::EditView.new(
+        employer: result.employer,
+      )
     end
   end
 
   def destroy
     result = Employers::DestroyUseCase.call(id: params.fetch(:id))
 
-    if result.success
-      redirect_to job_listings_url, notice: "Account was successfully deleted."
-    else
-      # TODO: handle error, by showing an error toast?
-      raise "Could not destroy the employer"
-    end
+    raise "Could not destroy the employer" unless result.success
+
+    redirect_to job_listings_url, notice: "Account was successfully deleted."
   end
 
   private

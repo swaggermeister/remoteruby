@@ -1,15 +1,15 @@
-<%= form_with(model: view.job_listing) do |form| %>
-  <%= view.form_group(form, :title) do %>
+<%= form_with(model: view.job_listing, html: {:novalidate => 'novalidate'}) do |form| %>
+  <%= view.form_group(self, form, :title) do %>
     <%= form.label :title, class: "form-label" %>
     <%= form.text_field :title, class: "form-input", placeholder: "Senior Software Engineer" %>
     <%= view.errors_hint_tag(form, :title) %>
   <% end %>
-  <%= view.form_group(form, :salary) do %>
+  <%= view.form_group(self, form, :salary) do %>
     <%= form.label :salary, class: "form-label" %>
     <%= form.text_field :salary, class: "form-input", placeholder: "$100,000" %>
     <%= view.errors_hint_tag(form, :salary) %>
   <% end %>
-  <%= view.form_group(form, :location) do %>
+  <%= view.form_group(self, form, :location) do %>
     <%= form.label :location, class: "form-label" %>
     <%= form.text_field :location, class: "form-input", placeholder: "NYC" %>
     <%= view.errors_hint_tag(form, :location) %>
@@ -39,7 +39,7 @@
       <a id="preview-description-tab" href="#">Preview</a>
     </li>
   </ul>
-  <%= view.form_group(form, :description) do %>
+  <%= view.form_group(self, form, :description) do %>
     <%= form.label :description, 'Description (markdown format)', class: "form-label" %>
     <%= form.text_area :description, id: "write-description", class: "form-input", placeholder: "Seeking a Senior Level Developer..." %>
     <%= view.errors_hint_tag(form, :description) %>

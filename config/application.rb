@@ -45,8 +45,6 @@ module Remoteruby
     config.autoload_paths << Rails.root.join("app/infrastructure/controllers")
     config.autoload_paths << Rails.root.join("app/infrastructure/mailers")
     # Presentation Layer
-    # TODO: remove helpers dir and move the logic into "views"
-    config.autoload_paths << Rails.root.join("app/presentation/helpers")
     config.autoload_paths << Rails.root.join("app/presentation/templates")
     config.autoload_paths << Rails.root.join("app/presentation/views")
     config.autoload_paths << Rails.root.join("app/presentation/services")

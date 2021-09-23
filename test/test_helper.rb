@@ -18,17 +18,20 @@ module ActiveSupport
       ApplicationController.any_instance.stubs(:current_employer).returns(employer)
     end
 
-    def create_employer!(name: nil, email: nil, password: nil)
+    def create_employer!(name: nil, email: nil, password: nil, avatar: nil)
       name ||= "Test #{random_string}"
       email ||= "#{random_string}@test.com"
       password ||= random_string
+      avatar ||= Rack::Test::UploadedFile.new(file_fixture("bread.jpg"), "image/jpg")
 
       employer = Employer.create!(
         name: name,
         email: email,
         password: password,
+        avatar: avatar,
         confirmed_at: Time.zone.now,
       )
+      employer.avatar.attach(avatar)
       employer.save
 
       employer

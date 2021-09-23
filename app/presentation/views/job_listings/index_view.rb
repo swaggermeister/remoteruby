@@ -4,17 +4,17 @@ module JobListings
   class IndexView
     include Shared::WebShared
 
-    attr_reader :job_listings, :search_text, :sortcolumn
+    attr_reader :job_listings, :search_text, :sort_column
 
     private
 
     attr_reader :paginator, :request
 
-    def initialize(job_listings:, paginator:, search_text:, sortcolumn:, request:)
+    def initialize(job_listings:, paginator:, search_text:, sort_column:, request:)
       @job_listings = job_listings
       @paginator = paginator
       @search_text = search_text
-      @sortcolumn = sortcolumn
+      @sort_column = sort_column
       @request = request
     end
 
