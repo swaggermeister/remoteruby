@@ -10,6 +10,14 @@ module JobListings
       job_listing.contact_url.present?
     end
 
+    def show_salary_range?
+      job_listing.minimum_salary.present?
+    end
+
+    def show_hourly_amount?
+      job_listing.minimum_salary.blank?
+    end
+
     def submit_button_text
       job_listing.new_record? ? 'Create Listing' : 'Update Listing'
     end

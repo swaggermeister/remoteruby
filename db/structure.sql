@@ -173,7 +173,9 @@ CREATE TABLE public.job_listings (
     contact_email character varying,
     contact_url character varying,
     employer_id bigint NOT NULL,
-    searchable tsvector GENERATED ALWAYS AS ((setweight(to_tsvector('english'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::"char") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::"char"))) STORED
+    searchable tsvector GENERATED ALWAYS AS ((setweight(to_tsvector('english'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::"char") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::"char"))) STORED,
+    minimum_salary integer,
+    maximum_salary integer
 );
 
 
@@ -388,6 +390,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210830150506'),
 ('20210901012241'),
 ('20210908205311'),
-('20210916153514');
+('20210916153514'),
+('20210923153011');
 
 

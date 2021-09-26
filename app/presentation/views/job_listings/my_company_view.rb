@@ -22,8 +22,16 @@ module JobListings
       job_listing.title
     end
 
+    def minimum_salary(job_listing)
+      job_listing.minimum_salary
+    end
+
+    def maximum_salary(job_listing)
+      job_listing.maximum_salary
+    end
+
     def salary(job_listing)
-      job_listing.salary
+      job_listing.salary.presence || "$#{job_listing.minimum_salary} - $#{job_listing.maximum_salary}"
     end
 
     def employer_name(job_listing)

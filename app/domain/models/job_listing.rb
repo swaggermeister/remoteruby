@@ -3,9 +3,11 @@
 class JobListing < ApplicationRecord
   include PgSearch::Model
   belongs_to :employer
-  validates :title, :description, :location, :salary, presence: true
+  validates :title, :description, :location, presence: true
   validate :validate_contact_email_or_url
   validate :validate_contact_url_format
+  validate :validate_salary_range_or_hourly_amount_present
+  validate :validate_salary_range
 
   pg_search_scope :search,
                   against: { title: "A", description: "B" },
@@ -13,8 +15,8 @@ class JobListing < ApplicationRecord
                     tsearch: {
                       dictionary: "english",
                       tsvector_column: "searchable",
-                      prefix: true
-                    }
+                      prefix: true,
+                    },
                   }
 
   private
@@ -31,5 +33,18 @@ class JobListing < ApplicationRecord
 
     errors.add(:contact_url,
                "must start with https:// or http://")
+  end
+
+  def validate_salary_range_or_hourly_amount_present
+    return if (minimum_salary.present? && maximum_salary.present?) || salary.present?
+
+    errors.add(:minimum_salary, "Please add a salary range or hourly amount.")
+  end
+
+  def validate_salary_range
+    return if salary.present?
+    return if minimum_salary < maximum_salary
+
+    errors.add(:minimum_salary, "must be less than the maximum salary.")
   end
 end
