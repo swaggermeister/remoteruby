@@ -7,7 +7,7 @@ employer_names = [
   "AutoLab",
   "HRForce",
   "Google",
-  "Smith & Smith",
+  "Smith & Smith"
 ]
 
 employer_passwords = %w[
@@ -24,7 +24,7 @@ job_titles = [
   "Rails Backend Specialist",
   "Rails Developer with React experience",
   "Rails API Scalability Expert",
-  "Ruby Developer with 20 Years Experience",
+  "Ruby Developer with 20 Years Experience"
 ]
 
 job_description = <<~JOBDESC
@@ -100,27 +100,27 @@ job_locations = [
   "Boston, MA",
   "NYC",
   "Philly",
-  "Toronto",
+  "Toronto"
 ]
 
 job_hourly_fixed_compensation_types = [
   "200 breads",
   "15/hr plus equity",
-  "97$/hr",
+  "97$/hr"
 ]
 
 job_minimum_salaries = [
-  80000,
-  100000,
-  120000,
-  50000,
+  80_000,
+  100_000,
+  120_000,
+  50_000
 ]
 
 job_maximum_salaries = [
-  75000,
-  100000,
-  130000,
-  200000,
+  75_000,
+  100_000,
+  130_000,
+  200_000
 ]
 
 desc "custom task to seed the db with test employer/job listing data"
@@ -148,7 +148,7 @@ task seed_job_listings: :environment do
     JobListing.create!(title: job_titles.sample,
                        description: job_description,
                        location: job_locations.sample,
-                       salary: job_hourly_fixed_compensation_types.sample,
+                       fixed_amount: job_hourly_fixed_compensation_types.sample,
                        contact_email: "#{SecureRandom.hex}@test.com",
                        employer_name: employers.sample.name,
                        employer_id: employers.sample.id)

@@ -38,7 +38,7 @@ module JobListings
         Pagination.new(paginator: paginator, job_listings: job_listings)
       end
 
-      VALID_SORT_COLUMNS = %w[minimum_salary maximum_salary salary created_at].freeze
+      VALID_SORT_COLUMNS = %w[minimum_salary maximum_salary fixed_amount created_at].freeze
 
       def find_job_listings(job_listings:, sort_column:)
         raise "Invalid sort column #{sort_column}" unless VALID_SORT_COLUMNS.include?(sort_column)

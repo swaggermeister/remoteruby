@@ -8,6 +8,7 @@ class JobListing < ApplicationRecord
   validate :validate_contact_url_format
   validate :validate_salary_range_or_hourly_amount_present
   validate :validate_salary_range
+  self.ignored_columns = ["salary"]
 
   pg_search_scope :search,
                   against: { title: "A", description: "B" },
@@ -15,8 +16,8 @@ class JobListing < ApplicationRecord
                     tsearch: {
                       dictionary: "english",
                       tsvector_column: "searchable",
-                      prefix: true,
-                    },
+                      prefix: true
+                    }
                   }
 
   private
@@ -36,13 +37,13 @@ class JobListing < ApplicationRecord
   end
 
   def validate_salary_range_or_hourly_amount_present
-    return if (minimum_salary.present? && maximum_salary.present?) || salary.present?
+    return if (minimum_salary.present? && maximum_salary.present?) || fixed_amount.present?
 
-    errors.add(:minimum_salary, "Please add a salary range or hourly amount.")
+    errors.add(:minimum_salary, "Please add a salary range or hourly/fixed amount.")
   end
 
   def validate_salary_range
-    return if salary.present?
+    return if fixed_amount.present?
     return if minimum_salary < maximum_salary
 
     errors.add(:minimum_salary, "must be less than the maximum salary.")

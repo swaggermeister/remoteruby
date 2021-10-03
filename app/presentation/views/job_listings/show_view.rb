@@ -4,7 +4,7 @@ module JobListings
   class ShowView
     include Shared::WebShared
 
-    delegate :contact_url, :contact_email, :employer_name, :location, :title, :minimum_salary, :maximum_salary, :salary, to: :job_listing
+    delegate :contact_url, :contact_email, :employer_name, :location, :title, :minimum_salary, :maximum_salary, :fixed_amount, to: :job_listing
 
     attr_reader :job_listing, :search_text
 
@@ -27,7 +27,7 @@ module JobListings
     end
 
     def salary
-      job_listing.salary.presence || "$#{job_listing.minimum_salary} - $#{job_listing.maximum_salary}"
+      job_listing.fixed_amount.presence || "#{job_listing.minimum_salary.to_s(:currency, precision: 0)} - #{job_listing.maximum_salary.to_s(:currency, precision: 0)}"
     end
 
     # rubocop:enable Naming/PredicateName

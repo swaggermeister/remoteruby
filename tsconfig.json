@@ -12,6 +12,7 @@
     "paths": {
       "*": ["node_modules/*", "app/presentation/javascript/*"]
     },
+    "noEmit": true,
     "sourceMap": true,
     "target": "es5"
   },

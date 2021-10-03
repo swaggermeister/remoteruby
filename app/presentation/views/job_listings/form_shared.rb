@@ -11,15 +11,15 @@ module JobListings
     end
 
     def show_salary_range?
-      job_listing.minimum_salary.present?
+      job_listing.fixed_amount.blank?
     end
 
     def show_hourly_amount?
-      job_listing.minimum_salary.blank?
+      job_listing.fixed_amount.present?
     end
 
     def submit_button_text
-      job_listing.new_record? ? 'Create Listing' : 'Update Listing'
+      job_listing.new_record? ? "Create Listing" : "Update Listing"
     end
   end
 end

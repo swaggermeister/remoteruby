@@ -31,7 +31,7 @@ module JobListings
     end
 
     def salary(job_listing)
-      job_listing.salary.presence || "$#{job_listing.minimum_salary} - $#{job_listing.maximum_salary}"
+      job_listing.fixed_amount.presence || "#{job_listing.minimum_salary.to_s(:currency, precision: 0)} - #{job_listing.maximum_salary.to_s(:currency, precision: 0)}"
     end
 
     def employer_name(job_listing)

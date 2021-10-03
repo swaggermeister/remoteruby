@@ -3,8 +3,13 @@
 module MarkdownConverter
   class << self
     def markdown(text)
+      output = redcarpet.render(text)
+      sanitize(output)
+    end
+
+    def sanitize(html)
       # rubocop:disable Rails/OutputSafety
-      redcarpet.render(text).html_safe
+      Rails::Html::SafeListSanitizer.new.sanitize(html).html_safe
       # rubocop:enable Rails/OutputSafety
     end
 

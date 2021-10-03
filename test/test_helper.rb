@@ -43,36 +43,46 @@ module ActiveSupport
                                                                     uid: "123545",
                                                                     info: {
                                                                       name: "mockuser",
-                                                                      email: "mock_user@mock.com"
+                                                                      email: "mock_user@mock.com",
                                                                     },
                                                                     credentials: {
                                                                       token: "token",
                                                                       refresh_token: "another_token",
                                                                       expires_at: 1_354_920_555,
-                                                                      expires: true
-                                                                    }
+                                                                      expires: true,
+                                                                    },
                                                                   })
     end
 
+    def create_job_listing!(...)
+      job_listing = build_job_listing(...)
+      job_listing.save!
+      job_listing
+    end
+
     # rubocop:disable Metrics/ParameterLists
-    def create_job_listing!(employer:,
-                            title: nil,
-                            description: nil,
-                            location: nil,
-                            salary: nil,
-                            contact_email: nil,
-                            contact_url: nil)
+    def build_job_listing(employer:,
+                          title: nil,
+                          description: nil,
+                          location: nil,
+                          fixed_amount: nil,
+                          minimum_salary: nil,
+                          maximum_salary: nil,
+                          contact_email: nil,
+                          contact_url: nil)
       title ||= "A Great Job #{random_string}"
       description ||= "The best job you will ever have you will love it #{random_string}"
       location ||= "Randomville, CA"
-      salary ||= "99,500"
       contact_url ||= contact_email.nil? ? "http://test.com" : nil
+      fixed_amount ||= "99 breads" if minimum_salary.blank? || maximum_salary.blank?
 
-      JobListing.create!(
+      JobListing.new(
         title: title,
         description: description,
         location: location,
-        salary: salary,
+        fixed_amount: fixed_amount,
+        minimum_salary: minimum_salary,
+        maximum_salary: maximum_salary,
         employer: employer,
         contact_email: contact_email,
         contact_url: contact_url,
