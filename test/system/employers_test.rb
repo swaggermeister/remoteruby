@@ -76,7 +76,7 @@ class EmployersTest < ApplicationSystemTestCase
     fill_in "Confirm:", with: "systemtestpw"
     click_on "Update Account"
 
-    assert_text "Account successfully updated."
+    assert_flash_text "Account successfully updated."
     assert employer.avatar.attached?
     click_on "My Job Listings"
   end
