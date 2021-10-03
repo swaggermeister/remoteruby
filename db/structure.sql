@@ -166,7 +166,6 @@ CREATE TABLE public.job_listings (
     title character varying,
     description text,
     location character varying,
-    salary character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     employer_name character varying,
@@ -393,6 +392,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210908205311'),
 ('20210916153514'),
 ('20210923153011'),
-('20210926144152');
+('20210926144152'),
+('20211003184620');
 
 
