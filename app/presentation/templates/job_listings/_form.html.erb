@@ -4,47 +4,95 @@
     <%= form.text_field :title, class: "form-input", placeholder: "Senior Software Engineer" %>
     <%= view.errors_hint_tag(form, :title) %>
   <% end %>
-  <%= view.form_group(self, form, :salary) do %>
-    <%= form.label :salary, class: "form-label" %>
-    <%= form.text_field :salary, class: "form-input", placeholder: "$100,000" %>
-    <%= view.errors_hint_tag(form, :salary) %>
-  <% end %>
+  <div class="form-group" data-controller="compensation-type">
+    <label class="form-label">Compensation Type</label>
+    <!-- salary range -->
+    <%= label_tag "compensation_type_salary", class: "form-radio" do %>
+      <%= radio_button_tag 'compensation_type', "salary", view.show_salary_range?, "data-action" => "compensation-type#selectSalary" %>
+      <i class="form-icon"></i> Salary Range (minimum and maximum)
+    <% end %>
+    <%= form.text_field :minimum_salary, 
+        class: "form-input #{view.show_salary_range? ? '' : 'd-none' }",
+        "data-compensation-type-target" => "minimumSalary", 
+        placeholder: "80000" %>
+    <%= view.errors_hint_tag_no_field_name(form, :minimum_salary) %>
+    <%= form.text_field :maximum_salary, 
+        class: "form-input #{view.show_salary_range? ? '' : 'd-none' }", 
+        "data-compensation-type-target" => "maximumSalary", 
+        placeholder: "100000" %>
+    <%= view.errors_hint_tag_no_field_name(form, :maximum_salary) %>
+    <!-- hourly amount -->
+    <%= label_tag "compensation_type_hourly", class: "form-radio" do %>
+      <%= radio_button_tag 'compensation_type', "hourly", view.show_hourly_amount?, "data-action" => "compensation-type#selectHourly" %>
+      <i class="form-icon"></i> Hourly/Fixed Amount
+    <% end %>
+    <%= form.text_field :fixed_amount, 
+        class: "form-input #{view.show_hourly_amount? ? '' : 'd-none' }", 
+        "data-compensation-type-target" => "hourly", 
+        placeholder: "$75/hr" %>
+    <%= view.errors_hint_tag_no_field_name(form, :fixed_amount) %>
+  </div>
   <%= view.form_group(self, form, :location) do %>
     <%= form.label :location, class: "form-label" %>
     <%= form.text_field :location, class: "form-input", placeholder: "NYC" %>
     <%= view.errors_hint_tag(form, :location) %>
   <% end %>
-  <div class="form-group">
+  <div class="form-group" data-controller="contact-method">
     <label class="form-label">Preferred Contact Method</label>
     <!-- email -->
     <%= label_tag "contact_method_email", class: "form-radio" do %>
-      <%= radio_button_tag 'contact_method', "email", view.show_email_input? %>
+      <%= radio_button_tag 'contact_method', "email", view.show_email_input?, "data-action" => "contact-method#selectEmail" %>
       <i class="form-icon"></i> Email
     <% end %>
-    <%= form.email_field :contact_email, class: "form-input #{view.show_email_input? ? '' : 'd-none' }"%>
+    <%= form.email_field :contact_email, 
+        class: "form-input #{view.show_email_input? ? '' : 'd-none' }", 
+        "data-contact-method-target" => "email" 
+        %>
     <%= view.errors_hint_tag_no_field_name(form, :contact_email) %>
     <!-- url -->
     <%= label_tag "contact_method_url", class: "form-radio" do %>
-      <%= radio_button_tag 'contact_method', "url", view.show_url_input? %>
+      <%= radio_button_tag 'contact_method', "url", view.show_url_input?, "data-action" => "contact-method#selectUrl" %>
       <i class="form-icon"></i> External site
     <% end %>
-    <%= form.url_field :contact_url, class: "form-input #{view.show_url_input? ? '' : 'd-none' }", placeholder:"http://" %>
+    <%= form.url_field :contact_url, 
+        class: "form-input #{view.show_url_input? ? '' : 'd-none' }", 
+        placeholder:"http://",
+        "data-contact-method-target" => "url" 
+        %>
     <%= view.errors_hint_tag_no_field_name(form, :contact_url) %>
   </div>
-  <ul class="tab">
-    <li class="tab-item">
-      <a id="write-description-tab" class="active" href="#">Write</a>
-    </li>
-    <li class="tab-item">
-      <a id="preview-description-tab" href="#">Preview</a>
-    </li>
-  </ul>
-  <%= view.form_group(self, form, :description) do %>
-    <%= form.label :description, 'Description (markdown format)', class: "form-label" %>
-    <%= form.text_area :description, id: "write-description", class: "form-input", placeholder: "Seeking a Senior Level Developer..." %>
-    <%= view.errors_hint_tag(form, :description) %>
-  <% end %>
-  <div id="preview-description" class="d-none"></div>
+  <div data-controller="preview-description">
+    <ul class="tab">
+      <li class="tab-item">
+        <a id="write-description-tab" 
+          class="active" 
+          href="#" 
+          data-action="preview-description#selectWrite" 
+          data-preview-description-target="writeTab">
+          Write
+        </a>
+      </li>
+      <li class="tab-item">
+        <a id="preview-description-tab" 
+          href="#" 
+          data-action="preview-description#selectPreview"
+          data-preview-description-target="previewTab">
+          Preview
+        </a>
+      </li>
+    </ul>
+    <%= view.form_group(self, form, :description) do %>
+      <%= form.label :description, 'Description (markdown format)', class: "form-label" %>
+      <%= form.text_area :description, 
+        id: "write-description", 
+        class: "form-input", 
+        placeholder: "Seeking a Senior Level Developer...",
+        "data-preview-description-target" => "writeTextArea" 
+         %>
+      <%= view.errors_hint_tag(form, :description) %>
+    <% end %>
+    <div id="preview-description" class="d-none" data-preview-description-target="preview" ></div>
+  </div>
   <div class="submit">
     <%= submit_tag view.submit_button_text, class: 'btn btn-primary' %>
   </div>

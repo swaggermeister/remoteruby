@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'securerandom'
+require "securerandom"
 
 employer_names = [
-  'DeskCorp',
-  'AutoLab',
-  'HRForce',
-  'Google',
-  'Smith & Smith'
+  "DeskCorp",
+  "AutoLab",
+  "HRForce",
+  "Google",
+  "Smith & Smith"
 ]
 
 employer_passwords = %w[
@@ -19,12 +19,12 @@ employer_passwords = %w[
 ]
 
 job_titles = [
-  'Senior Ruby on Rails Engineer',
-  'Full Stack Rails Engineer',
-  'Rails Backend Specialist',
-  'Rails Developer with React experience',
-  'Rails API Scalability Expert',
-  'Ruby Developer with 20 Years Experience'
+  "Senior Ruby on Rails Engineer",
+  "Full Stack Rails Engineer",
+  "Rails Backend Specialist",
+  "Rails Developer with React experience",
+  "Rails API Scalability Expert",
+  "Ruby Developer with 20 Years Experience"
 ]
 
 job_description = <<~JOBDESC
@@ -96,28 +96,40 @@ job_description = <<~JOBDESC
 JOBDESC
 
 job_locations = [
-  'Littleton',
-  'Boston, MA',
-  'NYC',
-  'Philly',
-  'Toronto'
+  "Littleton",
+  "Boston, MA",
+  "NYC",
+  "Philly",
+  "Toronto"
 ]
 
-job_salaries = [
-  '20000',
-  '200k',
-  '15k plus equity',
-  '97$/hr',
-  '120000'
+job_hourly_fixed_compensation_types = [
+  "200 breads",
+  "15/hr plus equity",
+  "97$/hr"
 ]
 
-desc 'custom task to seed the db with test employer/job listing data'
+job_minimum_salaries = [
+  80_000,
+  100_000,
+  120_000,
+  50_000
+]
+
+job_maximum_salaries = [
+  75_000,
+  100_000,
+  130_000,
+  200_000
+]
+
+desc "custom task to seed the db with test employer/job listing data"
 task seed: :environment do
-  Rake::Task['seed_employers'].invoke
-  Rake::Task['seed_job_listings'].invoke
+  Rake::Task["seed_employers"].invoke
+  Rake::Task["seed_job_listings"].invoke
 end
 
-desc 'custom task to seed the db with test employers'
+desc "custom task to seed the db with test employers"
 task seed_employers: :environment do
   Array.new(100) do
     pw = employer_passwords.sample
@@ -128,15 +140,29 @@ task seed_employers: :environment do
   end
 end
 
-desc 'custom task to seed the db with test job listings'
+desc "custom task to seed the db with test job listings"
 task seed_job_listings: :environment do
   employers = Employer.select(:id, :name).limit(100)
 
-  Array.new(100) do
+  Array.new(50) do
     JobListing.create!(title: job_titles.sample,
                        description: job_description,
                        location: job_locations.sample,
-                       salary: job_salaries.sample,
+                       fixed_amount: job_hourly_fixed_compensation_types.sample,
+                       contact_email: "#{SecureRandom.hex}@test.com",
+                       employer_name: employers.sample.name,
+                       employer_id: employers.sample.id)
+  end
+
+  Array.new(50) do
+    min_salary = job_minimum_salaries.sample
+    max_salary = job_maximum_salaries.select { |salary| salary > min_salary }.sample
+    JobListing.create!(title: job_titles.sample,
+                       description: job_description,
+                       location: job_locations.sample,
+                       minimum_salary: min_salary,
+                       maximum_salary: max_salary,
+                       contact_url: "http://#{SecureRandom.hex}.com",
                        employer_name: employers.sample.name,
                        employer_id: employers.sample.id)
   end

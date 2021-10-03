@@ -6,6 +6,10 @@ If you run into issues on CI try clearing its cache after SSHing into a session
 cache clear
 ```
 
+# Troubleshooting
+
+If your JavaScript doesn't look like it's loading in development, make sure you are running `bin/webpack-dev-server`
+
 # README
 
 This README would normally document whatever steps are necessary to get the

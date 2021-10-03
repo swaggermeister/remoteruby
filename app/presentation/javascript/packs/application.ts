@@ -15,18 +15,25 @@ require("@rails/ujs").start();
 // Turbolinks
 require("turbolinks").start();
 
-// App logic
-import { setupPreviewDescriptionClickHandlers } from "../preview_description";
-import {
-  setupContactInfoClickHandlers,
-  initContactMethodVisibility,
-} from "../set_contact_info";
+import { Application } from "@hotwired/stimulus";
+import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers";
 
-document.addEventListener("DOMContentLoaded", () => {
-  setupPreviewDescriptionClickHandlers();
-  setupContactInfoClickHandlers();
-  initContactMethodVisibility();
-});
+declare global {
+  interface Window {
+    Stimulus: Application;
+  }
+}
+
+window.Stimulus = Application.start();
+const context = require.context("../controllers", true, /\.ts$/);
+window.Stimulus.load(definitionsFromContext(context));
+
+// App logic
+// import { setupPreviewDescriptionClickHandlers } from "../preview_description";
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   setupPreviewDescriptionClickHandlers();
+// });
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.

@@ -8,24 +8,24 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit job_listings_url
-    assert_selector "a", text: "Sort Jobs by Salary"
+    assert_text "Sort Jobs by"
   end
 
   test "sorting job listings" do
     # create two job listings with diff salaries
     # make sure higher salary is first
     higher_salary_employer = create_employer!
-    create_job_listing!(employer: higher_salary_employer, salary: "98k")
+    create_job_listing!(employer: higher_salary_employer, fixed_amount: "98k")
     lower_salary_employer = create_employer!
-    create_job_listing!(employer: lower_salary_employer, salary: "80k")
+    create_job_listing!(employer: lower_salary_employer, fixed_amount: "80k")
 
     visit job_listings_url
 
     # Sort by salary
-    click_on "Sort Jobs by Salary"
+    click_on "Hourly"
 
-    # Sort choice was updated
-    assert_text "Sort Jobs by Newest"
+    # Sort choice was updated to show as active selection
+    find(".active", text: "Hourly")
 
     # Listings are sorted
     listings = all(".job-listing")
@@ -46,6 +46,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
     # Going to the next page shows the last listing
     click_on "2"
+    find(".job-listing")
     listings = all(".job-listing")
     assert listings.count == 1
   end
@@ -108,7 +109,7 @@ class JobListingsTest < ApplicationSystemTestCase
     assert_text "No results for your search."
   end
 
-  test "creating a Job listing successfully" do
+  test "creating a Job listing with fixed amount pay successfully" do
     employer = create_employer!
 
     visit job_listings_url
@@ -120,7 +121,33 @@ class JobListingsTest < ApplicationSystemTestCase
 
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"
-    fill_in "Salary", with: "200000"
+    hourly_amount_label = find("label[for=compensation_type_hourly]")
+    hourly_amount_label.click
+    fill_in "job_listing[fixed_amount]", with: "20 breads"
+    fill_in "Title", with: "Rails Engineer"
+    fill_in "job_listing[contact_email]", with: "testco@place.com"
+    click_on "Create Listing"
+
+    assert_text "Job listing was successfully created."
+    click_on "View Profile"
+  end
+
+  test "creating a job listing with salary range successfully" do
+    employer = create_employer!
+
+    visit job_listings_url
+    click_on "Employers"
+    sign_in employer
+    visit my_company_job_listings_path
+
+    click_on "Add a new listing"
+
+    fill_in "job_listing[description]", with: "Test Job Description"
+    fill_in "Location", with: "NYC"
+    # salary_range_label = find("label[for=compensation_type_salary]")
+    # salary_range_label.click
+    fill_in "job_listing[minimum_salary]", with: 100_000
+    fill_in "job_listing[maximum_salary]", with: 150_000
     fill_in "Title", with: "Rails Engineer"
     fill_in "job_listing[contact_email]", with: "testco@place.com"
     click_on "Create Listing"
@@ -140,7 +167,9 @@ class JobListingsTest < ApplicationSystemTestCase
     click_on "Add a new listing"
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"
-    fill_in "Salary", with: "200000"
+    hourly_amount_label = find("label[for=compensation_type_hourly]")
+    hourly_amount_label.click
+    fill_in "job_listing[fixed_amount]", with: "200000"
     fill_in "Title", with: "Rails Engineer"
 
     click_on "Create Listing"
@@ -158,7 +187,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
     click_on "Update Listing", match: :first
     fill_in "job_listing[description]", with: "New test description"
-    fill_in "Salary", with: "New test salary"
+    fill_in "job_listing[fixed_amount]", with: "New test salary"
     click_on "Update Listing"
 
     assert_text "Job listing was successfully updated."
@@ -195,7 +224,9 @@ class JobListingsTest < ApplicationSystemTestCase
 
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"
-    fill_in "Salary", with: "200000"
+    hourly_amount_label = find("label[for=compensation_type_hourly]")
+    hourly_amount_label.click
+    fill_in "job_listing[fixed_amount]", with: "200000"
     fill_in "Title", with: "Rails Engineer"
     contact_url_label = find("label[for=contact_method_url]")
     contact_url_label.click

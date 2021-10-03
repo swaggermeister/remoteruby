@@ -28,8 +28,16 @@ module JobListings
       job_listing.title
     end
 
+    def minimum_salary(job_listing)
+      job_listing.minimum_salary
+    end
+
+    def maximum_salary(job_listing)
+      job_listing.maximum_salary
+    end
+
     def salary(job_listing)
-      job_listing.salary
+      job_listing.fixed_amount.presence || "#{job_listing.minimum_salary.to_s(:currency, precision: 0)} - #{job_listing.maximum_salary.to_s(:currency, precision: 0)}"
     end
 
     def employer_name(job_listing)
@@ -47,6 +55,10 @@ module JobListings
     def pagination_nav
       nav_builder = PaginationNavBuilder.new(paginator: paginator, request: request)
       nav_builder.build
+    end
+
+    def active_sort_button(sort_button)
+      sort_button == sort_column ? "active" : ""
     end
   end
 end

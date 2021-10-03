@@ -22,7 +22,14 @@ module JobListings
       end
 
       def update_job_listing(job_listing:, attrs:)
+        sanitize_salary_fields(attrs) if attrs[:minimum_salary].present?
+
         job_listing.update(attrs)
+      end
+
+      def sanitize_salary_fields(attrs)
+        attrs[:minimum_salary] = attrs[:minimum_salary].gsub(/[., $]/, "")
+        attrs[:maximum_salary] = attrs[:maximum_salary].gsub(/[., $]/, "")
       end
     end
   end

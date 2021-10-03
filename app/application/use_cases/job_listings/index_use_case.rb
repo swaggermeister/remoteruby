@@ -33,17 +33,17 @@ module JobListings
           end
 
         paginator, job_listings = pagy(scope, items: PAGINATION_COUNT, page: page_num)
-        job_listings = order_job_listings(job_listings: job_listings, sort_column: sort_column)
+        job_listings = find_job_listings(job_listings: job_listings, sort_column: sort_column)
 
         Pagination.new(paginator: paginator, job_listings: job_listings)
       end
 
-      VALID_SORT_COLUMNS = %w[salary created_at].freeze
+      VALID_SORT_COLUMNS = %w[minimum_salary maximum_salary fixed_amount created_at].freeze
 
-      def order_job_listings(job_listings:, sort_column:)
+      def find_job_listings(job_listings:, sort_column:)
         raise "Invalid sort column #{sort_column}" unless VALID_SORT_COLUMNS.include?(sort_column)
 
-        job_listings.order({ sort_column => :desc })
+        job_listings.includes({ employer: :avatar_attachment }).order("#{sort_column} DESC NULLS LAST")
       end
     end
   end
