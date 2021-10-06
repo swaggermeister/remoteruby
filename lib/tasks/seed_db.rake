@@ -80,7 +80,8 @@ task seed_employers: :environment do
     Employer.create!(name: employer_names.sample,
                      email: "#{SecureRandom.hex}@test.com",
                      password: pw,
-                     password_confirmation: pw)
+                     password_confirmation: pw,
+                     confirmed_at: Time.zone.now)
   end
 end
 
