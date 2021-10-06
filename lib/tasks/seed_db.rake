@@ -6,7 +6,7 @@ employer_names = [
   "DeskCorp",
   "AutoLab",
   "HRForce",
-  "Google",
+  "TestCo",
   "Smith & Smith"
 ]
 
@@ -28,75 +28,19 @@ job_titles = [
 ]
 
 job_description = <<~JOBDESC
-  ### About the Role
-
-  Tithe.ly is currently looking to recruit a full-time Ruby on Rails Developer to join a team focused on writing code that will allow our Products to integrate with different 3rd party systems.
-
-  This position affords the opportunity to collaborate with other experienced engineers while also providing plenty of space for autonomy and coding. You will need to be able to think on your feet, be innovative and be independent when required.
-
-  This is an awesome opportunity to get involved with a growing company that practices continuous development and building something great!
-
-  100% remote opportunity, but must be based in the US or Canada.
-
-  ### Duties & Responsibilities
-
-  The successful candidate will find themselves working with Ruby on Rails, contributing heavily to our web-based software. The candidate will also have the chance to grow their skillset under a highly skilled team that can guide the candidate and unlock their full potential.
-
-  ### Key skillsets
-
-  **Technology**
-
-  - 2+ years experience in Ruby/Rails
-  - Extensive experience in writing unit and integration tests
-  - Solid understanding of RESTful APIs
-  - Experience with using non-trivial APIs to read and save data
-  - Solid understanding of JavaScript, CSS, HTML
-  - Solid understanding of Git
-  - Experience with writing SQL queries and using MySQL/PostgreSQL
-  - Experience working with Docker
-  - Comfortable working in a Unix/Linux environment
-
-  **Human / Relational:**
-
-  - Find joy in working out solutions to tricky problems
-  - Willingness to learn and expand upon existing skill sets
-  - A team player & able to work without supervision
-  - Quick learner & takes initiative
-  - Possess a high level of attention to detail
-  - Ability to effectively communicate technical information into simple terms
-  - Have a friendly, patient & positive nature
-  - Thinks Real Genius is a great movie
-
-  ### Benefits & Culture
-
-  You will be joining a very friendly and social team, who are highly skilled technically, where you will be working with the latest technology. This is a 100% remote opportunity, but must be based in the US or Canada.
-
-  Salary will depend on the level of experience.
-
-  ### Applying for the Role
-
-  All applicants require a cover letter in the "Note" field for us to consider your application.
-
-  Please start your cover letter with "I love code!" so we can ensure you've read the ad.
-
-  **Job Type:** Full-time
-
-  **Salary:** $80,000.00 to $140,000.00 /year
-
-  **Experience:** Ruby on Rails: 2 years (Required)
-
-  **Work Location:** Fully Remote
-
-  **Schedule:** Monday to Friday
-
-  **Company's website:** https://get.tithe.ly
-
-  **Work Remotely:** Yes
+  <h3>History, Purpose and Usage</h3>
+  <p><em>Lorem ipsum</em>, or <em>lipsum</em> as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's <em>De Finibus Bonorum et Malorum</em> for use in a type specimen book. It usually begins with:
+  </p>
+  <blockquote>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</blockquote>
+  <p>The purpose of <em>lorem ipsum</em> is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without <a href="#" title="Controversy in the Design World">controversy</a>, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.
+  </p>
+  <p>The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our <a href="#" title="Lorem Ipsum Generator">generator</a> to get your own, or read on for the authoritative history of <em>lorem ipsum</em>.
+  </p>
 
 JOBDESC
 
 job_locations = [
-  "Littleton",
+  "Demotown",
   "Boston, MA",
   "NYC",
   "Philly",
@@ -104,9 +48,9 @@ job_locations = [
 ]
 
 job_hourly_fixed_compensation_types = [
-  "200 breads",
+  "Negotiable",
   "15/hr plus equity",
-  "97$/hr"
+  "$97/hr"
 ]
 
 job_minimum_salaries = [
@@ -149,7 +93,7 @@ task seed_job_listings: :environment do
                        description: job_description,
                        location: job_locations.sample,
                        fixed_amount: job_hourly_fixed_compensation_types.sample,
-                       contact_email: "#{SecureRandom.hex}@test.com",
+                       contact_email: "#{SecureRandom.hex}@demo.com",
                        employer_name: employers.sample.name,
                        employer_id: employers.sample.id)
   end
