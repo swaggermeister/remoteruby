@@ -18,24 +18,30 @@ module ActiveSupport
       ApplicationController.any_instance.stubs(:current_employer).returns(employer)
     end
 
-    def create_employer!(name: nil, email: nil, password: nil, avatar: nil)
+    # rubocop:disable Metrics/ParameterLists
+    def create_employer!(name: nil, email: nil, password: nil, avatar: nil, is_confirmed: true, is_locked: false)
       name ||= "Test #{random_string}"
       email ||= "#{random_string}@test.com"
       password ||= random_string
       avatar ||= Rack::Test::UploadedFile.new(file_fixture("bread.jpg"), "image/jpg")
+      confirmed_at = Time.zone.now if is_confirmed
+      locked_at = Time.zone.now if is_locked
 
       employer = Employer.create!(
         name: name,
         email: email,
         password: password,
         avatar: avatar,
-        confirmed_at: Time.zone.now,
+        confirmed_at: confirmed_at,
+        locked_at: locked_at,
       )
       employer.avatar.attach(avatar)
       employer.save
 
       employer
     end
+
+    # rubocop:enable Metrics/ParameterLists
 
     def mock_google_auth_hash
       OmniAuth.config.mock_auth[:Google] = OmniAuth::AuthHash.new({

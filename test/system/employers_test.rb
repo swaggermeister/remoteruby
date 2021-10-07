@@ -62,21 +62,42 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "resend confirmation instructions" do
+    create_employer!(email: "testconfirm@confirm.com", is_confirmed: false)
     visit new_employer_confirmation_path
 
     assert_text "Resend confirmation instructions"
+
+    fill_in "Email", with: "testconfirm@confirm.com"
+    click_on "Resend confirmation instructions"
+
+    assert_current_path new_employer_session_path
+    assert_text "You will receive an email with instructions for how to confirm your email address in a few minutes."
   end
 
   test "resend unlock instructions" do
+    create_employer!(email: "testlocked@lock.com", is_locked: true)
     visit new_employer_unlock_path
 
     assert_text "Resend unlock instructions"
+
+    fill_in "Email", with: "testlocked@lock.com"
+    click_on "Resend unlock instructions"
+
+    assert_current_path new_employer_session_path
+    assert_text "You will receive an email with instructions for how to unlock your account in a few minutes."
   end
 
   test "forgot password" do
+    create_employer!(email: "forgotpw@reset.com")
     visit new_employer_password_path
 
     has_button? "Send me reset password instructions"
+
+    fill_in "Email", with: "forgotpw@reset.com"
+    click_on "Send me reset password instructions"
+
+    assert_current_path new_employer_session_path
+    assert_text "You will receive an email with instructions on how to reset your password in a few minutes."
   end
 
   test "Updating an Employer successfully" do
@@ -134,7 +155,7 @@ class EmployersTest < ApplicationSystemTestCase
     fill_in "Confirm:", with: "systemtestpw"
     click_on "Update Account"
 
-    assert_text "Account successfully updated."
+    assert_flash_text "Account successfully updated."
     assert employer.avatar.attached?
   end
 
