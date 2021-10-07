@@ -61,6 +61,24 @@ class EmployersTest < ApplicationSystemTestCase
     assert_text 'Could not authenticate you from Google because "Invalid credentials".'
   end
 
+  test "resend confirmation instructions" do
+    visit new_employer_confirmation_path
+
+    assert_text "Resend confirmation instructions"
+  end
+
+  test "resend unlock instructions" do
+    visit new_employer_unlock_path
+
+    assert_text "Resend unlock instructions"
+  end
+
+  test "forgot password" do
+    visit new_employer_password_path
+
+    has_button? "Send me reset password instructions"
+  end
+
   test "Updating an Employer successfully" do
     employer = create_employer!(password: "systemtestpw")
 
