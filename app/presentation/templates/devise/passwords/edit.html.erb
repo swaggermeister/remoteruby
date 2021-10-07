@@ -1,22 +1,21 @@
-<div class="m-2 p-2 col-11">
-  <h3>Change your password</h3>
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-    <%= f.hidden_field :reset_password_token %>
-    <div class="form-group my-2">
-      <%= f.label :password, "New password" %>
-      <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-      <%= f.password_field :password, class:"form-input mt-2", placeholder:"New Password", autofocus: true, autocomplete: "new-password" %>
-    </div>
-    <div class="form-group my-2">
-      <%= f.label :password_confirmation, "Confirm new password" %>
-      <%= f.password_field :password_confirmation, class:"form-input mt-2", placeholder:"New Password Confirmation", autocomplete: "new-password" %>
-    </div>
-    <div class="actions mt-4">
-      <%= f.submit "Change my password", class: "btn btn-primary mt-2" %>
-    </div>
+<h3>Change your password</h3>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.hidden_field :reset_password_token %>
+  <%= view.form_group(self, f, :password) do %>
+    <%= f.label :password, "New password" %>
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, class:"form-input mt-2", placeholder:"New Password", autofocus: true, autocomplete: "new-password" %>
+    <%= view.errors_hint_tag(f, :password) %>
   <% end %>
-</div>
+  <%= view.form_group(self, f, :password_confirmation) do %>
+    <%= f.label :password_confirmation, "Confirm new password" %>
+    <%= f.password_field :password_confirmation, class:"form-input mt-2", placeholder:"New Password Confirmation", autocomplete: "new-password" %>
+    <%= view.errors_hint_tag(f, :password_confirmation) %>
+  <% end %>
+  <div class="actions mt-4">
+    <%= f.submit "Change my password", class: "btn btn-primary my-2" %>
+  </div>
+<% end %>
 <%= render "devise/shared/links" %>

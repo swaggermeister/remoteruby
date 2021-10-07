@@ -2,7 +2,14 @@
 
 Rails.application.routes.draw do
   # Authentication
-  devise_for :employers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :employers, controllers: {
+    omniauth_callbacks: "omniauth_callbacks",
+    confirmations: "employers/confirmations",
+    passwords: "employers/passwords",
+    registrations: "employers/registrations",
+    sessions: "employers/sessions",
+    unlocks: "employers/unlocks",
+  }
 
   resources :employers
 
@@ -10,10 +17,10 @@ Rails.application.routes.draw do
   resources :job_listings do
     collection do
       # get "search/:search", to: "job_listings#search", as: "search"
-      get 'my_company', to: 'job_listings#my_company', as: 'my_company'
+      get "my_company", to: "job_listings#my_company", as: "my_company"
     end
   end
 
   # Home page
-  root to: 'job_listings#index'
+  root to: "job_listings#index"
 end
