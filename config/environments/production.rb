@@ -18,13 +18,13 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.mailgun.org",
+    address: ENV["CLOUDMAILIN_HOST"],
     port: 587,
     domain: "remoterubyonrails.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["MAILGUN_SMTP_LOGIN"],
-    password: ENV["MAILGUN_SMTP_PASSWORD"],
+    user_name: ENV["CLOUDMAILIN_USERNAME"],
+    password: ENV["CLOUDMAILIN_PASSWORD"],
   }
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -74,7 +74,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "remoteruby_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: "remoterubyonrails.com" }
+  config.action_mailer.default_url_options = { host: "cloudmailin.com" }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
