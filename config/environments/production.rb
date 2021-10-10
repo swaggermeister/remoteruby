@@ -20,7 +20,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: ENV["CLOUDMAILIN_HOST"],
     port: 587,
-    domain: "mta.remoterubyonrails.com",
+    domain: "remoterubyonrails.com",
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: ENV["CLOUDMAILIN_USERNAME"],
