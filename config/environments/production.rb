@@ -19,7 +19,7 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     address: ENV["CLOUDMAILIN_HOST"],
-    port: 587,
+    port: 2525,
     domain: "remoterubyonrails.com",
     authentication: "plain",
     enable_starttls_auto: true,
@@ -74,7 +74,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "remoteruby_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: "cloudmailin.com" }
+  config.action_mailer.default_url_options = { host: "smtp.cloudmta.net" }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
