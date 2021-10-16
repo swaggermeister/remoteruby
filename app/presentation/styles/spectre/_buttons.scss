@@ -3,15 +3,17 @@
   appearance: none;
   background: $bg-color-light;
   border: $border-width solid $primary-color;
-  border-radius: $border-radius;
+  border-radius: 1rem;
   color: $primary-color;
   cursor: pointer;
   display: inline-block;
+  font-family: $header-font-family;
+  font-weight: $header-font-bold-weight;
   font-size: $font-size;
   height: $control-size;
   line-height: $line-height;
   outline: none;
-  padding: $control-padding-y $control-padding-x-sm;
+  padding: 0.38rem 1.2rem 1.61rem 1.2rem;
   text-align: center;
   text-decoration: none;
   transition: background 0.2s, border 0.2s, box-shadow 0.2s, color 0.2s;
@@ -50,13 +52,21 @@
 
   // Button Primary
   &.btn-primary {
-    background: $primary-color;
-    border-color: $primary-color-dark;
+    background: rgb(133, 9, 35);
+    background: linear-gradient(
+      0deg,
+      $primary-gradient-start 0%,
+      $primary-gradient-end 100%
+    );
+    border-width: 0;
     color: $light-color;
     &:focus,
     &:hover {
-      background: darken($primary-color-dark, 2%);
-      border-color: darken($primary-color-dark, 5%);
+      background: linear-gradient(
+        0deg,
+        darken($primary-gradient-start, 2%) 0%,
+        darken($primary-gradient-end, 2%) 100%
+      );
       color: $light-color;
     }
     &:active,

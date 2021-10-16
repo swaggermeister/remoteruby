@@ -61,6 +61,14 @@ $cjk-jp-font-family: $base-font-family, "Hiragino Sans",
 $cjk-ko-font-family: $base-font-family, "Malgun Gothic", $fallback-font-family !default;
 $body-font-family: $base-font-family, $fallback-font-family !default;
 
+// Header font
+$header-font-family: "Poppins", $base-font-family;
+$header-font-bold-weight: 600;
+
+// Primary gradient
+$primary-gradient-start: rgba(133, 9, 35, 1);
+$primary-gradient-end: rgba(192, 10, 48, 1);
+
 // Unit sizes
 $unit-o: 0.05rem !default;
 $unit-h: 0.1rem !default;
