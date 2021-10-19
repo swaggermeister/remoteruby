@@ -68,7 +68,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
     visit job_listings_url
     click_on "Best job"
-    apply_url_button = find("#job_listing_#{job_listing.id}-apply-url")
+    apply_url_button = find("#job_listing_#{job_listing.id}-apply-url", match: :first)
 
     assert_equal apply_url_button["href"], job_listing.contact_url
   end
@@ -80,7 +80,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
     visit job_listings_url
     click_on "Best job"
-    apply_email_button = find("#job_listing_#{job_listing.id}-apply-email")
+    apply_email_button = find("#job_listing_#{job_listing.id}-apply-email", match: :first)
 
     assert_equal apply_email_button["href"], contact_email_mailto
   end
@@ -113,7 +113,7 @@ class JobListingsTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -136,7 +136,7 @@ class JobListingsTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -160,7 +160,7 @@ class JobListingsTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -181,7 +181,7 @@ class JobListingsTest < ApplicationSystemTestCase
     create_job_listing!(employer: employer)
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -199,7 +199,7 @@ class JobListingsTest < ApplicationSystemTestCase
     create_job_listing!(employer: employer)
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -215,7 +215,7 @@ class JobListingsTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -241,7 +241,7 @@ class JobListingsTest < ApplicationSystemTestCase
     create_job_listing!(employer: employer)
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 

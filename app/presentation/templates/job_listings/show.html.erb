@@ -14,9 +14,11 @@
           <%= image_tag view.avatar_url, class: "avatar avatar-xl", alt: view.employer_name, title: view.employer_name %>
         </div>
         <div class="column col-9">
-          <div class="h3"> <%= view.employer_name %></div>
-          <div> <%= view.location %> | Jobs Posted: <%= view.number_jobs_posted %></div>
+          <div class="h4"> <%= view.employer_name %></div>
+          <div> <%= view.location %></div>
+          <div>Jobs Posted: <%= view.number_jobs_posted %></div>
           <div> <%= render partial: "apply_button" %></div>
+          <%= link_to "View all jobs", job_listings_path(employer_id: view.employer_id), class: "btn btn-secondary" %>
         </div>
       </div>
     </div>

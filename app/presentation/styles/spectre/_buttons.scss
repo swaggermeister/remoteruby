@@ -90,7 +90,8 @@
   // Button Secondary
   &.btn-secondary {
     background: rgb(133, 9, 35);
-    border-width: 0;
+    border-width: 1;
+    border-color: $light-color;
     color: $light-color;
     &:focus,
     &:hover {

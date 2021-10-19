@@ -11,7 +11,8 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Creating an Employer successfully via regular authentication" do
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
+    click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
     fill_in "Name", with: "Cool Test Co"
@@ -25,7 +26,8 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Failing to create an employer with missing fields" do
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
+    click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
     fill_in "Password", with: "testsecretpassword"
@@ -37,7 +39,8 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Creating an Employer successfully via OmniAuth Google" do
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
+    click_on "Create an Account"
 
     enable_omniauth_test_mode
     mock_google_auth_hash
@@ -50,7 +53,8 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Does not create Employer with invalid OmniAuth credentials" do
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job"
+    click_on "Create an Account"
 
     enable_omniauth_test_mode
     OmniAuth.config.mock_auth[:Google] = :invalid_credentials
@@ -104,7 +108,7 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
     click_on "View Profile"
@@ -124,7 +128,7 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
     click_on "View Profile"
@@ -145,7 +149,7 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
     click_on "View Profile"
@@ -163,7 +167,7 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -178,7 +182,7 @@ class EmployersTest < ApplicationSystemTestCase
     selector = "div.card"
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
 
@@ -191,7 +195,7 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job"
     sign_in employer
     visit my_company_job_listings_path
     click_on "View Profile"

@@ -4,19 +4,23 @@ module JobListings
   class IndexView
     include Shared::WebShared
 
-    attr_reader :job_listings, :search_text, :sort_column
+    attr_reader :job_listings, :employer_id, :search_text, :sort_column
 
     private
 
     attr_reader :paginator, :request
 
-    def initialize(job_listings:, paginator:, search_text:, sort_column:, request:)
+    # rubocop:disable Metrics/ParameterLists
+    def initialize(job_listings:, paginator:, search_text:, employer_id:, sort_column:, request:)
       @job_listings = job_listings
       @paginator = paginator
       @search_text = search_text
+      @employer_id = employer_id
       @sort_column = sort_column
       @request = request
     end
+
+    # rubocop:enable Metrics/ParameterLists
 
     public
 
@@ -40,8 +44,12 @@ module JobListings
       job_listing.fixed_amount.presence || "#{job_listing.minimum_salary.to_s(:currency, precision: 0)} - #{job_listing.maximum_salary.to_s(:currency, precision: 0)}"
     end
 
-    def employer_name(job_listing)
-      job_listing.employer.name
+    def employer_name(job_listing = nil)
+      if job_listing.nil?
+        Employer.find(employer_id).name
+      else
+        job_listing.employer.name
+      end
     end
 
     def location(job_listing)

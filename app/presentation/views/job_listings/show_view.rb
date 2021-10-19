@@ -4,7 +4,7 @@ module JobListings
   class ShowView
     include Shared::WebShared
 
-    delegate :contact_url, :contact_email, :employer_name, :location, :title, :minimum_salary, :maximum_salary, :fixed_amount, to: :job_listing
+    delegate :contact_url, :contact_email, :location, :employer_id, :title, :minimum_salary, :maximum_salary, :fixed_amount, to: :job_listing
 
     attr_reader :job_listing, :search_text
 
@@ -32,6 +32,10 @@ module JobListings
 
     def created_at
       job_listing.created_at
+    end
+
+    def employer_name
+      job_listing.employer.name
     end
 
     def number_jobs_posted

@@ -8,7 +8,7 @@ class JobListing < ApplicationRecord
   validate :validate_contact_url_format
   validate :validate_salary_range_or_hourly_amount_present
   validate :validate_salary_range
-  self.ignored_columns = ["salary"]
+  self.ignored_columns = %w[salary employer_name]
 
   pg_search_scope :search,
                   against: { title: "A", description: "B" },
@@ -16,8 +16,8 @@ class JobListing < ApplicationRecord
                     tsearch: {
                       dictionary: "english",
                       tsvector_column: "searchable",
-                      prefix: true
-                    }
+                      prefix: true,
+                    },
                   }
 
   private
