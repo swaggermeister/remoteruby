@@ -2,18 +2,19 @@
 .btn {
   appearance: none;
   background: $bg-color-light;
-  border: $border-width solid $primary-color;
+  border: $border-width solid rgb(133, 9, 35);
   border-radius: 1rem;
-  color: $primary-color;
+  color: $dark-color;
   cursor: pointer;
   display: inline-block;
   font-family: $header-font-family;
-  font-weight: $header-font-bold-weight;
+  font-weight: $font-weight;
   font-size: $font-size;
   height: $control-size;
   line-height: $line-height;
+  margin: 1px;
   outline: none;
-  padding: 0.38rem 1.2rem 1.61rem 1.2rem;
+  padding: 0.2rem 0.8rem 0.2rem 0.8rem;
   text-align: center;
   text-decoration: none;
   transition: background 0.2s, border 0.2s, box-shadow 0.2s, color 0.2s;
@@ -58,6 +59,9 @@
       $primary-gradient-start 0%,
       $primary-gradient-end 100%
     );
+    font-family: $header-font-family;
+    font-weight: $header-font-bold-weight;
+    padding: 0.38rem 1.2rem 1.61rem 1.2rem;
     border-width: 0;
     color: $light-color;
     &:focus,
@@ -83,6 +87,48 @@
     }
   }
 
+  // Button Secondary
+  &.btn-secondary {
+    background: rgb(133, 9, 35);
+    border-width: 0;
+    color: $light-color;
+    &:focus,
+    &:hover {
+      background: linear-gradient(
+        0deg,
+        darken($primary-gradient-start, 2%) 0%,
+        darken($primary-gradient-end, 2%) 100%
+      );
+      color: $light-color;
+    }
+    &:active,
+    &.active {
+      background: darken($primary-color-dark, 4%);
+      border-color: darken($primary-color-dark, 7%);
+      color: $light-color;
+    }
+    &.loading {
+      &::after {
+        border-bottom-color: $light-color;
+        border-left-color: $light-color;
+      }
+    }
+  }
+
+  // Button Tertiary
+  &.btn-tertiary {
+    background: rgb(255, 254, 254);
+    border-width: 0;
+    color: $dark-color;
+    font-family: $header-font-family;
+    // font-weight: $header-font-bold-weight;
+    padding: 0.38rem 1.2rem 1.61rem 1.2rem;
+    &:focus,
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
   // Button Colors
   &.btn-success {
     @include button-variant($success-color);
@@ -96,7 +142,7 @@
   &.btn-link {
     background: transparent;
     border-color: transparent;
-    color: $link-color;
+    color: $dark-color;
     &:focus,
     &:hover,
     &:active,
@@ -163,6 +209,15 @@
       content: "\2715";
     }
   }
+}
+
+// Search button
+.btn-search {
+  background: none;
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: 0px -3px 5px lightgray, 3px 10px 10px lightgray;
+  border-radius: 0px $border-radius $border-radius 0px;
 }
 
 // Button groups

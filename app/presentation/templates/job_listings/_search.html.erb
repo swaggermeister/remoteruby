@@ -2,8 +2,8 @@
   <div class="container">
     <%= form_tag job_listings_path(search: search_text), method: :get, id: "search-form" do %>
       <div class="input-group input-inline">
-        <%= text_field_tag :search, search_text, class: "form-input input-lg", placeholder: "Search" %>
-        <%= button_tag class: "btn input-group-btn btn-lg" do %>
+        <%= text_field_tag :search, search_text, class: "form-input input-lg search-form", placeholder: "Search" %>
+        <%= button_tag class: "btn-search" do %>
           <i class="icon icon-search"></i>
         <% end %>
       </div>

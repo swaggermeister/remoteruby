@@ -1,23 +1,33 @@
 <%= render partial: "search", locals: {search_text: view.search_text} %>
 <div class="columns">
   <div class="joblisting col-12">
-    <span class="text-bold h3"><%= view.title %></span>
-    <span> - </span>
-    <span class="h4"><%= view.salary %></span>
-    <div class="employer-info mt-2">
-      <span class="employer h5">
-        <%= image_tag view.avatar_url, class: "avatar avatar-lg", alt: view.employer_name, title: view.employer_name %>
-        <%= view.employer_name %> - 
-        <%= view.location %>
-      </span>
+    <div class="job-basics text-center">
+      <div class="text-bold h3"><%= view.title %></div>
+      <div class="h4 mt-2"><%= view.salary %></div>
+      <div class="mt-2">
+        Posted <%= time_ago_in_words(view.created_at) %> ago
+      </div>
+    </div>
+    <div class="employer-info mt-2 container">
+      <div class="employer h5 columns">
+        <div class="column col-3 mt-4">
+          <%= image_tag view.avatar_url, class: "avatar avatar-xl", alt: view.employer_name, title: view.employer_name %>
+        </div>
+        <div class="column col-9">
+          <div class="h3"> <%= view.employer_name %></div>
+          <div> <%= view.location %> | Jobs Posted: <%= view.number_jobs_posted %></div>
+          <div> <%= render partial: "apply_button" %></div>
+        </div>
+      </div>
     </div>
     <div class="description mt-2">
       <%= view.description %>
     </div>
-    <% if view.has_contact_url? %>
-      <%= link_to "Apply Now", view.contact_url, class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-url" %>
-    <% else %>
-      <%= mail_to "#{view.contact_email}", "Apply Now", class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-email" %>
-    <% end %>
+    <%= render partial: "apply_button" %>
+    <%# if view.has_contact_url? %>
+    <%#= link_to "Apply Now", view.contact_url, class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-url" %>
+    <%# else %>
+    <%#= mail_to "#{view.contact_email}", "Apply Now", class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-email" %>
+    <%# end %>
   </div>
 </div>

@@ -15,14 +15,14 @@ html {
 body {
   background: $body-bg;
   color: $body-font-color;
-  font-family: $body-font-family;
+  font-family: $header-font-family;
   font-size: $font-size;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
 }
 
 a {
-  color: $link-color;
+  color: $dark-color;
   outline: none;
   text-decoration: none;
 
@@ -39,6 +39,6 @@ a {
   }
 
   &:visited {
-    color: $link-color-light;
+    color: $dark-color;
   }
 }

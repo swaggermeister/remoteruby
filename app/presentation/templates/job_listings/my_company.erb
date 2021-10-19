@@ -1,11 +1,11 @@
-<div class="my-account">
+<div class="my-account text-center">
   <%= link_to 'View Profile', edit_employer_path(current_employer) %>
 </div>
-<div class="job-listings-header my-2">
+<div class="job-listings-header my-2 text-center">
   <h3>Your Job Listings</h3>
 </div>
 <div class="my-job-listings">
-  <%= link_to 'Add a new listing', new_job_listing_path %>
+  <%= link_to 'Add a new listing', new_job_listing_path, class: "btn btn-primary p-centered" %>
   <% if view.job_listings? %>
     <%= render partial: "my_job_listing", collection: view.job_listings, as: :job_listing %>
   <% else %>

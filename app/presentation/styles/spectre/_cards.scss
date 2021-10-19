@@ -1,19 +1,21 @@
 // Cards
 .card {
   background: $bg-color-light;
-  border: $border-width solid $border-color;
-  border-radius: $border-radius;
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: 0px -3px 5px lightgray, 3px 10px 10px lightgray;
+  border-radius: 0px $border-radius $border-radius 0px;
   display: flex;
   flex-direction: column;
 
   .card-header,
   .card-body,
   .card-footer {
-    padding: $layout-spacing-lg;
+    padding: $layout-spacing-sm;
     padding-bottom: 0;
 
     &:last-child {
-      padding-bottom: $layout-spacing-lg;
+      padding-bottom: $layout-spacing-sm;
     }
   }
 

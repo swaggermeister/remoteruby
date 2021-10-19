@@ -30,6 +30,14 @@ module JobListings
       job_listing.fixed_amount.presence || "#{job_listing.minimum_salary.to_s(:currency, precision: 0)} - #{job_listing.maximum_salary.to_s(:currency, precision: 0)}"
     end
 
+    def created_at
+      job_listing.created_at
+    end
+
+    def number_jobs_posted
+      job_listing.employer.job_listings.count
+    end
+
     # rubocop:enable Naming/PredicateName
 
     def description

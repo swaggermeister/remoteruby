@@ -8,3 +8,18 @@
 p {
   line-height: 1.5;
 }
+
+.employer-info {
+  background: rgb(133, 9, 35);
+  background: linear-gradient(
+    0deg,
+    $primary-gradient-start 0%,
+    $primary-gradient-end 100%
+  );
+  font-family: $header-font-family;
+  font-weight: $header-font-bold-weight;
+  // padding: 0.38rem 1.2rem 1.61rem 1.2rem;
+  border-radius: 1rem;
+  border-width: 0;
+  color: $light-color;
+}

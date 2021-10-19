@@ -12,11 +12,5 @@ module Employers
     def initialize(employer:)
       @employer = employer
     end
-
-    public
-
-    def avatar_url
-      AvatarUrlBuilder.build(employer: employer)
-    end
   end
 end

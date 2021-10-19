@@ -60,6 +60,7 @@ $cjk-jp-font-family: $base-font-family, "Hiragino Sans",
   $fallback-font-family !default;
 $cjk-ko-font-family: $base-font-family, "Malgun Gothic", $fallback-font-family !default;
 $body-font-family: $base-font-family, $fallback-font-family !default;
+$font-weight: normal;
 
 // Header font
 $header-font-family: "Poppins", $base-font-family;
@@ -97,7 +98,7 @@ $line-height: 1.2rem !default;
 $layout-spacing: $unit-2 !default;
 $layout-spacing-sm: $unit-1 !default;
 $layout-spacing-lg: $unit-4 !default;
-$border-radius: $unit-2 !default;
+$border-radius: $unit-4 !default;
 $border-width: $unit-h !default;
 $border-width-lg: $unit-h !default;
 $control-size: $unit-9 !default;

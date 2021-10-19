@@ -14,16 +14,16 @@
   <body>
     <header class="navbar">
       <section class="navbar-section">
-        <a href="/" class="navbar-brand text-primary p-1">Ruby Remote Jobs</a>
-        <% if employer_signed_in? %>
-          <%= link_to("My Listings", my_company_job_listings_path, class: "btn btn-link") %>
-        <% else %>
-          <%= link_to("Employers", new_registration_path("employer"), class: "btn btn-link") %>
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <%= image_tag asset_pack_path("media/images/logo.png"), alt: "Remote Ruby on Rails Jobs", width: 128 %>
         <% end %>
         <% if employer_signed_in? %>
-          <%= link_to "Sign Out", destroy_employer_session_path, method: :delete, class: "btn btn-link" %>
+          <%= link_to my_company_job_listings_path, class: "btn btn-link float-right" do %>
+            My Account
+            <%= image_tag view.employer_avatar_url(current_employer), class: "avatar" %>
+          <% end %>
         <% else %>
-          <%= link_to "Sign In", new_employer_session_path, class: "btn btn-link" %>
+          <%= link_to "Post a Job", new_employer_session_path, class: "btn btn-primary" %>
         <% end %>
       </section>
     </header>
