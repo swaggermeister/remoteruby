@@ -220,7 +220,7 @@ class JobListingsTest < ApplicationSystemTestCase
     visit my_company_job_listings_path
 
     click_on "Add a new listing"
-    assert_text "Create Job Listing"
+    assert_text "Tell us about the job"
 
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"

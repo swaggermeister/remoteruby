@@ -12,3 +12,6 @@
     <%= render partial: "no_job_listings" %>
   <% end %>
 </div>
+<div class="mt-6 text-center">
+  <%= link_to 'Sign out', destroy_employer_session_path, method: :delete, class: "btn" %>
+</div>

@@ -11,17 +11,17 @@
   <% end %>
   <%= view.form_group(self, form, :email) do %>
     <%= form.label :email, class:"form-label" %>
-    <%= form.text_field :email, class:"form-input " %>
+    <%= form.text_field :email, class:"form-input" %>
     <%= view.errors_hint_tag(form, :email) %>
   <% end %>
   <%= view.form_group(self, form, :password) do %>
-    <%= form.label :password, class:"form-label " %>
-    <%= form.password_field :password, class:"form-input " %>
+    <%= form.label :password, class:"form-label" %>
+    <%= form.password_field :password, class:"form-input", placeholder: "Current password" %>
     <%= view.errors_hint_tag(form, :password) %>
   <% end %>
   <%= view.form_group(self, form, :password_confirmation) do %>
-    <%= form.label :password_confirmation, "Confirm:", class:"form-label " %>
-    <%= form.password_field :password_confirmation, class:"form-input " %>
+    <%= form.label :password_confirmation, "Confirm:", class:"form-label" %>
+    <%= form.password_field :password_confirmation, class:"form-input", placeholder: "Confirm current password" %>
     <%= view.errors_hint_tag(form, :password_confirmation) %>
   <% end %>
   <div class="submit my-4">

@@ -7,12 +7,14 @@
   border-radius: 0px $border-radius $border-radius 0px;
   display: flex;
   flex-direction: column;
+  margin: $layout-spacing;
 
   .card-header,
   .card-body,
   .card-footer {
     padding: $layout-spacing-sm;
     padding-bottom: 0;
+    margin: $layout-spacing-sm $layout-spacing-sm 0px $layout-spacing-sm;
 
     &:last-child {
       padding-bottom: $layout-spacing-sm;

@@ -1,3 +1,4 @@
 <h3>Profile</h3>
 <%= render partial: 'form' %>
 <%= link_to 'My Job Listings', my_company_job_listings_path %>
+<%= link_to 'Sign out', destroy_employer_session_path, method: :delete, %>

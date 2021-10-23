@@ -34,6 +34,12 @@ module JobListings
       job_listing.created_at
     end
 
+    def is_own_listing?(signed_in_employer = nil)
+      return false unless signed_in_employer
+
+      job_listing.employer_id == signed_in_employer.id
+    end
+
     def employer_name
       job_listing.employer.name
     end

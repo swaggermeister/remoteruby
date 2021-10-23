@@ -1,5 +1,6 @@
 // Forms
 .form-group {
+  margin: 0px $layout-spacing 0px $layout-spacing-sm;
   &:not(:last-child) {
     margin-bottom: $layout-spacing;
   }
@@ -35,10 +36,13 @@ legend {
 // Form element: Input
 .form-input {
   appearance: none;
-  background: $bg-color-light;
+  background: none; //$bg-color-light;
   background-image: none;
   // border: $border-width solid $form-border-color;
   border-radius: $border-radius;
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: 0px -3px 5px lightgray, -3px 10px 10px lightgray;
   color: $body-font-color;
   display: block;
   font-size: $font-size;
@@ -232,13 +236,13 @@ textarea.form-input {
       border-color: $primary-color;
     }
     &:checked + .form-icon {
-      background: $primary-color;
-      border-color: $primary-color;
+      background: $accent-color;
+      border-color: $accent-color;
     }
   }
 
   .form-icon {
-    border: $border-width solid $border-color-dark;
+    border: $border-width solid $accent-color;
     cursor: pointer;
     display: inline-block;
     position: absolute;
@@ -382,7 +386,7 @@ textarea.form-input {
 
   .input-group-addon {
     background: $bg-color;
-    border: $border-width solid $border-color-dark;
+    // border: $border-width solid $border-color-dark;
     border-radius: $border-radius;
     line-height: $line-height;
     padding: $control-padding-y $control-padding-x;

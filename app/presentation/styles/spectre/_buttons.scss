@@ -2,7 +2,7 @@
 .btn {
   appearance: none;
   background: $bg-color-light;
-  border: $border-width solid rgb(133, 9, 35);
+  border: $border-width solid $accent-color;
   border-radius: 1rem;
   color: $dark-color;
   cursor: pointer;
@@ -53,7 +53,7 @@
 
   // Button Primary
   &.btn-primary {
-    background: rgb(133, 9, 35);
+    background: $accent-color;
     background: linear-gradient(
       0deg,
       $primary-gradient-start 0%,
@@ -89,7 +89,7 @@
 
   // Button Secondary
   &.btn-secondary {
-    background: rgb(133, 9, 35);
+    background: $accent-color;
     border-width: 1;
     border-color: $light-color;
     color: $light-color;
@@ -143,12 +143,14 @@
   &.btn-link {
     background: transparent;
     border-color: transparent;
-    color: $dark-color;
+    color: $link-color;
+    padding: 2px 0px;
+    margin: 0px;
     &:focus,
     &:hover,
     &:active,
     &.active {
-      color: $link-color-dark;
+      color: $link-color;
     }
   }
 

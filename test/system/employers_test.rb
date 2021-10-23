@@ -10,14 +10,16 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Creating an Employer successfully via regular authentication" do
+    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+
     visit job_listings_url
     click_on "Post a Job"
     click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
-    fill_in "Name", with: "Cool Test Co"
-    fill_in "Password", with: "testsecretpassword"
-    fill_in "Password confirmation", with: "testsecretpassword"
+    fill_in "Company Name", with: "Cool Test Co"
+    fill_in password_placeholder_text, with: "testsecretpassword"
+    fill_in "Confirm Password", with: "testsecretpassword"
     click_on "Create Account"
 
     assert_current_path root_path
@@ -25,13 +27,15 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Failing to create an employer with missing fields" do
+    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+
     visit job_listings_url
     click_on "Post a Job"
     click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
-    fill_in "Password", with: "testsecretpassword"
-    fill_in "Password confirmation", with: "testsecretpassword"
+    fill_in password_placeholder_text, with: "testsecretpassword"
+    fill_in "Confirm Password", with: "testsecretpassword"
     click_on "Create Account"
 
     assert_text "Name can't be blank"

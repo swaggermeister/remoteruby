@@ -30,4 +30,6 @@ const context = require.context("../controllers", true, /\.ts$/);
 window.Stimulus.load(definitionsFromContext(context));
 
 // Assets
-const images = require.context("../../images", true, /\.png$/);
+require.context("../../images", true, /\.png$/);
+require.context("../../images", true, /\.jpg$/);
+require.context("../../images", true, /\.svg$/);

@@ -4,18 +4,18 @@ module JobListings
   class IndexView
     include Shared::WebShared
 
-    attr_reader :job_listings, :employer_id, :search_text, :sort_column
+    attr_reader :job_listings, :search_text, :sort_column
 
     private
 
-    attr_reader :paginator, :request
+    attr_reader :paginator, :request, :filtering_by_employer
 
     # rubocop:disable Metrics/ParameterLists
-    def initialize(job_listings:, paginator:, search_text:, employer_id:, sort_column:, request:)
+    def initialize(job_listings:, paginator:, search_text:, filtering_by_employer:, sort_column:, request:)
       @job_listings = job_listings
       @paginator = paginator
       @search_text = search_text
-      @employer_id = employer_id
+      @filtering_by_employer = filtering_by_employer
       @sort_column = sort_column
       @request = request
     end
@@ -44,12 +44,22 @@ module JobListings
       job_listing.fixed_amount.presence || "#{job_listing.minimum_salary.to_s(:currency, precision: 0)} - #{job_listing.maximum_salary.to_s(:currency, precision: 0)}"
     end
 
-    def employer_name(job_listing = nil)
-      if job_listing.nil?
-        Employer.find(employer_id).name
-      else
-        job_listing.employer.name
-      end
+    def employer_name(job_listing)
+      job_listing.employer.name
+    end
+
+    def filtering_by_employer?
+      filtering_by_employer.present?
+    end
+
+    def filtering_by_employer_name
+      filtering_by_employer.name
+    end
+
+    def filtering_by_employer_id
+      return nil if filtering_by_employer.blank?
+
+      filtering_by_employer.id
     end
 
     def location(job_listing)

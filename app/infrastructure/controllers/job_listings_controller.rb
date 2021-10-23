@@ -8,7 +8,7 @@ class JobListingsController < ApplicationController
 
     @view = ::JobListings::IndexView.new(
       search_text: result.query,
-      employer_id: result.employer_id,
+      filtering_by_employer: result.filtering_by_employer,
       paginator: result.paginator,
       job_listings: result.job_listings,
       sort_column: result.sort_column,

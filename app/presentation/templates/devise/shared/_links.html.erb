@@ -1,10 +1,13 @@
-<%- if controller_name != 'sessions' %>
+<%- if controller_name != 'sessions' && controller_name != 'registrations' %>
   <%= link_to "Log in", new_session_path(resource_name) %>
 <% end %>
 <%- if devise_mapping.omniauthable? %>
   <div class="my-2">
     <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post %>
+      <%= link_to omniauth_authorize_path(resource_name, provider), :method => "post", :class => "btn" do %>
+        <%= image_tag asset_pack_path("media/images/google-logo.svg"), alt: "Google", width: 16 %>
+        Sign in with Google
+      <% end %>
     <% end %>
   </div>
 <% end %>
@@ -24,7 +27,7 @@
   </div>
 <% end %>
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <div class="my-8">
+  <div class="my-6">
     <h4>New to Remote Ruby on Rails Jobs?</h4>
     <%= link_to "Create an Account", new_registration_path(resource_name), class: "btn" %>
   </div>

@@ -10,7 +10,7 @@ p {
 }
 
 .employer-info {
-  background: rgb(133, 9, 35);
+  background: $accent-color;
   background: linear-gradient(
     0deg,
     $primary-gradient-start 0%,

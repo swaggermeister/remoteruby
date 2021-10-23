@@ -1,6 +1,6 @@
 <%= render partial: "search", locals: {search_text: view.search_text} %>
 <div class="columns">
-  <div class="joblisting col-12">
+  <div class="joblisting col-12 mx-2">
     <div class="job-basics text-center">
       <div class="text-bold h3"><%= view.title %></div>
       <div class="h4 mt-2"><%= view.salary %></div>
@@ -10,15 +10,23 @@
     </div>
     <div class="employer-info mt-2 container">
       <div class="employer h5 columns">
-        <div class="column col-3 mt-4">
+        <div class="column col-3 my-3">
           <%= image_tag view.avatar_url, class: "avatar avatar-xl", alt: view.employer_name, title: view.employer_name %>
         </div>
-        <div class="column col-9">
+        <div class="column col-9 my-3">
           <div class="h4"> <%= view.employer_name %></div>
           <div> <%= view.location %></div>
           <div>Jobs Posted: <%= view.number_jobs_posted %></div>
-          <div> <%= render partial: "apply_button" %></div>
-          <%= link_to "View all jobs", job_listings_path(employer_id: view.employer_id), class: "btn btn-secondary" %>
+          <% if !view.is_own_listing?(current_employer) %>
+            <div class="mt-2">
+              <% if view.has_contact_url? %>
+                <%= link_to "Apply Now", view.contact_url, class: "btn btn-tertiary", id: "#{dom_id(view.job_listing)}-apply-url" %>
+              <% else %>
+                <%= mail_to "#{view.contact_email}", "Apply Now", class: "btn btn-tertiary", id: "#{dom_id(view.job_listing)}-apply-email" %>
+              <% end %>
+            </div>
+            <%= link_to "View all jobs", job_listings_path(employer_id: view.employer_id), class: "btn btn-secondary" %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -26,10 +34,5 @@
       <%= view.description %>
     </div>
     <%= render partial: "apply_button" %>
-    <%# if view.has_contact_url? %>
-    <%#= link_to "Apply Now", view.contact_url, class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-url" %>
-    <%# else %>
-    <%#= mail_to "#{view.contact_email}", "Apply Now", class: "btn btn-primary", id: "#{dom_id(view.job_listing)}-apply-email" %>
-    <%# end %>
   </div>
 </div>
