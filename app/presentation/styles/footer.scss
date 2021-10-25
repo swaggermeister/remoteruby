@@ -1,0 +1,82 @@
+.footer {
+  // Breathing room at the top
+  padding-top: 2rem;
+
+  // Font color
+  color: $light-color;
+
+  // Drop shadow
+  filter: drop-shadow(0px 6px 17px rgba(133, 9, 35, 0.66));
+}
+
+.footer__boundary {
+  // Curved DIV background
+  // https://cssmatic.net/css-curved-background-generator/
+  display: block;
+  box-sizing: border-box;
+  background: linear-gradient(#c00a30, #850923);
+  clip-path: ellipse(120% 100% at 50% 100%);
+
+  // Breathing room at the top
+  padding-top: 2rem;
+
+  // Breathing room at the bottom
+  padding-bottom: 0.8rem;
+}
+
+@media (max-width: $size-lg) {
+  .footer {
+    clip-path: ellipse(100% 100% at 50% 100%);
+  }
+}
+
+.footer__maincontent {
+  vertical-align: middle;
+}
+
+.footer__sitemap {
+  // Bold links
+  font-weight: 700;
+
+  // Text flush to the right
+  text-align: right;
+}
+
+.footer__copyright,
+.footer__sitemap__link {
+  // Font color
+  color: $light-color;
+}
+.footer__sitemap__link:visited {
+  color: $light-color;
+}
+
+.footer__sitemap__link {
+  // Stack the links on top of each other
+  display: block;
+  padding: 0.14rem 0;
+}
+
+.footer__copyright {
+  // Centered text
+  text-align: center;
+
+  // Small text
+  font-size: 0.8rem;
+
+  // Breathing room at the top
+  padding-top: 1.6rem;
+}
+
+.footer__logo {
+  // Logo flush to the left
+  text-align: left;
+}
+
+.footer__sitemap__contents,
+.footer__logo__contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}

@@ -36,7 +36,7 @@ legend {
 // Form element: Input
 .form-input {
   appearance: none;
-  background: none; //$bg-color-light;
+  background: $light-color;
   background-image: none;
   // border: $border-width solid $form-border-color;
   border-radius: $border-radius;
@@ -60,13 +60,6 @@ legend {
   }
   &::placeholder {
     color: $gray-color;
-  }
-
-  &.search-form {
-    background: none;
-    border-width: 0;
-    border-color: transparent;
-    box-shadow: 0px -3px 5px lightgray, -3px 10px 10px lightgray;
   }
 
   // Input sizes

@@ -1,0 +1,13 @@
+.employer-info {
+  background: $accent-color;
+  background: linear-gradient(
+    0deg,
+    $primary-gradient-start 0%,
+    $primary-gradient-end 100%
+  );
+  font-family: $header-font-family;
+  font-weight: $header-font-bold-weight;
+  border-radius: 1rem;
+  border-width: 0;
+  color: $light-color;
+}

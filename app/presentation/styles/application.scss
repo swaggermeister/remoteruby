@@ -5,21 +5,15 @@
 @import "spectre/spectre-exp";
 @import "spectre/spectre-icons";
 
+// app components
+@import "footer";
+@import "form";
+@import "employer-info";
+
 p {
   line-height: 1.5;
 }
 
-.employer-info {
-  background: $accent-color;
-  background: linear-gradient(
-    0deg,
-    $primary-gradient-start 0%,
-    $primary-gradient-end 100%
-  );
-  font-family: $header-font-family;
-  font-weight: $header-font-bold-weight;
-  // padding: 0.38rem 1.2rem 1.61rem 1.2rem;
-  border-radius: 1rem;
-  border-width: 0;
-  color: $light-color;
+body {
+  background: url("../images/repeating-bg.jpg");
 }

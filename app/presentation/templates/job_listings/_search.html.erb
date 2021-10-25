@@ -1,11 +1,9 @@
 <div class="col-12 col-mx-auto text-center mb-5">
   <div class="container">
-    <%= form_tag job_listings_path(search: search_text), method: :get, id: "search-form" do %>
-      <div class="input-group input-inline">
-        <%= text_field_tag :search, search_text, class: "form-input input-lg search-form", placeholder: "Search" %>
-        <%= button_tag class: "btn-search" do %>
-          <i class="icon icon-search"></i>
-        <% end %>
+    <%= form_tag job_listings_path(search: search_text), method: :get, id: "search-form", class: "search-form" do %>
+      <div class="has-icon-right search-form__group">
+        <%= text_field_tag :search, search_text, class: "form-input input-lg search-form__input", placeholder: "Search" %>
+        <i class="form-icon icon icon-search"></i>
       </div>
     <% end %>
   </div>

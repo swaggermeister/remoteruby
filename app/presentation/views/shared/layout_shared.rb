@@ -28,5 +28,9 @@ module Shared
     def employer_avatar_url(employer)
       AvatarUrlBuilder.build(employer: employer)
     end
+
+    def current_year
+      Date.current.year
+    end
   end
 end
