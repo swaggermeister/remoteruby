@@ -1,4 +1,4 @@
-<div class="card s-rounded mb-2 mt-2">
+<div class="card s-rounded">
   <div class="card-header">
     <%= link_to job_listing_path(job_listing) do %>
       <span class="text-bold"><%= view.title(job_listing) %></span> - <%= view.salary(job_listing) %>
@@ -15,8 +15,11 @@
     </div>
   </div>
   <div class="card-footer">
-    <%= link_to 'Update Listing', edit_job_listing_path(job_listing), class: 'btn btn-secondary' %>
-    <%= link_to 'View Listing', job_listing_path(job_listing), class: 'btn' %>
-    <%= link_to 'Delete Listing', job_listing_path(job_listing), method: :delete, class: 'btn btn-link ml-3', data:{ confirm: 'Are you sure you want to delete this listing?' } %>
+    <%= link_to edit_job_listing_path(job_listing), class: 'btn btn-secondary' do %>
+      <i class="icon icon-edit"></i>
+      Edit
+    <% end %>
+    <%= link_to 'View', job_listing_path(job_listing), class: 'btn' %>
+    <%= link_to 'Delete', job_listing_path(job_listing), method: :delete, class: 'btn btn-link ml-3', data:{ confirm: 'Are you sure you want to delete this listing?' } %>
   </div>
 </div>

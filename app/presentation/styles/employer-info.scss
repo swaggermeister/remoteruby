@@ -6,8 +6,29 @@
     $primary-gradient-end 100%
   );
   font-family: $header-font-family;
+  font-size: 1rem;
   font-weight: $header-font-bold-weight;
   border-radius: 1rem;
   border-width: 0;
   color: $light-color;
+  margin-top: 0.4rem;
+  padding: 2px 0px;
+}
+
+.employer-info__avatar__container {
+  display: flex;
+  // flex-direction: column;
+  margin: 0.6rem 0rem;
+  justify-content: center;
+  padding-right: 0px;
+}
+
+.employer-info__avatar {
+  align-self: center;
+}
+
+.employer-info__details {
+  font-weight: $font-weight;
+  margin: 0.6rem 0rem;
+  text-align: center;
 }

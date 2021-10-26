@@ -9,7 +9,7 @@ h6 {
   color: inherit;
   font-weight: 500;
   line-height: 1.2;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   margin-top: 0;
 }
 .h1,
@@ -42,7 +42,7 @@ h5,
 }
 h6,
 .h6 {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 // Paragraphs
@@ -81,6 +81,8 @@ blockquote {
   border-left: $border-width-lg solid $border-color;
   margin-left: 0;
   padding: $unit-2 $unit-4;
+  margin-bottom: $unit-6;
+  line-height: 1.6rem;
 
   p:last-child {
     margin-bottom: 0;

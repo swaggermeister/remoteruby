@@ -1,8 +1,8 @@
 // Forms
 .form-group {
-  margin: 0px $layout-spacing 0px $layout-spacing-sm;
+  margin: 0px $layout-spacing 0px 0px;
   &:not(:last-child) {
-    margin-bottom: $layout-spacing;
+    margin-bottom: 1.1rem;
   }
 }
 
@@ -55,8 +55,8 @@ legend {
   transition: background 0.2s, border 0.2s, box-shadow 0.2s, color 0.2s;
   width: 100%;
   &:focus {
-    @include control-shadow();
-    border-color: $form-border-color-dark;
+    box-shadow: 0px -3px 5px $form-border-color,
+      -3px 10px 10px $form-border-color;
   }
   &::placeholder {
     color: $gray-color;

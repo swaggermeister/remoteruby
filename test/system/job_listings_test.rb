@@ -185,13 +185,13 @@ class JobListingsTest < ApplicationSystemTestCase
     sign_in employer
     visit my_company_job_listings_path
 
-    click_on "Update Listing", match: :first
+    click_on "Update", match: :first
     fill_in "job_listing[description]", with: "New test description"
     fill_in "job_listing[fixed_amount]", with: "New test salary"
-    click_on "Update Listing"
+    click_on "Update"
 
     assert_text "Job listing was successfully updated."
-    click_on "View Profile"
+    click_on "Update Company Profile"
   end
 
   test "fail to update a job listing with missing/removed fields" do

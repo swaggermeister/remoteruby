@@ -2,9 +2,12 @@
   <%= link_to "Log in", new_session_path(resource_name) %>
 <% end %>
 <%- if devise_mapping.omniauthable? %>
+  <div class="text-center">
+    or
+  </div>
   <div class="my-2">
     <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= link_to omniauth_authorize_path(resource_name, provider), :method => "post", :class => "btn" do %>
+      <%= link_to omniauth_authorize_path(resource_name, provider), :method => "post", :class => "btn btn-block" do %>
         <%= image_tag asset_pack_path("media/images/google-logo.svg"), alt: "Google", width: 16 %>
         Sign in with Google
       <% end %>
@@ -12,17 +15,17 @@
   </div>
 <% end %>
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <div class="my-2">
+  <div class="my-4">
     <%= link_to "Forgot your password?", new_password_path(resource_name) %>
   </div>
 <% end %>
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <div class="my-2">
+  <div class="my-4">
     <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %>
   </div>
 <% end %>
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <div class="my-2">
+  <div class="my-4">
     <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %>
   </div>
 <% end %>

@@ -34,11 +34,20 @@ a {
   &:hover,
   &:active,
   &.active {
-    color: $link-color;
-    text-decoration: underline;
+    color: $primary-color;
   }
 
-  &:visited {
-    color: $link-color-light;
+  // For use against dark backgrounds
+  &.link-contrast {
+    &:focus,
+    &:hover,
+    &:active,
+    &.active {
+      color: lighten($dark-color, 80%);
+    }
   }
+
+  // &:visited {
+  //   color: $link-color-light;
+  // }
 }

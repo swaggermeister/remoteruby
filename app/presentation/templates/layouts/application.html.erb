@@ -14,7 +14,7 @@
   <body>
     <div class="container">
       <div class="columns">
-        <div class="column col-xl-9 col-lg-9 col-md-10 col-sm-10 col-xs-10 col-mx-auto col-6">
+        <div class="<%= view.layout_columns_class %>">
           <header class="navbar">
             <section class="navbar-section">
               <%= link_to root_path, class: "navbar-brand" do %>
@@ -23,53 +23,25 @@
             </section>
             <section class="navbar-section">
               <% if employer_signed_in? %>
-                <%= link_to my_company_job_listings_path, class: "btn btn-link " do %>
+                <%= link_to my_company_job_listings_path, class: "btn btn-link" do %>
                   My Account
                   <%= image_tag view.employer_avatar_url(current_employer), class: "avatar" %>
                 <% end %>
               <% else %>
-                <%= link_to "Post a Job", new_employer_session_path, class: "btn btn-primary" %>
+                <%= link_to new_employer_session_path, class: "btn btn-primary" do %>
+                  <i class="icon icon-plus"></i>
+                  Post a Job
+                <% end %>
               <% end %>
             </section>
           </header>
-          <div class="columns">
-            <div class="col-xl-8 col-lg-10 col-md-8 col-sm-10 col-xs-12 col-mx-auto col-8">
-              <div class="container" id="app-layout-container">
-                <%= render partial: "layouts/flash" %>
-                <%= yield %>
-              </div>
-            </div>
+          <div id="app-layout-container">
+            <%= render partial: "layouts/flash" %>
+            <%= yield %>
           </div>
         </div>
       </div>
     </div>
-    <footer class="footer container">
-      <div class="columns footer__boundary">
-        <div class="column col-lg-8 col-mx-auto">
-          <div class="columns">
-            <div class="column col-6 footer__sitemap">
-              <div class="footer__sitemap__contents">
-                <%= link_to "Post a Job", new_job_listing_path, class: "footer__sitemap__link" %>
-                <%= link_to "Sign In", new_employer_session_path, class: "footer__sitemap__link" %>
-                <%= link_to "Sign Up", new_employer_registration_path, class: "footer__sitemap__link" %>
-                <%= link_to "View Jobs", job_listings_path, class: "footer__sitemap__link" %>
-              </div>
-            </div>
-            <div class="column col-6 footer__logo">
-              <div class="footer__logo__contents">
-                <%= link_to root_path do %>
-                  <%= image_tag asset_pack_path("media/images/logo.png"), alt: "Remote Ruby on Rails Jobs", width: 128, class: "footer__logo__image" %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-          <div class="columns">
-            <div class="column footer__copyright">
-              Copyright ©<%= view.current_year %> Remote Ruby on Rails Jobs
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <%= render partial: "layouts/footer" %>
   </body>
 </html>
