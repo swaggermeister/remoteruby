@@ -8,7 +8,7 @@
   <div class="my-2">
     <%- resource_class.omniauth_providers.each do |provider| %>
       <%= link_to omniauth_authorize_path(resource_name, provider), :method => "post", :class => "btn btn-block" do %>
-        <%= image_tag asset_pack_path("media/images/google-logo.svg"), alt: "Google", width: 16 %>
+        <%= image_tag asset_pack_path("media/images/google-logo.svg"), alt: "Google", width: 16, height: 16 %>
         Sign in with Google
       <% end %>
     <% end %>
