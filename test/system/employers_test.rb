@@ -13,7 +13,7 @@ class EmployersTest < ApplicationSystemTestCase
     password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
@@ -30,7 +30,7 @@ class EmployersTest < ApplicationSystemTestCase
     password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
@@ -43,7 +43,7 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Creating an Employer successfully via OmniAuth Google" do
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     click_on "Create an Account"
 
     enable_omniauth_test_mode
@@ -57,7 +57,7 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Does not create Employer with invalid OmniAuth credentials" do
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     click_on "Create an Account"
 
     enable_omniauth_test_mode
@@ -112,10 +112,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     fill_in "Company Name", with: "A Test String"
     attach_file "Logo", file_fixture("bread.jpg")
@@ -132,10 +132,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     fill_in "Company Name", with: "A Test String"
     name_field = find("#employer_name")
@@ -153,10 +153,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     fill_in "Company Name", with: "A Test String"
     fill_in "Password", with: "systemtestpw"
@@ -171,7 +171,7 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
@@ -186,7 +186,7 @@ class EmployersTest < ApplicationSystemTestCase
     selector = "div.card"
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
@@ -199,10 +199,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Post a Job"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     page.accept_confirm do
       click_on "Delete Account"
