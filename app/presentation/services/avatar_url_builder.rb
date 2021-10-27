@@ -6,7 +6,7 @@ module AvatarUrlBuilder
       employer.avatar
     else
       hash = Digest::MD5.hexdigest(employer.email.downcase)
-      "https://secure.gravatar.com/avatar/#{hash}.png?s=32"
+      "https://secure.gravatar.com/avatar/#{hash}.png?s=96"
     end
   end
 end
