@@ -28,6 +28,10 @@ module JobListings
       job_listings.any?
     end
 
+    def empty_state?
+      job_listings.none? && search_text == "" && !filtering_by_employer
+    end
+
     def title(job_listing)
       job_listing.title
     end

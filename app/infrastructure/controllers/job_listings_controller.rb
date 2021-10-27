@@ -94,7 +94,7 @@ class JobListingsController < ApplicationController
     # Etag caching has to take into account:
     # Params (sort order, search text query, employer filtering) + Last updated job listing
     latest_job_listing = current_employer.job_listings.order(:updated_at).last
-    fresh_when last_modified: latest_job_listing.updated_at.utc, etag: Digest::MD5.hexdigest(Marshal.dump(params))
+    fresh_when last_modified: latest_job_listing.updated_at.utc, etag: Digest::MD5.hexdigest(Marshal.dump(params)) if latest_job_listing.present?
   end
 
   private

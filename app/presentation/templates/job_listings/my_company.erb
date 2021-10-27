@@ -16,6 +16,6 @@
   <% if view.job_listings? %>
     <%= render partial: "my_job_listing", collection: view.job_listings, as: :job_listing, cached: true %>
   <% else %>
-    <%= render partial: "no_job_listings" %>
+    <%= render partial: "no_employer_job_listings" %>
   <% end %>
 </div>
