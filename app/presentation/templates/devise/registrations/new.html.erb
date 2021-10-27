@@ -1,32 +1,30 @@
 <div class="header my-2">
   <h2>Create Account</h2>
+  <h5 class="mb-4">Already have an account? <%= link_to "Log in", new_session_path(resource_name) %></h5>
 </div>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= view.form_group(self, f, :name) do %>
-    <%= f.label :name %>
-    <%= f.text_field :name, class:"form-input mt-2", placeholder:"Company Name", autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :name, class:"form-input", placeholder:"Company Name", autofocus: true, autocomplete: "name" %>
     <%= view.errors_hint_tag(f, :name) %>
   <% end %>
   <%= view.form_group(self, f, :email) do %>
-    <%= f.label :email %>
-    <%= f.email_field :email, class:"form-input mt-2", placeholder:"Email", autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, class:"form-input", placeholder:"Email", autofocus: true, autocomplete: "email" %>
     <%= view.errors_hint_tag(f, :email) %>
   <% end %>
   <%= view.form_group(self, f, :password) do %>
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, class:"form-input mt-2", placeholder:"Password", autofocus: true, autocomplete: "new-password" %>
+    <%= f.password_field :password, 
+        class:"form-input", 
+        placeholder:"Password #{@minimum_password_length.present? ? '(' + @minimum_password_length.to_s + ' characters minimum)' : ''}", 
+  autofocus: true, 
+  autocomplete: "new-password" %>
     <%= view.errors_hint_tag(f, :password) %>
   <% end %>
   <%= view.form_group(self, f, :password_confirmation) do %>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, class:"form-input mt-2", placeholder:"Confirm Password", autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, class:"form-input", placeholder:"Confirm Password", autocomplete: "new-password" %>
     <%= view.errors_hint_tag(f, :password_confirmation) %>
   <% end %>
   <div class="actions mt-4">
-    <%= f.submit "Create Account", class: "btn btn-primary my-2" %>
+    <%= f.submit "Create Account", class: "btn btn-primary btn-block my-2" %>
   </div>
 <% end %>
 <%= render "devise/shared/links" %>

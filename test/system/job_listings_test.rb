@@ -68,7 +68,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
     visit job_listings_url
     click_on "Best job"
-    apply_url_button = find("#job_listing_#{job_listing.id}-apply-url")
+    apply_url_button = find("#job_listing_#{job_listing.id}-apply-url", match: :first)
 
     assert_equal apply_url_button["href"], job_listing.contact_url
   end
@@ -80,7 +80,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
     visit job_listings_url
     click_on "Best job"
-    apply_email_button = find("#job_listing_#{job_listing.id}-apply-email")
+    apply_email_button = find("#job_listing_#{job_listing.id}-apply-email", match: :first)
 
     assert_equal apply_email_button["href"], contact_email_mailto
   end
@@ -92,7 +92,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
     visit job_listings_url
     fill_in "Search", with: "Search Engineer"
-    find("#search-form [type=submit]").click
+    find(".search-form__input").send_keys :return
 
     assert has_css?(selector, count: 1)
   end
@@ -104,7 +104,7 @@ class JobListingsTest < ApplicationSystemTestCase
     visit job_listings_url
 
     fill_in "Search", with: "bread"
-    find("#search-form [type=submit]").click
+    find(".search-form__input").send_keys :return
 
     assert_text "No results for your search."
   end
@@ -113,11 +113,11 @@ class JobListingsTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
-    click_on "Add a new listing"
+    click_on "Add a new job listing"
 
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"
@@ -129,18 +129,17 @@ class JobListingsTest < ApplicationSystemTestCase
     click_on "Create Listing"
 
     assert_text "Job listing was successfully created."
-    click_on "View Profile"
   end
 
   test "creating a job listing with salary range successfully" do
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
-    click_on "Add a new listing"
+    click_on "Add a new job listing"
 
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"
@@ -153,18 +152,17 @@ class JobListingsTest < ApplicationSystemTestCase
     click_on "Create Listing"
 
     assert_text "Job listing was successfully created."
-    click_on "View Profile"
   end
 
   test "fail to create a job listing with missing fields" do
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
-    click_on "Add a new listing"
+    click_on "Add a new job listing"
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"
     hourly_amount_label = find("label[for=compensation_type_hourly]")
@@ -181,17 +179,17 @@ class JobListingsTest < ApplicationSystemTestCase
     create_job_listing!(employer: employer)
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
-    click_on "Update Listing", match: :first
+    click_on "Edit", match: :first
     fill_in "job_listing[description]", with: "New test description"
     fill_in "job_listing[fixed_amount]", with: "New test salary"
-    click_on "Update Listing"
+    click_on "Update"
 
     assert_text "Job listing was successfully updated."
-    click_on "View Profile"
+    click_on "Update Company Profile"
   end
 
   test "fail to update a job listing with missing/removed fields" do
@@ -199,14 +197,14 @@ class JobListingsTest < ApplicationSystemTestCase
     create_job_listing!(employer: employer)
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
-    click_on "Update Listing", match: :first
+    click_on "Edit", match: :first
     title_field = find("#job_listing_title")
     title_field.native.clear
-    click_on "Update Listing"
+    click_on "Update"
 
     assert_text "Title can't be blank"
   end
@@ -215,12 +213,12 @@ class JobListingsTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
-    click_on "Add a new listing"
-    assert_text "Create Job Listing"
+    click_on "Add a new job listing"
+    assert_text "Tell us about the job"
 
     fill_in "job_listing[description]", with: "Test Job Description"
     fill_in "Location", with: "NYC"
@@ -241,12 +239,12 @@ class JobListingsTest < ApplicationSystemTestCase
     create_job_listing!(employer: employer)
 
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
     page.accept_confirm do
-      click_on "Delete Listing"
+      click_on "Delete"
     end
     assert_current_path my_company_job_listings_path
     assert_text "Job listing was successfully destroyed."

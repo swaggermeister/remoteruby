@@ -10,13 +10,16 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Creating an Employer successfully via regular authentication" do
+    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
+    click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
-    fill_in "Name", with: "Cool Test Co"
-    fill_in "Password", with: "testsecretpassword"
-    fill_in "Password confirmation", with: "testsecretpassword"
+    fill_in "Company Name", with: "Cool Test Co"
+    fill_in password_placeholder_text, with: "testsecretpassword"
+    fill_in "Confirm Password", with: "testsecretpassword"
     click_on "Create Account"
 
     assert_current_path root_path
@@ -24,12 +27,15 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Failing to create an employer with missing fields" do
+    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
+    click_on "Create an Account"
 
     fill_in "Email", with: "YetAnotherEmail@email.com"
-    fill_in "Password", with: "testsecretpassword"
-    fill_in "Password confirmation", with: "testsecretpassword"
+    fill_in password_placeholder_text, with: "testsecretpassword"
+    fill_in "Confirm Password", with: "testsecretpassword"
     click_on "Create Account"
 
     assert_text "Name can't be blank"
@@ -37,7 +43,8 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Creating an Employer successfully via OmniAuth Google" do
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
+    click_on "Create an Account"
 
     enable_omniauth_test_mode
     mock_google_auth_hash
@@ -50,7 +57,8 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Does not create Employer with invalid OmniAuth credentials" do
     visit job_listings_url
-    click_on "Employers"
+    click_on "Post a Job", match: :first
+    click_on "Create an Account"
 
     enable_omniauth_test_mode
     OmniAuth.config.mock_auth[:Google] = :invalid_credentials
@@ -104,10 +112,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     fill_in "Company Name", with: "A Test String"
     attach_file "Logo", file_fixture("bread.jpg")
@@ -124,10 +132,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     fill_in "Company Name", with: "A Test String"
     name_field = find("#employer_name")
@@ -145,10 +153,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!(password: "systemtestpw")
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     fill_in "Company Name", with: "A Test String"
     fill_in "Password", with: "systemtestpw"
@@ -163,7 +171,7 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
@@ -178,7 +186,7 @@ class EmployersTest < ApplicationSystemTestCase
     selector = "div.card"
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
 
@@ -191,10 +199,10 @@ class EmployersTest < ApplicationSystemTestCase
     employer = create_employer!
 
     visit job_listings_url
-    click_on "Sign In"
+    click_on "Post a Job", match: :first
     sign_in employer
     visit my_company_job_listings_path
-    click_on "View Profile"
+    click_on "Update Company Profile"
 
     page.accept_confirm do
       click_on "Delete Account"

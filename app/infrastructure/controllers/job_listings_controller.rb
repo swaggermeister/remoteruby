@@ -4,10 +4,11 @@ class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: %i[index show]
 
   def index
-    result = ::JobListings::IndexUseCase.call(query: params[:search], sort_column: params[:sort_column], page_num: params[:page] || 1)
+    result = ::JobListings::IndexUseCase.call(query: params[:search], employer_id: params[:employer_id], sort_column: params[:sort_column], page_num: params[:page] || 1)
 
     @view = ::JobListings::IndexView.new(
       search_text: result.query,
+      filtering_by_employer: result.filtering_by_employer,
       paginator: result.paginator,
       job_listings: result.job_listings,
       sort_column: result.sort_column,

@@ -1,0 +1,28 @@
+<footer class="footer container">
+  <div class="columns footer__boundary">
+    <div class="<%= view.layout_columns_class %>">
+      <div class="columns">
+        <div class="column col-6 footer__sitemap">
+          <div class="footer__sitemap__contents">
+            <%= link_to "Post a Job", new_job_listing_path, class: "footer__sitemap__link link-contrast" %>
+            <%= link_to "Sign In", new_employer_session_path, class: "footer__sitemap__link link-contrast" %>
+            <%= link_to "Sign Up", new_employer_registration_path, class: "footer__sitemap__link link-contrast" %>
+            <%= link_to "View Jobs", job_listings_path, class: "footer__sitemap__link link-contrast" %>
+          </div>
+        </div>
+        <div class="column col-6 footer__logo">
+          <div class="footer__logo__contents">
+            <%= link_to root_path do %>
+              <%= image_tag asset_pack_path("media/images/logo.png"), alt: "Remote Ruby on Rails Jobs", width: 128, class: "footer__logo__image" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column footer__copyright">
+          Copyright ©<%= view.current_year %> Remote Ruby on Rails Jobs
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

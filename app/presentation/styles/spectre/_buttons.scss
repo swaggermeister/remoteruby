@@ -2,16 +2,19 @@
 .btn {
   appearance: none;
   background: $bg-color-light;
-  border: $border-width solid $primary-color;
-  border-radius: $border-radius;
-  color: $primary-color;
+  border: $border-width solid $accent-color;
+  border-radius: 1rem;
+  color: $dark-color;
   cursor: pointer;
   display: inline-block;
+  font-family: $header-font-family;
+  font-weight: $font-weight;
   font-size: $font-size;
   height: $control-size;
   line-height: $line-height;
+  margin: 1px;
   outline: none;
-  padding: $control-padding-y $control-padding-x-sm;
+  padding: 0.2rem 0.8rem 0.2rem 0.8rem;
   text-align: center;
   text-decoration: none;
   transition: background 0.2s, border 0.2s, box-shadow 0.2s, color 0.2s;
@@ -23,9 +26,8 @@
   }
   &:focus,
   &:hover {
-    background: $secondary-color;
-    border-color: $primary-color-dark;
     text-decoration: none;
+    color: $dark-color;
   }
   &:active,
   &.active {
@@ -50,18 +52,33 @@
 
   // Button Primary
   &.btn-primary {
-    background: $primary-color;
-    border-color: $primary-color-dark;
+    background: $accent-color;
+    background: linear-gradient(
+      0deg,
+      $primary-gradient-start 0%,
+      $primary-gradient-end 100%
+    );
+    font-family: $header-font-family;
+    font-weight: $header-font-bold-weight;
+    padding: 0.38rem 1.2rem 1.61rem 1.2rem;
+    border-width: 0;
     color: $light-color;
     &:focus,
     &:hover {
-      background: darken($primary-color-dark, 2%);
-      border-color: darken($primary-color-dark, 5%);
+      background: linear-gradient(
+        0deg,
+        darken($primary-gradient-start, 2%) 0%,
+        darken($primary-gradient-end, 2%) 100%
+      );
       color: $light-color;
     }
     &:active,
     &.active {
-      background: darken($primary-color-dark, 4%);
+      background: linear-gradient(
+        0deg,
+        darken($primary-gradient-start, 2%) 0%,
+        darken($primary-gradient-end, 2%) 100%
+      );
       border-color: darken($primary-color-dark, 7%);
       color: $light-color;
     }
@@ -70,6 +87,58 @@
         border-bottom-color: $light-color;
         border-left-color: $light-color;
       }
+    }
+  }
+
+  // Button Secondary
+  &.btn-secondary {
+    background: linear-gradient(0deg, $accent-color 0%, $accent-color 100%);
+    border-width: 1;
+    border-color: $light-color;
+    color: $light-color;
+    &:focus,
+    &:hover {
+      background: linear-gradient(
+        0deg,
+        darken($primary-gradient-start, 2%) 0%,
+        darken($primary-gradient-end, 2%) 100%
+      );
+      color: $light-color;
+    }
+    &:active,
+    &.active {
+      background: linear-gradient(
+        0deg,
+        darken($primary-gradient-start, 6%) 0%,
+        darken($primary-gradient-end, 6%) 100%
+      );
+      color: $light-color;
+    }
+    &.loading {
+      &::after {
+        border-bottom-color: $light-color;
+        border-left-color: $light-color;
+      }
+    }
+  }
+
+  $btn-tertiary-bg-color: rgb(255, 254, 254);
+
+  // Button Tertiary
+  &.btn-tertiary {
+    background: $btn-tertiary-bg-color;
+    border-width: 0;
+    color: $dark-color;
+    font-family: $header-font-family;
+    // font-weight: $header-font-bold-weight;
+    padding: 0.38rem 1.2rem 1.61rem 1.2rem;
+    &:focus,
+    &:hover {
+      background: darken($btn-tertiary-bg-color, 2%);
+    }
+    &:active,
+    &.active {
+      background: darken($btn-tertiary-bg-color, 6%);
     }
   }
 
@@ -86,12 +155,16 @@
   &.btn-link {
     background: transparent;
     border-color: transparent;
-    color: $link-color;
+    // color: $link-color;
+    padding: 2px 0px;
+    margin: 0px;
     &:focus,
     &:hover,
     &:active,
     &.active {
-      color: $link-color-dark;
+      color: $primary-color;
+      border-color: transparent;
+      box-shadow: none;
     }
   }
 

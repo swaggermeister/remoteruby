@@ -14,7 +14,13 @@ const WRITE_TEXTAREA_ID = "write-description";
 const PREVIEW_DIV_ID = "preview-description";
 
 export default class extends Controller {
-  static targets = ["writeTextArea", "preview", "writeTab", "previewTab"];
+  static targets = [
+    "writeTextArea",
+    "preview",
+    "emptyPreview",
+    "writeTab",
+    "previewTab",
+  ];
 
   // Tabs
   declare writeTabTarget: HTMLElement;
@@ -25,6 +31,7 @@ export default class extends Controller {
 
   // Preview of the description markdown
   declare previewTarget: HTMLElement;
+  declare emptyPreviewTarget: HTMLElement;
 
   selectWrite(_event: Event) {
     this.showWrite();
@@ -64,36 +71,45 @@ export default class extends Controller {
     }
   }
 
-  toggleVisibility(): void {
-    this.writeTextAreaTarget.classList.toggle(HIDDEN_CLASS);
-    this.writeTextAreaTarget.classList.toggle(ACTIVE_CLASS);
-
-    this.previewTarget.classList.toggle(HIDDEN_CLASS);
-    this.previewTarget.classList.toggle(ACTIVE_CLASS);
-  }
-
   togglePreview(): void {
     if (this.writeTextAreaTarget.classList.contains(HIDDEN_CLASS)) {
+      // Hide the preview
+      this.emptyPreviewTarget.classList.add(HIDDEN_CLASS);
       this.previewTarget.classList.add(HIDDEN_CLASS);
+
+      // Show the text area
       this.writeTextAreaTarget.classList.remove(HIDDEN_CLASS);
     } else {
       this.writeTextAreaTarget.classList.add(HIDDEN_CLASS);
-      this.previewTarget.classList.remove(HIDDEN_CLASS);
-      this.setPreviewPaneContents();
+
+      if (this.descriptionIsBlank()) {
+        // No description text so show the empty hero
+        this.emptyPreviewTarget.classList.remove(HIDDEN_CLASS);
+        this.previewTarget.classList.add(HIDDEN_CLASS);
+      } else {
+        // Has description text so show the preview
+        this.setPreviewPaneContents();
+        this.emptyPreviewTarget.classList.add(HIDDEN_CLASS);
+        this.previewTarget.classList.remove(HIDDEN_CLASS);
+      }
     }
   }
 
   setPreviewPaneContents(): void {
+    const html = marked(this.descriptionText());
+
+    this.previewTarget.innerHTML = html;
+  }
+
+  descriptionIsBlank(): boolean {
+    return this.descriptionText() == "";
+  }
+
+  descriptionText(): string {
     if (!(this.writeTextAreaTarget instanceof HTMLTextAreaElement)) {
       throw new Error("Could not find the text area for the description");
     }
 
-    const description = this.writeTextAreaTarget.value;
-    const html =
-      description.trim() == ""
-        ? "Nothing to preview"
-        : marked(this.writeTextAreaTarget.value);
-
-    this.previewTarget.innerHTML = html;
+    return this.writeTextAreaTarget.value.trim();
   }
 }

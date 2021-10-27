@@ -2,9 +2,17 @@
 @import "reset";
 // spectre CSS framework
 @import "spectre/spectre";
-@import "spectre/spectre-exp";
 @import "spectre/spectre-icons";
+
+// app components
+@import "footer";
+@import "form";
+@import "employer-info";
 
 p {
   line-height: 1.5;
+}
+
+body {
+  background: url("../images/repeating-bg.jpg");
 }

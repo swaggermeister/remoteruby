@@ -1,0 +1,9 @@
+// Search input group
+.search-form__group {
+  border-radius: $border-radius;
+  box-shadow: 0px -3px 7px lightgray, 3px 10px 10px lightgray;
+
+  background: $light-color;
+  border-width: 0;
+  border-color: transparent;
+}

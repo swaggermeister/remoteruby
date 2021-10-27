@@ -8,6 +8,7 @@ $rtl: false !default;
 $primary-color: #376fe9 !default;
 $primary-color-dark: darken($primary-color, 3%) !default;
 $primary-color-light: lighten($primary-color, 3%) !default;
+$accent-color: rgb(133, 9, 35);
 $secondary-color: lighten($primary-color, 37.5%) !default;
 $secondary-color-dark: darken($secondary-color, 3%) !default;
 $secondary-color-light: lighten($secondary-color, 3%) !default;
@@ -32,8 +33,8 @@ $warning-color: #ffb700 !default;
 $error-color: #e85600 !default;
 
 // Form colors
-$form-border-color: lighten($primary-color, 11%) !default;
-$form-border-color-dark: #0040ff !default;
+$form-border-color: lighten($primary-color, 34%) !default;
+$form-border-color-dark: $primary-color !default;
 
 // Other colors
 $code-color: #d73e48 !default;
@@ -60,6 +61,15 @@ $cjk-jp-font-family: $base-font-family, "Hiragino Sans",
   $fallback-font-family !default;
 $cjk-ko-font-family: $base-font-family, "Malgun Gothic", $fallback-font-family !default;
 $body-font-family: $base-font-family, $fallback-font-family !default;
+$font-weight: normal;
+
+// Header font
+$header-font-family: "Poppins", $base-font-family;
+$header-font-bold-weight: 600;
+
+// Primary gradient
+$primary-gradient-start: rgba(133, 9, 35, 1);
+$primary-gradient-end: rgba(192, 10, 48, 1);
 
 // Unit sizes
 $unit-o: 0.05rem !default;
@@ -88,8 +98,9 @@ $line-height: 1.2rem !default;
 // Sizes
 $layout-spacing: $unit-2 !default;
 $layout-spacing-sm: $unit-1 !default;
+$layout-spacing-md: $unit-3 !default;
 $layout-spacing-lg: $unit-4 !default;
-$border-radius: $unit-2 !default;
+$border-radius: $unit-4 !default;
 $border-width: $unit-h !default;
 $border-width-lg: $unit-h !default;
 $control-size: $unit-9 !default;

@@ -14,12 +14,12 @@
     <%= form.text_field :minimum_salary, 
         class: "form-input #{view.show_salary_range? ? '' : 'd-none' }",
         "data-compensation-type-target" => "minimumSalary", 
-        placeholder: "80000" %>
+        placeholder: "80,000" %>
     <%= view.errors_hint_tag_no_field_name(form, :minimum_salary) %>
     <%= form.text_field :maximum_salary, 
-        class: "form-input #{view.show_salary_range? ? '' : 'd-none' }", 
+        class: "form-input #{view.show_salary_range? ? '' : 'd-none' } mt-2", 
         "data-compensation-type-target" => "maximumSalary", 
-        placeholder: "100000" %>
+        placeholder: "100,000" %>
     <%= view.errors_hint_tag_no_field_name(form, :maximum_salary) %>
     <!-- hourly amount -->
     <%= label_tag "compensation_type_hourly", class: "form-radio" do %>
@@ -86,12 +86,21 @@
       <%= form.text_area :description, 
         id: "write-description", 
         class: "form-input", 
+        rows: 10,
         placeholder: "Seeking a Senior Level Developer...",
         "data-preview-description-target" => "writeTextArea" 
          %>
       <%= view.errors_hint_tag(form, :description) %>
     <% end %>
-    <div id="preview-description" class="d-none" data-preview-description-target="preview" ></div>
+    <div class="mb-6">
+      <div id="preview-description" class="d-none" data-preview-description-target="preview"></div>
+      <div class="hero d-none" data-preview-description-target="emptyPreview">
+        <div class="hero-body">
+          <h1>No description yet</h1>
+          <p>Once you write a description it will show up here</p>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="submit">
     <%= submit_tag view.submit_button_text, class: 'btn btn-primary' %>

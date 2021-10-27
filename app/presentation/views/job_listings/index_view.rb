@@ -8,15 +8,19 @@ module JobListings
 
     private
 
-    attr_reader :paginator, :request
+    attr_reader :paginator, :request, :filtering_by_employer
 
-    def initialize(job_listings:, paginator:, search_text:, sort_column:, request:)
+    # rubocop:disable Metrics/ParameterLists
+    def initialize(job_listings:, paginator:, search_text:, filtering_by_employer:, sort_column:, request:)
       @job_listings = job_listings
       @paginator = paginator
       @search_text = search_text
+      @filtering_by_employer = filtering_by_employer
       @sort_column = sort_column
       @request = request
     end
+
+    # rubocop:enable Metrics/ParameterLists
 
     public
 
@@ -42,6 +46,20 @@ module JobListings
 
     def employer_name(job_listing)
       job_listing.employer.name
+    end
+
+    def filtering_by_employer?
+      filtering_by_employer.present?
+    end
+
+    def filtering_by_employer_name
+      filtering_by_employer.name
+    end
+
+    def filtering_by_employer_id
+      return nil if filtering_by_employer.blank?
+
+      filtering_by_employer.id
     end
 
     def location(job_listing)

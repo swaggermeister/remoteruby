@@ -24,5 +24,17 @@ module Shared
 
       "toast #{toast_style}"
     end
+
+    def employer_avatar_url(employer)
+      AvatarUrlBuilder.build(employer: employer)
+    end
+
+    def current_year
+      Date.current.year
+    end
+
+    def layout_columns_class
+      "column col-xl-6 col-lg-10 col-md-8 col-sm-10 col-xs-12 col-mx-auto col-4"
+    end
   end
 end

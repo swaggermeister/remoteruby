@@ -4,6 +4,7 @@
   list-style: none;
   margin: $unit-1 0;
   padding: $unit-1 0;
+  justify-content: center;
 
   .page-item {
     margin: $unit-1 $unit-o;
@@ -16,7 +17,7 @@
     a {
       border-radius: $border-radius;
       display: inline-block;
-      padding: $unit-1 $unit-2;
+      padding: $unit-1 $unit-1;
       text-decoration: none;
       &:focus,
       &:hover {
@@ -27,7 +28,7 @@
     &.disabled {
       a {
         cursor: default;
-        opacity: .5;
+        opacity: 0.5;
         pointer-events: none;
       }
     }
@@ -54,7 +55,7 @@
 
     .page-item-subtitle {
       margin: 0;
-      opacity: .5;
+      opacity: 0.5;
     }
   }
 }
