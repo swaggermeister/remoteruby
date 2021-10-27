@@ -13,7 +13,7 @@ gem "rails", "~> 6.0.2", ">= 6.0.2.2"
 gem "pg"
 gem "pg_search"
 # Use Puma as the app server
-gem "puma", "~> 4.1"
+gem "puma", ">= 4.1", "< 4.3.9"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", "~> 5.0"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -49,6 +49,9 @@ gem "bootsnap", "1.8.1", require: false
 gem "strong_migrations"
 
 gem "dotenv-rails"
+
+# Monitoring for production
+gem "newrelic_rpm"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
