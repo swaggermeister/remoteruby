@@ -14,6 +14,11 @@ class JobListingsController < ApplicationController
       sort_column: result.sort_column,
       request: request,
     )
+
+    # Etag caching has to take into account:
+    # Params (sort order, search text query, employer filtering) + Last updated job listing
+    # latest_job_listing = JobListing.order(:updated_at).last
+    # fresh_when last_modified: latest_job_listing.updated_at.utc, etag: Digest::MD5.hexdigest(Marshal.dump(params))
   end
 
   def show
@@ -23,6 +28,10 @@ class JobListingsController < ApplicationController
       job_listing: result.job_listing,
       search_text: result.search_text,
     )
+
+    # HTTP caching with etag
+    # https://guides.rubyonrails.org/caching_with_rails.html#conditional-get-support
+    fresh_when result.job_listing
   end
 
   def new
@@ -81,6 +90,11 @@ class JobListingsController < ApplicationController
     @view = JobListings::MyCompanyView.new(
       job_listings: result.job_listings,
     )
+
+    # Etag caching has to take into account:
+    # Params (sort order, search text query, employer filtering) + Last updated job listing
+    latest_job_listing = current_employer.job_listings.order(:updated_at).last
+    fresh_when last_modified: latest_job_listing.updated_at.utc, etag: Digest::MD5.hexdigest(Marshal.dump(params))
   end
 
   private
