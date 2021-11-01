@@ -4,19 +4,19 @@ module Employers
   class ConfirmationsController < Devise::ConfirmationsController
     # GET /resource/confirmation/new
     def new
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 
     # POST /resource/confirmation
     def create
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 
     # GET /resource/confirmation?confirmation_token=abcdef
     def show
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 

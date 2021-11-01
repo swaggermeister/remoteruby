@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   # instead of Rails default of app/views
   # NOTE: this must be prepend instead of append,
   # otherwise Devise will not find the custom Devise views
-  prepend_view_path "app/presentation/templates"
+  prepend_view_path "app/user_interface_layer/templates"
 
   def home; end
 
@@ -31,6 +31,6 @@ class ApplicationController < ActionController::Base
   def view
     # If a view was already set in the action, use that.
     # Otherwise fall back to a default web view
-    @view || DefaultWebView.new
+    @view || DefaultWebViewModel.new
   end
 end

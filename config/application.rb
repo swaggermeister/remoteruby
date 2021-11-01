@@ -33,21 +33,29 @@ module Remoteruby
     # Use SQL format DDL instead of the Ruby DSL
     config.active_record.schema_format = :sql
 
-    # DDD layered architecture
+    # Clean/DDD style layered architecture
+    #
+    # The whole point of layers is to explicitly control
+    # the direction of dependencies. The flow of dependencies
+    # can only go from an outer layer to the one just beneath it.
+    # So for example, things in the application layer can depend
+    # on things in the domain layer, but the domain layer can't
+    # have knowledge of anything in the application layer.
+    #
     # Domain Layer
-    config.autoload_paths << Rails.root.join("app/domain/models")
-    config.autoload_paths << Rails.root.join("app/domain/services")
+    config.autoload_paths << Rails.root.join("app/domain_layer/models")
+    config.autoload_paths << Rails.root.join("app/domain_layer/services")
     # Application Layer
-    config.autoload_paths << Rails.root.join("app/application/jobs")
-    config.autoload_paths << Rails.root.join("app/application/services")
-    config.autoload_paths << Rails.root.join("app/application/use_cases")
+    config.autoload_paths << Rails.root.join("app/application_layer/jobs")
+    config.autoload_paths << Rails.root.join("app/application_layer/services")
+    config.autoload_paths << Rails.root.join("app/application_layer/use_cases")
     # Infrastructure Layer
-    config.autoload_paths << Rails.root.join("app/infrastructure/controllers")
-    config.autoload_paths << Rails.root.join("app/infrastructure/mailers")
-    # Presentation Layer
-    config.autoload_paths << Rails.root.join("app/presentation/templates")
-    config.autoload_paths << Rails.root.join("app/presentation/views")
-    config.autoload_paths << Rails.root.join("app/presentation/services")
+    config.autoload_paths << Rails.root.join("app/infrastructure_layer/controllers")
+    config.autoload_paths << Rails.root.join("app/infrastructure_layer/mailers")
+    # User Interface Layer
+    config.autoload_paths << Rails.root.join("app/user_interface_layer/templates")
+    config.autoload_paths << Rails.root.join("app/user_interface_layer/view_models")
+    config.autoload_paths << Rails.root.join("app/user_interface_layer/services")
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

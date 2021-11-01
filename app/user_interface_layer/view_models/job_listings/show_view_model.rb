@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  class ShowView
+  class ShowViewModel
     include Shared::WebShared
 
     delegate :contact_url, :contact_email, :location, :employer_id, :title, :minimum_salary, :maximum_salary, :fixed_amount, to: :job_listing

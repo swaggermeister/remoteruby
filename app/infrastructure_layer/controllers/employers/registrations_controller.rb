@@ -7,31 +7,31 @@ module Employers
 
     # GET /resource/sign_up
     def new
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 
     # POST /resource
     def create
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 
     # GET /resource/edit
     def edit
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 
     # PUT /resource
     def update
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 
     # DELETE /resource
     def destroy
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 
@@ -41,7 +41,7 @@ module Employers
     # cancel oauth signing in/up in the middle of the process,
     # removing all OAuth session data.
     def cancel
-      @view = ::DefaultDeviseView.new
+      @view = ::DefaultDeviseViewModel.new
       super
     end
 

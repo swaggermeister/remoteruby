@@ -6,7 +6,7 @@ class JobListingsController < ApplicationController
   def index
     result = ::JobListings::IndexUseCase.call(query: params[:search], employer_id: params[:employer_id], sort_column: params[:sort_column], page_num: params[:page] || 1)
 
-    @view = ::JobListings::IndexView.new(
+    @view = ::JobListings::IndexViewModel.new(
       search_text: result.query,
       filtering_by_employer: result.filtering_by_employer,
       paginator: result.paginator,
@@ -24,7 +24,7 @@ class JobListingsController < ApplicationController
   def show
     result = JobListings::ShowUseCase.call(id: params.fetch(:id), search_text: params[:search_text])
 
-    @view = JobListings::ShowView.new(
+    @view = JobListings::ShowViewModel.new(
       job_listing: result.job_listing,
       search_text: result.search_text,
     )
@@ -37,7 +37,7 @@ class JobListingsController < ApplicationController
   def new
     result = JobListings::NewUseCase.call
 
-    @view = JobListings::NewView.new(
+    @view = JobListings::NewViewModel.new(
       job_listing: result.job_listing,
     )
   end
@@ -45,7 +45,7 @@ class JobListingsController < ApplicationController
   def edit
     result = JobListings::EditUseCase.call(id: params.fetch(:id))
 
-    @view = JobListings::EditView.new(
+    @view = JobListings::EditViewModel.new(
       job_listing: result.job_listing,
     )
   end
@@ -56,7 +56,7 @@ class JobListingsController < ApplicationController
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
     else
-      @view = JobListings::NewView.new(
+      @view = JobListings::NewViewModel.new(
         job_listing: result.job_listing,
       )
     end
@@ -68,7 +68,7 @@ class JobListingsController < ApplicationController
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
     else
-      @view = JobListings::EditView.new(
+      @view = JobListings::EditViewModel.new(
         job_listing: result.job_listing,
       )
     end
@@ -87,7 +87,7 @@ class JobListingsController < ApplicationController
   def my_company
     result = JobListings::MyCompanyUseCase.call(employer: current_employer)
 
-    @view = JobListings::MyCompanyView.new(
+    @view = JobListings::MyCompanyViewModel.new(
       job_listings: result.job_listings,
     )
 

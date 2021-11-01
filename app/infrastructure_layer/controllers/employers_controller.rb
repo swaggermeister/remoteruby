@@ -6,7 +6,7 @@ class EmployersController < ApplicationController
   def show
     result = Employers::ShowUseCase.call(id: params.fetch(:id))
 
-    @view = Employers::ShowView.new(
+    @view = Employers::ShowViewModel.new(
       employer: result.employer,
     )
   end
@@ -14,7 +14,7 @@ class EmployersController < ApplicationController
   def edit
     result = Employers::EditUseCase.call(id: params.fetch(:id))
 
-    @view = Employers::EditView.new(
+    @view = Employers::EditViewModel.new(
       employer: result.employer,
     )
   end
@@ -28,7 +28,7 @@ class EmployersController < ApplicationController
 
       redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
     else
-      @view = Employers::EditView.new(
+      @view = Employers::EditViewModel.new(
         employer: result.employer,
       )
     end

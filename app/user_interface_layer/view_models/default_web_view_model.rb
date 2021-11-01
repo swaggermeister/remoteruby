@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class DefaultWebView
+class DefaultWebViewModel
   include Shared::WebShared
 end

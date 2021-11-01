@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  class EditView
+  class NewViewModel
     include Shared::WebShared
     include Shared::FormShared
     include FormShared
@@ -10,8 +10,11 @@ module JobListings
 
     private
 
+    # attr_reader :view_context
+
     def initialize(job_listing:)
       @job_listing = job_listing
+      # @view_context = view_context
     end
   end
 end

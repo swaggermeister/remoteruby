@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 module Employers
-  class ShowView
+  class EditViewModel
     include Shared::WebShared
-
-    delegate :avatar, to: :employer
+    include Shared::FormShared
 
     attr_reader :employer
 

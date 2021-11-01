@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  class MyCompanyView
+  class MyCompanyViewModel
     include Shared::WebShared
 
     attr_reader :job_listings

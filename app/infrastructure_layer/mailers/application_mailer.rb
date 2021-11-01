@@ -3,7 +3,7 @@
 class ApplicationMailer < ActionMailer::Base
   # Add custom search paths for mailer templates
   # for a Clean architecture style naming convention
-  prepend_view_path Rails.root.join("app/presentation/templates")
+  prepend_view_path Rails.root.join("app/user_interface_layer/templates")
 
   default from: "help@remoterubyonrails.com"
   layout "mailer"

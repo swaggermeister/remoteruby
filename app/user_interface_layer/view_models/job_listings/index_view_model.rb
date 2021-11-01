@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  class IndexView
+  class IndexViewModel
     include Shared::WebShared
 
     attr_reader :job_listings, :search_text, :sort_column
