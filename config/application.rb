@@ -52,6 +52,7 @@ module Remoteruby
     # Infrastructure Layer
     config.autoload_paths << Rails.root.join("app/infrastructure_layer/controllers")
     config.autoload_paths << Rails.root.join("app/infrastructure_layer/mailers")
+    config.autoload_paths << Rails.root.join("app/infrastructure_layer/repositories")
     # User Interface Layer
     config.autoload_paths << Rails.root.join("app/user_interface_layer/templates")
     config.autoload_paths << Rails.root.join("app/user_interface_layer/view_models")

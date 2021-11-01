@@ -2,7 +2,6 @@
 
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # rubocop:disable Naming/MethodName
-  # rubocop:disable Metrics/AbcSize
   def Google
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @employer = Employer.from_omniauth(request.env['omniauth.auth'].except(:extra))
@@ -17,6 +16,5 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  # rubocop:enable Naming/MethodName
-  # rubocop:enable Metrics/AbcSize
-end
+    # rubocop:enable Naming/MethodName
+  end

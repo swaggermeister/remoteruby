@@ -22,8 +22,8 @@ class EmployersTest < ApplicationSystemTestCase
     fill_in "Confirm Password", with: "testsecretpassword"
     click_on "Create Account"
 
-    assert_current_path root_path
     assert_text "A message with a confirmation link has been sent to your email"
+    assert_current_path root_path
   end
 
   test "Failing to create an employer with missing fields" do

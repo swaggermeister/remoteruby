@@ -56,7 +56,7 @@ class JobListingsTest < ApplicationSystemTestCase
     job_listing = create_job_listing!(employer: employer, title: "Best job", description: "This is a terrific job")
 
     visit job_listings_url
-    click_on "Best job"
+    click_on job_listing.title
 
     assert_current_path job_listing_path(job_listing.id)
     assert_text "This is a terrific job"
@@ -67,7 +67,7 @@ class JobListingsTest < ApplicationSystemTestCase
     job_listing = create_job_listing!(employer: employer, title: "Best job", contact_url: "https://bread.com/")
 
     visit job_listings_url
-    click_on "Best job"
+    click_on job_listing.title
     apply_url_button = find("#job_listing_#{job_listing.id}-apply-url", match: :first)
 
     assert_equal apply_url_button["href"], job_listing.contact_url
@@ -79,7 +79,7 @@ class JobListingsTest < ApplicationSystemTestCase
     contact_email_mailto = "mailto:#{job_listing.contact_email}"
 
     visit job_listings_url
-    click_on "Best job"
+    click_on job_listing.title
     apply_email_button = find("#job_listing_#{job_listing.id}-apply-email", match: :first)
 
     assert_equal apply_email_button["href"], contact_email_mailto

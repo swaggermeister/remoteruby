@@ -8,7 +8,9 @@ module JobListings
       def call(employer:)
         job_listings = employer.job_listings
 
-        Result.new(job_listings: job_listings)
+        Result.new(
+          job_listings: job_listings,
+        )
       end
     end
   end

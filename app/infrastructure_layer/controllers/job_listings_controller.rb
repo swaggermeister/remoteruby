@@ -4,7 +4,14 @@ class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: %i[index show]
 
   def index
-    result = ::JobListings::IndexUseCase.call(query: params[:search], employer_id: params[:employer_id], sort_column: params[:sort_column], page_num: params[:page] || 1)
+    result = ::JobListings::IndexUseCase.call(
+      job_listings_repository: JobListingsRepository,
+      employers_repository: EmployersRepository,
+      query: params[:search],
+      employer_id: params[:employer_id],
+      sort_column: params[:sort_column],
+      page_num: params[:page] || 1,
+    )
 
     @view = ::JobListings::IndexViewModel.new(
       search_text: result.query,
@@ -14,11 +21,6 @@ class JobListingsController < ApplicationController
       sort_column: result.sort_column,
       request: request,
     )
-
-    # Etag caching has to take into account:
-    # Params (sort order, search text query, employer filtering) + Last updated job listing
-    # latest_job_listing = JobListing.order(:updated_at).last
-    # fresh_when last_modified: latest_job_listing.updated_at.utc, etag: Digest::MD5.hexdigest(Marshal.dump(params))
   end
 
   def show
@@ -85,16 +87,13 @@ class JobListingsController < ApplicationController
   end
 
   def my_company
-    result = JobListings::MyCompanyUseCase.call(employer: current_employer)
+    result = JobListings::MyCompanyUseCase.call(
+      employer: current_employer,
+    )
 
     @view = JobListings::MyCompanyViewModel.new(
       job_listings: result.job_listings,
     )
-
-    # Etag caching has to take into account:
-    # Params (sort order, search text query, employer filtering) + Last updated job listing
-    latest_job_listing = current_employer.job_listings.order(:updated_at).last
-    fresh_when last_modified: latest_job_listing.updated_at.utc, etag: Digest::MD5.hexdigest(Marshal.dump(params)) if latest_job_listing.present?
   end
 
   private

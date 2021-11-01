@@ -10,17 +10,14 @@ module JobListings
 
     attr_reader :paginator, :request, :filtering_by_employer
 
-    # rubocop:disable Metrics/ParameterLists
     def initialize(job_listings:, paginator:, search_text:, filtering_by_employer:, sort_column:, request:)
-      @job_listings = job_listings
-      @paginator = paginator
-      @search_text = search_text
-      @filtering_by_employer = filtering_by_employer
-      @sort_column = sort_column
-      @request = request
+  @job_listings = job_listings
+  @paginator = paginator
+  @search_text = search_text
+  @filtering_by_employer = filtering_by_employer
+  @sort_column = sort_column
+  @request = request
     end
-
-    # rubocop:enable Metrics/ParameterLists
 
     public
 
