@@ -16,10 +16,10 @@ class EmployersTest < ApplicationSystemTestCase
     click_on "Post a Job", match: :first
     click_on "Create an Account"
 
-    fill_in "Email", with: "YetAnotherEmail@email.com"
-    fill_in "Company Name", with: "Cool Test Co"
-    fill_in password_placeholder_text, with: "testsecretpassword"
-    fill_in "Confirm Password", with: "testsecretpassword"
+    fill_in "Email", with: "test@email.com"
+    fill_in "Company Name", with: "MyCo"
+    fill_in password_placeholder_text, with: "password"
+    fill_in "Confirm Password", with: "password"
     click_on "Create Account"
 
     assert_text "A message with a confirmation link has been sent to your email"
