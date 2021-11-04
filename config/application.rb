@@ -43,7 +43,7 @@ module Remoteruby
     # have knowledge of anything in the application layer.
     #
     # Domain Layer
-    config.autoload_paths << Rails.root.join("app/domain_layer/models")
+    config.autoload_paths << Rails.root.join("app/domain_layer/entities")
     config.autoload_paths << Rails.root.join("app/domain_layer/services")
     # Application Layer
     config.autoload_paths << Rails.root.join("app/application_layer/jobs")
@@ -51,7 +51,9 @@ module Remoteruby
     config.autoload_paths << Rails.root.join("app/application_layer/use_cases")
     # Infrastructure Layer
     config.autoload_paths << Rails.root.join("app/infrastructure_layer/controllers")
+    config.autoload_paths << Rails.root.join("app/infrastructure_layer/entity_builders")
     config.autoload_paths << Rails.root.join("app/infrastructure_layer/mailers")
+    config.autoload_paths << Rails.root.join("app/infrastructure_layer/records")
     config.autoload_paths << Rails.root.join("app/infrastructure_layer/repositories")
     # User Interface Layer
     config.autoload_paths << Rails.root.join("app/user_interface_layer/templates")

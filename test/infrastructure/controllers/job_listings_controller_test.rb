@@ -22,7 +22,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     employer = create_employer!
     sign_in employer
 
-    assert_difference("JobListing.count") do
+    assert_difference("JobListingRecord.count") do
       post job_listings_url,
            params: { job_listing: { description: "A test job description", location: "Washington DC", fixed_amount: "150000",
                                     title: "Senior Architect", contact_url: "http://bread.com" } }
@@ -66,7 +66,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     job_listing = create_job_listing!(employer: employer)
 
     sign_in employer
-    assert_difference("JobListing.count", -1) do
+    assert_difference("JobListingRecord.count", -1) do
       delete job_listing_url(job_listing)
     end
 

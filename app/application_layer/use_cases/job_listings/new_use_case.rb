@@ -6,7 +6,7 @@ module JobListings
 
     class << self
       def call
-        job_listing = JobListing.new
+        job_listing = JobListingRecord.new
 
         Result.new(job_listing: job_listing)
       end

@@ -25,7 +25,7 @@ module JobListings
 
         Result.new(
           paginator: pagination.paginator,
-          job_listings: pagination.job_listings,
+          job_listings: result_job_listings(pagination: pagination),
           last_updated_job_listing: last_updated_job_listing,
           query: query,
           sort_column: sort_column,
@@ -34,6 +34,12 @@ module JobListings
       end
 
       private
+
+      def result_job_listings(pagination:)
+        pagination.job_listings.map do |job_listing|
+          ResultJobListing.from_entity(job_listing)
+        end
+      end
 
       def get_pagination(job_listings_repository:, query:, employer_id:, page_num:, sort_column:)
         job_listings_repository.list(

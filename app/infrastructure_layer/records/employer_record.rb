@@ -1,21 +1,22 @@
 # frozen_string_literal: true
 
-class Employer < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+class EmployerRecord < ApplicationRecord
+  self.table_name = "employers"
+
+  # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable,
          :omniauthable, omniauth_providers: %i[Google]
 
+  # Associations
+  # TODO: remove this association? It doesn't have to go both ways
+  has_many :job_listings, class_name: "JobListingRecord", dependent: :destroy
   has_one_attached :avatar
 
   # Validation
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-
-  # Associations
-  has_many :job_listings, dependent: :destroy
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |employer|

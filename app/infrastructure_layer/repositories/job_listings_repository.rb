@@ -12,7 +12,7 @@ module JobListingsRepository
       raise "Invalid sort column #{sort_column}" unless VALID_SORT_COLUMNS.include?(sort_column)
 
       # base scope
-      scope = JobListing.includes({ employer: :avatar_attachment }).order("#{sort_column} DESC NULLS LAST")
+      scope = JobListingRecord.includes({ employer: :avatar_attachment }).order("#{sort_column} DESC NULLS LAST")
 
       # filter by employer
       scope = scope.where(employer_id: employer_id) if employer_id.present?
@@ -26,11 +26,13 @@ module JobListingsRepository
 
       paginator, job_listings = pagy(scope, items: pagination_count, page: page_num)
 
-      Pagination.new(paginator: paginator, job_listings: job_listings)
+      Pagination.new(paginator: paginator, job_listings: JobListingEntityBuilder.to_entities(job_listings: job_listings))
     end
 
     def last_updated
-      JobListing.order(:updated_at).last
+      record = JobListingRecord.order(:updated_at).last
+
+      JobListingEntityBuilder.to_entity(job_listing: record)
     end
   end
 end

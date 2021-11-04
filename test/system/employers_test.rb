@@ -10,7 +10,7 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Creating an Employer successfully via regular authentication" do
-    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+    password_placeholder_text = "Password (#{EmployerRecord.password_length.min} characters minimum)"
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -27,7 +27,7 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Failing to create an employer with missing fields" do
-    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+    password_placeholder_text = "Password (#{EmployerRecord.password_length.min} characters minimum)"
 
     visit job_listings_url
     click_on "Post a Job", match: :first

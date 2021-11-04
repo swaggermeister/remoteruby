@@ -18,7 +18,7 @@ module Employers
       private
 
       def find_employer(id:)
-        Employer.find(id)
+        EmployerRecord.find(id)
       end
 
       def update_employer(employer:, attrs:)

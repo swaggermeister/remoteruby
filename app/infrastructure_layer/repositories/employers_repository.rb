@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 module EmployersRepository
-  def self.find(id:)
-    return nil if id.blank?
+  class << self
+    def find(id:)
+      return nil if id.blank?
 
-    Employer.find(id)
+      record = EmployerRecord.find(id)
+
+      EmployerEntityBuilder.to_entity(employer: record)
+    end
   end
 end

@@ -20,7 +20,7 @@ module JobListings
       def build_job_listing(attrs:, employer_id:)
         sanitize_salary_fields(attrs) if attrs[:minimum_salary].present?
 
-        JobListing.new(attrs.merge(employer_id: employer_id))
+        JobListingRecord.new(attrs.merge(employer_id: employer_id))
       end
 
       def sanitize_salary_fields(attrs)

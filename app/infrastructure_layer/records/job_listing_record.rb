@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
-class JobListing < ApplicationRecord
-  include PgSearch::Model
-  belongs_to :employer
-  validates :title, :description, :location, presence: true
-  validate :validate_contact_email_or_url
-  validate :validate_contact_url_format
-  validate :validate_salary_range_or_hourly_amount_present
-  validate :validate_salary_range
-  self.ignored_columns = %w[salary employer_name]
+class JobListingRecord < ApplicationRecord
+  self.table_name = "job_listings"
 
+  include PgSearch::Model
   pg_search_scope :search,
                   against: { title: "A", description: "B" },
                   using: {
@@ -19,6 +13,14 @@ class JobListing < ApplicationRecord
                       prefix: true,
                     },
                   }
+
+  belongs_to :employer, class_name: "EmployerRecord"
+
+  validates :title, :description, :location, presence: true
+  validate :validate_contact_email_or_url
+  validate :validate_contact_url_format
+  validate :validate_salary_range_or_hourly_amount_present
+  validate :validate_salary_range
 
   private
 

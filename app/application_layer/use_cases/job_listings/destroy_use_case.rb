@@ -18,7 +18,7 @@ module JobListings
       private
 
       def find_job_listing(id:)
-        JobListing.find(id)
+        JobListingRecord.find(id)
       end
     end
   end
