@@ -8,7 +8,7 @@ module JobListings
       def call(id:, attrs:)
         job_listing = find_job_listing(id: id)
 
-        if update_job_listing(job_listing: job_listing, attrs: attrs)
+        if (job_listing = update_job_listing(job_listing: job_listing, attrs: attrs))
           Result.new(success: true, job_listing: job_listing)
         else
           Result.new(success: false, job_listing: job_listing)

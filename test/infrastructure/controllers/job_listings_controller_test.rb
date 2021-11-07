@@ -27,7 +27,7 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("JobListingRecord.count") do
       post job_listings_url,
            params: { job_listing: { description: "A test job description", location: "Washington DC", fixed_amount: "150000",
-                                   title: "Senior Architect", contact_url: "http://bread.com" } }
+                                    title: "Senior Architect", contact_url: "http://bread.com" } }
     end
 
     assert_redirected_to my_company_job_listings_path
@@ -60,9 +60,9 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
     sign_in employer_record
     patch job_listing_url(job_listing),
           params: { job_listing: { description: job_listing.description,
-                                  location: job_listing.location,
-                                  fixed_amount: job_listing.fixed_amount,
-                                  title: job_listing.title } }
+                                   location: job_listing.location,
+                                   fixed_amount: job_listing.fixed_amount,
+                                   title: job_listing.title } }
     assert_redirected_to my_company_job_listings_path
   end
 

@@ -66,7 +66,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "applying to a listing with a contact url" do
     employer_record = create_employer_record!
-    job_listing = create_job_listing_record!(employer_record: employer_record, title: "Best job", contact_url: "https://bread.com/")
+    job_listing_record = create_job_listing_record!(employer_record: employer_record, title: "Best job", contact_url: "https://bread.com/")
     job_listing = to_result_entity(job_listing_record)
 
     visit job_listings_url
@@ -91,7 +91,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "search functionality - correct match" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
     create_job_listing_record!(employer_record: employer_record, title: "Search Engineer")
     selector = "div.card"
 
@@ -104,7 +103,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "search functionality - no results" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
     create_job_listing_record!(employer_record: employer_record)
 
     visit job_listings_url
@@ -117,7 +115,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "creating a Job listing with fixed amount pay successfully" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -140,7 +137,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "creating a job listing with salary range successfully" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -164,7 +160,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "fail to create a job listing with missing fields" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -185,7 +180,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "updating a Job listing successfully" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
     create_job_listing_record!(employer_record: employer_record)
 
     visit job_listings_url
@@ -204,7 +198,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "fail to update a job listing with missing/removed fields" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
     create_job_listing_record!(employer_record: employer_record)
 
     visit job_listings_url
@@ -222,7 +215,6 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "shows error when invalid URL format is entered (without http:// or https://)" do
     employer_record = create_employer_record!
-    employer = create_employer_record!(employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first

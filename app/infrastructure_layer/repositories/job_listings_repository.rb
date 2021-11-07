@@ -43,6 +43,7 @@ module JobListingsRepository
     def update(id:, attrs:)
       record = JobListingRecord.find(id)
       record.update(attrs)
+      JobListingEntityBuilder.to_entity(record: record)
     end
 
     def create(attrs:)
