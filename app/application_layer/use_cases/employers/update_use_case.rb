@@ -18,14 +18,15 @@ module Employers
       private
 
       def find_employer(id:)
-        EmployerRecord.find(id)
+        entity = EmployersRepository.find(id: id)
+        ResultEmployer.from_entity(entity)
       end
 
       def update_employer(employer:, attrs:)
         # keep existing avatar if they didn't pick a new one
         employer.avatar.attach(attrs[:avatar]) if attrs[:avatar].present?
 
-        employer.update(attrs)
+        EmployersRepository.update(id: employer.id, attrs: attrs)
       end
     end
   end

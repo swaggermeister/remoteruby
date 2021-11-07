@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 module JobListingEntityBuilder
-  def self.to_entities(job_listings:)
-    job_listings.map do |job_listing|
-      to_entity(job_listing: job_listing)
+  def self.to_entities(records:)
+    records.map do |record|
+      to_entity(record: record)
     end
   end
 
-  def self.to_entity(job_listing:)
-    return nil if job_listing.nil?
+  def self.to_entity(record:)
+    return nil if record.nil?
 
     # Get the record attributes
-    attributes = job_listing.attributes
+    attributes = record.attributes
 
     # Build the associations
-    employer_entity = EmployerEntityBuilder.to_entity(employer: job_listing.employer)
+    employer_entity = EmployerEntityBuilder.to_entity(record: record.employer)
 
     # Add the association entities to the attributes list
     attributes[:employer] = employer_entity

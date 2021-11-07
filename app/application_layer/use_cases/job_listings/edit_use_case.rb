@@ -14,7 +14,8 @@ module JobListings
       private
 
       def find_job_listing(id:)
-        JobListingRecord.find(id)
+        entity = JobListingsRepository.find(id: id)
+        ResultJobListing.from_entity(entity)
       end
     end
   end

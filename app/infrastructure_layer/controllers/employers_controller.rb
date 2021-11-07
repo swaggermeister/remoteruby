@@ -24,7 +24,7 @@ class EmployersController < ApplicationController
 
     if result.success
       # keep employer signed in after successfully updating profile/changing password
-      bypass_sign_in result.employer
+      bypass_sign_in result.employer, scope: :employer
 
       redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
     else

@@ -4,6 +4,7 @@ class Employer
   ATTRIBUTES = %i[id
                   created_at
                   updated_at
+                  authenticatable_salt
                   avatar
                   name
                   email].freeze

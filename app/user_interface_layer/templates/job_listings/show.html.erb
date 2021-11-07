@@ -17,8 +17,8 @@
                 <%= mail_to "#{view.contact_email}", "Apply Now", class: "btn btn-tertiary", id: "#{dom_id(view.job_listing)}-apply-email" %>
               <% end %>
             </div>
-            <% if view.number_jobs_posted > 1 %>
-              <%= link_to "More jobs from this company", job_listings_path(employer_id: view.employer_id), class: "btn btn-secondary mt-2 badge", :"data-badge" => view.number_jobs_posted %>
+            <% if view.employer_num_job_listings > 1 %>
+              <%= link_to "More jobs from this company", job_listings_path(employer_id: view.employer_id), class: "btn btn-secondary mt-2 badge", :"data-badge" => view.employer_num_job_listings %>
             <% end %>
           <% end %>
         </div>

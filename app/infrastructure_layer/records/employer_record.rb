@@ -11,7 +11,7 @@ class EmployerRecord < ApplicationRecord
 
   # Associations
   # TODO: remove this association? It doesn't have to go both ways
-  has_many :job_listings, class_name: "JobListingRecord", dependent: :destroy
+  has_many :job_listings, class_name: "JobListingRecord", dependent: :destroy, foreign_key: :employer_id
   has_one_attached :avatar
 
   # Validation

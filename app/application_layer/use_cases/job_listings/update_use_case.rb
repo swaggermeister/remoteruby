@@ -18,13 +18,13 @@ module JobListings
       private
 
       def find_job_listing(id:)
-        JobListingRecord.find(id)
+        JobListingsRepository.find(id: id)
       end
 
       def update_job_listing(job_listing:, attrs:)
         sanitize_salary_fields(attrs) if attrs[:minimum_salary].present?
 
-        job_listing.update(attrs)
+        JobListingsRepository.update(id: job_listing.id, attrs: attrs)
       end
 
       def sanitize_salary_fields(attrs)

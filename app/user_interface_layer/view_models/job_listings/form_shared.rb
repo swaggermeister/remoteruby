@@ -19,7 +19,7 @@ module JobListings
     end
 
     def submit_button_text
-      job_listing.new_record? ? "Create Listing" : "Update Listing"
+      job_listing.persisted? ? "Update Listing" : "Create Listing"
     end
   end
 end

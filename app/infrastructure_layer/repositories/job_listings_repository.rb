@@ -26,13 +26,48 @@ module JobListingsRepository
 
       paginator, job_listings = pagy(scope, items: pagination_count, page: page_num)
 
-      Pagination.new(paginator: paginator, job_listings: JobListingEntityBuilder.to_entities(job_listings: job_listings))
+      Pagination.new(paginator: paginator, job_listings: JobListingEntityBuilder.to_entities(records: job_listings))
     end
 
     def last_updated
       record = JobListingRecord.order(:updated_at).last
 
-      JobListingEntityBuilder.to_entity(job_listing: record)
+      JobListingEntityBuilder.to_entity(record: record)
+    end
+
+    def find(id:)
+      record = JobListingRecord.find(id)
+      JobListingEntityBuilder.to_entity(record: record)
+    end
+
+    def update(id:, attrs:)
+      record = JobListingRecord.find(id)
+      record.update(attrs)
+    end
+
+    def create(attrs:)
+      record = JobListingRecord.create(attrs)
+      return false unless record
+
+      JobListingEntityBuilder.to_entity(record: record)
+    end
+
+    def job_listing_count_for_employer(employer_id:)
+      query = "select count(id) from job_listings where employer_id = :employer_id"
+
+      result = ActiveRecord::Base.connection.execute(
+        ApplicationRecord.sanitize_sql([query, { employer_id: employer_id }])
+      )
+
+      result.first.count
+    end
+
+    def destroy(id:)
+      JobListingRecord.destroy_by(id: id)
+    end
+
+    def for_employer(id:)
+      JobListingRecord.where(employer_id: id).all
     end
   end
 end

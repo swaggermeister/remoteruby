@@ -6,19 +6,17 @@ module Employers
 
     class << self
       def call(id:)
-        employer = find_employer(id: id)
-
-        if employer.destroy
+        if destroy_employer(id: id)
           Result.new(success: true)
         else
-          Result.new(success: false, employer: employer)
+          Result.new(success: false)
         end
       end
 
       private
 
-      def find_employer(id:)
-        EmployerRecord.find(id)
+      def destroy_employer(id:)
+        EmployersRepository.destroy(id: id)
       end
     end
   end

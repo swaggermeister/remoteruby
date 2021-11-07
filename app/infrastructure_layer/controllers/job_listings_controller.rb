@@ -28,6 +28,7 @@ class JobListingsController < ApplicationController
 
     @view = JobListings::ShowViewModel.new(
       job_listing: result.job_listing,
+      employer_num_job_listings: result.employer_num_job_listings,
       search_text: result.search_text,
     )
 
@@ -88,7 +89,7 @@ class JobListingsController < ApplicationController
 
   def my_company
     result = JobListings::MyCompanyUseCase.call(
-      employer: current_employer,
+      employer_id: current_employer.id,
     )
 
     @view = JobListings::MyCompanyViewModel.new(

@@ -50,7 +50,7 @@ module ResultEntityBehavior
     end
 
     def persisted?
-      true
+      id.present?
     end
   end
 end

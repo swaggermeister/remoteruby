@@ -18,7 +18,7 @@ module ActiveSupport
       ApplicationController.any_instance.stubs(:current_employer).returns(employer)
     end
 
-    def create_employer!(name: nil, email: nil, password: nil, avatar: nil, is_confirmed: true, is_locked: false)
+    def create_employer_record!(name: nil, email: nil, password: nil, avatar: nil, is_confirmed: true, is_locked: false)
       name ||= "Test #{random_string}"
       email ||= "#{random_string}@test.com"
       password ||= random_string
@@ -57,7 +57,7 @@ module ActiveSupport
                                                                   })
     end
 
-    def create_job_listing!(...)
+    def create_job_listing_record!(...)
       # TODO: use a repository for this later
       job_listing = build_job_listing_record(...)
       job_listing.save!
@@ -65,7 +65,7 @@ module ActiveSupport
       job_listing
     end
 
-    def build_job_listing_record(employer:,
+    def build_job_listing_record(employer_record:,
                                  title: nil,
                                  description: nil,
                                  location: nil,
@@ -87,10 +87,23 @@ module ActiveSupport
         fixed_amount: fixed_amount,
         minimum_salary: minimum_salary,
         maximum_salary: maximum_salary,
-        employer: employer,
+        employer: employer_record,
         contact_email: contact_email,
         contact_url: contact_url,
       )
+    end
+
+    def to_result_entity(record)
+      case record
+      when EmployerRecord
+        entity = EmployerEntityBuilder.to_entity(record: record)
+        ResultEmployer.from_entity(entity)
+      when JobListingRecord
+        entity = JobListingEntityBuilder.to_entity(record: record)
+        ResultJobListing.from_entity(entity)
+      else
+        raise "Can't convert #{record.class} to a result entity"
+      end
     end
 
     def random_string

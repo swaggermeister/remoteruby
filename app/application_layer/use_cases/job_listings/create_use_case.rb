@@ -6,9 +6,9 @@ module JobListings
 
     class << self
       def call(attrs:, employer_id:)
-        job_listing = build_job_listing(attrs: attrs, employer_id: employer_id)
+        attrs = prepare_attributes(attrs: attrs, employer_id: employer_id)
 
-        if job_listing.save
+        if job_listing = create_job_listing(attrs: attrs)
           Result.new(success: true, job_listing: job_listing)
         else
           Result.new(success: false, job_listing: job_listing)
@@ -17,15 +17,15 @@ module JobListings
 
       private
 
-      def build_job_listing(attrs:, employer_id:)
-        sanitize_salary_fields(attrs) if attrs[:minimum_salary].present?
-
-        JobListingRecord.new(attrs.merge(employer_id: employer_id))
+      def create_job_listing(attrs:)
+        entity = JobListingsRepository.create(attrs: attrs)
+        ResultJobListing.from_entity(entity)
       end
 
-      def sanitize_salary_fields(attrs)
-        attrs[:minimum_salary] = attrs[:minimum_salary].gsub(/[., $]/, "")
-        attrs[:maximum_salary] = attrs[:maximum_salary].gsub(/[., $]/, "")
+      def prepare_attributes(attrs:, employer_id:)
+        attrs[:minimum_salary]&.gsub!(/[., $]/, "")
+        attrs[:maximum_salary]&.gsub!(/[., $]/, "")
+        attrs.merge!(employer_id: employer_id)
       end
     end
   end

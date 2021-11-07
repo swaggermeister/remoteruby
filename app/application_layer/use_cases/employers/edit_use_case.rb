@@ -14,7 +14,8 @@ module Employers
       private
 
       def find_employer(id:)
-        EmployerRecord.find(id)
+        entity = EmployersRepository.find(id: id)
+        ResultEmployer.from_entity(entity)
       end
     end
   end

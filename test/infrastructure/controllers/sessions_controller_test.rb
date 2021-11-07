@@ -15,7 +15,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should login" do
     password = "password1234"
-    employer = create_employer!(password: password)
+    employer_record = create_employer_record!(password: password)
+    employer = to_result_entity(employer_record)
 
     post employer_session_path, params: { employer: { email: employer.email, password: password } }
 
@@ -23,7 +24,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should fail login" do
-    employer = create_employer!
+    employer_record = create_employer_record!
+    employer = to_result_entity(employer_record)
 
     post employer_session_path, params: { employer: { email: employer.email, password: "wrong" } }
     assert_response 200

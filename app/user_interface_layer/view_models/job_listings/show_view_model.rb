@@ -6,13 +6,14 @@ module JobListings
 
     delegate :contact_url, :contact_email, :location, :employer_id, :title, :minimum_salary, :maximum_salary, :fixed_amount, to: :job_listing
 
-    attr_reader :job_listing, :search_text
+    attr_reader :job_listing, :search_text, :employer_num_job_listings
 
     private
 
-    def initialize(job_listing:, search_text:)
+    def initialize(job_listing:, search_text:, employer_num_job_listings:)
       @job_listing = job_listing
       @search_text = search_text
+      @employer_num_job_listings = employer_num_job_listings
     end
 
     public
@@ -42,10 +43,6 @@ module JobListings
 
     def employer_name
       job_listing.employer.name
-    end
-
-    def number_jobs_posted
-      job_listing.employer.job_listings.count
     end
 
     # rubocop:enable Naming/PredicateName
