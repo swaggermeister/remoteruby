@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-# # frozen_string_literal: true
-
 module EntityBehavior
   def self.included(klass)
     klass.instance_eval do
+      # Validation support
+      include ActiveModel::Validations
+
       attr_reader(*klass::ATTRIBUTES)
 
       private
 
-      attr_writer(*klass::ATTRIBUTES)
+      attr_writer(*klass::WRITER_ATTRIBUTES)
     end
   end
 
@@ -18,11 +19,33 @@ module EntityBehavior
   # and assigns to each of them from the args
   # equivalent to:
   #
-  # self.name = attributes["name"]
-  # self.age = attributes["age"]
+  # @name = attributes["name"]
+  # @age = attributes["age"]
   def initialize(**attributes)
+    # add an attribute for validation errors to be reported on
+    attributes.merge!(:errors)
+
     attributes.each do |name, value|
-      public_send("#{name}=", value)
+      instance_variable_set("@#{name}".intern, value)
+    end
+  end
+
+  # returns a hash of all the attributes
+  def attributes
+    attrs = {}
+
+    entity.class::ATTRIBUTES.map do |name|
+      attrs[name] = entity.public_send(attr)
+    end
+
+    attrs
+  end
+
+  def attributes=(**update_attrs)
+    self.class::WRITER_ATTRIBUTES.each do |attr_name|
+      if (val = update_attrs[attr_name])
+        public_send("#{attr_name}=", val)
+      end
     end
   end
 end

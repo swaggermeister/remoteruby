@@ -37,7 +37,7 @@ module JobListings
 
       def result_job_listings(pagination:)
         pagination.job_listings.map do |job_listing|
-          ResultJobListing.from_entity(job_listing)
+          ResultEntities::ResultJobListing.from_entity(job_listing)
         end
       end
 

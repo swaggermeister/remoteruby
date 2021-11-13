@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# NOTE: This can't easily be refactored to respect our layered
+# software architecture because Devise and Warden have side effects
+# all over the place since they are so tightly coupled to ActiveRecord
+# at the controller layer. So we'll just leave this the way it is.
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # rubocop:disable Naming/MethodName
   def Google

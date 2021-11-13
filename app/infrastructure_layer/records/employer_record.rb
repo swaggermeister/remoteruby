@@ -14,10 +14,6 @@ class EmployerRecord < ApplicationRecord
   has_many :job_listings, class_name: "JobListingRecord", dependent: :destroy, foreign_key: :employer_id
   has_one_attached :avatar
 
-  # Validation
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
-
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |employer|
       employer.email = auth.info.email

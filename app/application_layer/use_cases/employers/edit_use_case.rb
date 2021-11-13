@@ -5,17 +5,17 @@ module Employers
     Result = Struct.new(:employer, keyword_init: true)
 
     class << self
-      def call(id:)
-        employer = find_employer(id: id)
+      def call(employers_repository:, id:)
+        employer = find_employer(employers_repository: employers_repository, id: id)
 
         Result.new(employer: employer)
       end
 
       private
 
-      def find_employer(id:)
-        entity = EmployersRepository.find(id: id)
-        ResultEmployer.from_entity(entity)
+      def find_employer(employers_repository:, id:)
+        entity = employers_repository.find(id: id)
+        ResultEntities::ResultEmployer.from_entity(entity)
       end
     end
   end

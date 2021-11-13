@@ -7,6 +7,19 @@ class Employer
                   authenticatable_salt
                   avatar
                   name
-                  email].freeze
+                  email
+                  email_is_available].freeze
+
+  # TODO: make sure updating an avatar works
+  WRITER_ATTRIBUTES = %i[
+    name
+    email
+    avatar
+  ].freeze
+
   include EntityBehavior
+
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :email_is_available, inclusion: { in: [true] }
 end

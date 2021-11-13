@@ -97,10 +97,10 @@ module ActiveSupport
       case record
       when EmployerRecord
         entity = EmployerEntityBuilder.to_entity(record: record)
-        ResultEmployer.from_entity(entity)
+        ResultEntities::ResultEmployer.from_entity(entity)
       when JobListingRecord
         entity = JobListingEntityBuilder.to_entity(record: record)
-        ResultJobListing.from_entity(entity)
+        ResultEntities::ResultJobListing.from_entity(entity)
       else
         raise "Can't convert #{record.class} to a result entity"
       end

@@ -5,8 +5,8 @@ module JobListings
     Result = Struct.new(:success, :job_listing, keyword_init: true)
 
     class << self
-      def call(id:)
-        if destroy_job_listing(id: id)
+      def call(job_listings_repository:, id:)
+        if destroy_job_listing(job_listings_repository: job_listings_repository, id: id)
           Result.new(success: true)
         else
           Result.new(success: false)
@@ -15,7 +15,7 @@ module JobListings
 
       private
 
-      def destroy_job_listing(id:)
+      def destroy_job_listing(job_listings_repository:, id:)
         JobListingsRepository.destroy(id: id)
       end
     end

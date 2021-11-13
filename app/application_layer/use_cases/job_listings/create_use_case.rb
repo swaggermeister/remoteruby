@@ -5,10 +5,10 @@ module JobListings
     Result = Struct.new(:success, :job_listing, keyword_init: true)
 
     class << self
-      def call(attrs:, employer_id:)
+      def call(job_listings_repository:, attrs:, employer_id:)
         attrs = prepare_attributes(attrs: attrs, employer_id: employer_id)
 
-        if job_listing = create_job_listing(attrs: attrs)
+        if (job_listing = create_job_listing(job_listings_repository: job_listings_repository, attrs: attrs))
           Result.new(success: true, job_listing: job_listing)
         else
           Result.new(success: false, job_listing: job_listing)
@@ -17,9 +17,9 @@ module JobListings
 
       private
 
-      def create_job_listing(attrs:)
-        entity = JobListingsRepository.create(attrs: attrs)
-        ResultJobListing.from_entity(entity)
+      def create_job_listing(job_listings_repository:, attrs:)
+        entity = job_listings_repository.create(attrs: attrs)
+        ResultEntities::ResultJobListing.from_entity(entity)
       end
 
       def prepare_attributes(attrs:, employer_id:)

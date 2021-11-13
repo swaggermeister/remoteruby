@@ -40,17 +40,25 @@ module JobListingsRepository
       JobListingEntityBuilder.to_entity(record: record)
     end
 
-    def update(id:, attrs:)
-      record = JobListingRecord.find(id)
-      record.update(attrs)
-      JobListingEntityBuilder.to_entity(record: record)
+    def update(entity:)
+      # update the DB record if the entity is valid
+      if entity.valid?
+        record = RecordBuilder.from_entity(entity: entity, record_class: JobListingRecord)
+        record.update!(attrs)
+      end
+
+      # return the entity back. if it wasn't valid,
+      # the entity's ActiveRecord style errors attribute will be populated
+      entity
     end
 
-    def create(attrs:)
-      record = JobListingRecord.create(attrs)
-      return false unless record
+    def create(entity:)
+      # create the DB record if the entity is valid
+      JobListingRecord.create!(attrs) if entity.valid?
 
-      JobListingEntityBuilder.to_entity(record: record)
+      # return the entity back. if it wasn't valid,
+      # the entity's ActiveRecord style errors attribute will be populated
+      entity
     end
 
     def job_listing_count_for_employer(employer_id:)

@@ -4,7 +4,10 @@ class EmployersController < ApplicationController
   before_action :authenticate_employer!
 
   def show
-    result = Employers::ShowUseCase.call(id: params.fetch(:id))
+    result = Employers::ShowUseCase.call(
+      employers_repository: EmployersRepository,
+      id: params.fetch(:id),
+    )
 
     @view = Employers::ShowViewModel.new(
       employer: result.employer,
@@ -12,7 +15,10 @@ class EmployersController < ApplicationController
   end
 
   def edit
-    result = Employers::EditUseCase.call(id: params.fetch(:id))
+    result = Employers::EditUseCase.call(
+      employers_repository: EmployersRepository,
+      id: params.fetch(:id),
+    )
 
     @view = Employers::EditViewModel.new(
       employer: result.employer,
@@ -20,7 +26,11 @@ class EmployersController < ApplicationController
   end
 
   def update
-    result = Employers::UpdateUseCase.call(id: params.fetch(:id), attrs: employer_params)
+    result = Employers::UpdateUseCase.call(
+      employers_repository: EmployersRepository,
+      id: params.fetch(:id),
+      attrs: employer_params,
+    )
 
     if result.success
       # keep employer signed in after successfully updating profile/changing password
@@ -35,7 +45,10 @@ class EmployersController < ApplicationController
   end
 
   def destroy
-    result = Employers::DestroyUseCase.call(id: params.fetch(:id))
+    result = Employers::DestroyUseCase.call(
+      employers_repository: EmployersRepository,
+      id: params.fetch(:id),
+    )
 
     raise "Could not destroy the employer" unless result.success
 

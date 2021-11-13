@@ -24,7 +24,11 @@ class JobListingsController < ApplicationController
   end
 
   def show
-    result = JobListings::ShowUseCase.call(id: params.fetch(:id), search_text: params[:search_text])
+    result = JobListings::ShowUseCase.call(
+      job_listings_repository: JobListingsRepository,
+      id: params.fetch(:id),
+      search_text: params[:search_text],
+    )
 
     @view = JobListings::ShowViewModel.new(
       job_listing: result.job_listing,
@@ -46,7 +50,10 @@ class JobListingsController < ApplicationController
   end
 
   def edit
-    result = JobListings::EditUseCase.call(id: params.fetch(:id))
+    result = JobListings::EditUseCase.call(
+      job_listings_repository: JobListingsRepository,
+      id: params.fetch(:id),
+    )
 
     @view = JobListings::EditViewModel.new(
       job_listing: result.job_listing,
@@ -54,7 +61,11 @@ class JobListingsController < ApplicationController
   end
 
   def create
-    result = JobListings::CreateUseCase.call(attrs: job_listing_params, employer_id: current_employer.id)
+    result = JobListings::CreateUseCase.call(
+      job_listings_repository: JobListingsRepository,
+      attrs: job_listing_params,
+      employer_id: current_employer.id,
+    )
 
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
@@ -66,7 +77,10 @@ class JobListingsController < ApplicationController
   end
 
   def update
-    result = JobListings::UpdateUseCase.call(id: params.fetch(:id), attrs: job_listing_params)
+    result = JobListings::UpdateUseCase.call(
+      job_listings_repository: JobListingsRepository,
+      id: params.fetch(:id), attrs: job_listing_params,
+    )
 
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
@@ -78,7 +92,10 @@ class JobListingsController < ApplicationController
   end
 
   def destroy
-    result = JobListings::DestroyUseCase.call(id: params.fetch(:id))
+    result = JobListings::DestroyUseCase.call(
+      job_listings_repository: JobListingsRepository,
+      id: params.fetch(:id),
+    )
 
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully destroyed."
@@ -89,6 +106,7 @@ class JobListingsController < ApplicationController
 
   def my_company
     result = JobListings::MyCompanyUseCase.call(
+      job_listings_repository: JobListingsRepository,
       employer_id: current_employer.id,
     )
 
