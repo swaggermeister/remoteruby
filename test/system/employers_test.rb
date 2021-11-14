@@ -172,7 +172,6 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Profile page with no listings added yet" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -203,7 +202,6 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Destroying an Employer" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first

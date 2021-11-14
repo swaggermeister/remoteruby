@@ -12,7 +12,6 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
     sign_in employer_record
 
     get new_job_listing_url
@@ -21,7 +20,6 @@ class JobListingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create job_listing" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
     sign_in employer_record
 
     assert_difference("JobListingRecord.count") do

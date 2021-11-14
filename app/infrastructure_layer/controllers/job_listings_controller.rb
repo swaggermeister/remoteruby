@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: %i[index show]
 
@@ -132,3 +133,5 @@ class JobListingsController < ApplicationController
     )
   end
 end
+
+# rubocop:enable Metrics/ClassLength

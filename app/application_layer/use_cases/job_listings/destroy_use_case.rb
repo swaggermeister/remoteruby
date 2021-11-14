@@ -16,7 +16,7 @@ module JobListings
       private
 
       def destroy_job_listing(job_listings_repository:, id:)
-        JobListingsRepository.destroy(id: id)
+        job_listings_repository.destroy(id: id)
       end
     end
   end
