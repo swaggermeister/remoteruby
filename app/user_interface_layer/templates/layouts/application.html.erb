@@ -27,7 +27,7 @@
               <% if employer_signed_in? %>
                 <%= link_to my_company_job_listings_path, class: "btn btn-link" do %>
                   My Account
-                  <%= image_tag view.employer_avatar_url(current_employer), class: "avatar" %>
+                  <%= image_tag view.employer_avatar_url(view.current_employer), class: "avatar" %>
                 <% end %>
               <% else %>
                 <%= link_to new_employer_session_path, class: "btn btn-primary" do %>

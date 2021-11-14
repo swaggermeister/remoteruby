@@ -14,14 +14,13 @@ class JobListingsController < ApplicationController
       page_num: params[:page] || 1,
     )
 
-    @view = ::JobListings::IndexViewModel.new(
-      search_text: result.query,
-      filtering_by_employer: result.filtering_by_employer,
-      paginator: result.paginator,
-      job_listings: result.job_listings,
-      sort_column: result.sort_column,
-      request: request,
-    )
+    prepare_view!(::JobListings::IndexViewModel,
+                  search_text: result.query,
+                  filtering_by_employer: result.filtering_by_employer,
+                  paginator: result.paginator,
+                  job_listings: result.job_listings,
+                  sort_column: result.sort_column,
+                  request: request)
   end
 
   def show
@@ -31,11 +30,10 @@ class JobListingsController < ApplicationController
       search_text: params[:search_text],
     )
 
-    @view = JobListings::ShowViewModel.new(
-      job_listing: result.job_listing,
-      employer_num_job_listings: result.employer_num_job_listings,
-      search_text: result.search_text,
-    )
+    prepare_view!(JobListings::ShowViewModel,
+                  job_listing: result.job_listing,
+                  employer_num_job_listings: result.employer_num_job_listings,
+                  search_text: result.search_text)
 
     # HTTP caching with etag
     # https://guides.rubyonrails.org/caching_with_rails.html#conditional-get-support
@@ -45,9 +43,8 @@ class JobListingsController < ApplicationController
   def new
     result = JobListings::NewUseCase.call
 
-    @view = JobListings::NewViewModel.new(
-      job_listing: result.job_listing,
-    )
+    prepare_view!(JobListings::NewViewModel,
+                  job_listing: result.job_listing)
   end
 
   def edit
@@ -56,9 +53,8 @@ class JobListingsController < ApplicationController
       id: params.fetch(:id),
     )
 
-    @view = JobListings::EditViewModel.new(
-      job_listing: result.job_listing,
-    )
+    prepare_view!(JobListings::EditViewModel,
+                  job_listing: result.job_listing)
   end
 
   def create
@@ -71,9 +67,8 @@ class JobListingsController < ApplicationController
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully created."
     else
-      @view = JobListings::NewViewModel.new(
-        job_listing: result.job_listing,
-      )
+      prepare_view!(JobListings::NewViewModel,
+                    job_listing: result.job_listing)
     end
   end
 
@@ -86,9 +81,8 @@ class JobListingsController < ApplicationController
     if result.success
       redirect_to my_company_job_listings_path, notice: "Job listing was successfully updated."
     else
-      @view = JobListings::EditViewModel.new(
-        job_listing: result.job_listing,
-      )
+      prepare_view!(JobListings::EditViewModel,
+                    job_listing: result.job_listing)
     end
   end
 
@@ -111,9 +105,8 @@ class JobListingsController < ApplicationController
       employer_id: current_employer.id,
     )
 
-    @view = JobListings::MyCompanyViewModel.new(
-      job_listings: result.job_listings,
-    )
+    prepare_view!(JobListings::MyCompanyViewModel,
+                  job_listings: result.job_listings)
   end
 
   private

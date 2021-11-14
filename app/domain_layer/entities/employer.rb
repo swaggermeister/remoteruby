@@ -7,6 +7,8 @@ class Employer
                   authenticatable_salt
                   avatar
                   name
+                  password
+                  password_confirmation
                   email
                   email_is_available].freeze
 

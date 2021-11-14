@@ -9,9 +9,8 @@ class EmployersController < ApplicationController
       id: params.fetch(:id),
     )
 
-    @view = Employers::ShowViewModel.new(
-      employer: result.employer,
-    )
+    prepare_view!(Employers::ShowViewModel,
+                  employer: result.employer)
   end
 
   def edit
@@ -20,9 +19,8 @@ class EmployersController < ApplicationController
       id: params.fetch(:id),
     )
 
-    @view = Employers::EditViewModel.new(
-      employer: result.employer,
-    )
+    prepare_view!(Employers::EditViewModel,
+                  employer: result.employer)
   end
 
   def update
@@ -38,9 +36,8 @@ class EmployersController < ApplicationController
 
       redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
     else
-      @view = Employers::EditViewModel.new(
-        employer: result.employer,
-      )
+      prepare_view!(Employers::EditViewModel,
+                    employer: result.employer)
     end
   end
 

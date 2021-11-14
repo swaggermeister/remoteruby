@@ -11,7 +11,7 @@ module Employers
 
         # assign the new attributes
         employer.attributes = attrs.merge(
-          email_is_available: email_is_available?(email),
+          email_is_available: email_is_available?(employer.email),
         )
 
         # update the record in the DB
@@ -25,15 +25,20 @@ module Employers
       private
 
       def find_employer(employers_repository:, id:)
-        entity = employers_repository.find(id: id)
-        ResultEntities::ResultEmployer.from_entity(entity)
+        employer_attrs = employers_repository.find(id: id)
+        Employer.new(**employer_attrs)
       end
 
-      def update_employer(employers_repository:, employer:, attrs:)
-        # keep existing avatar if they didn't pick a new one
-        employer.avatar.attach(attrs[:avatar]) if attrs[:avatar].present?
+      def update_employer(employers_repository:, employer:)
+        attach_avatar!(employer: employer)
+        employers_repository.update(entity: employer)
+      end
 
-        employers_repository.update(id: employer.id, attrs: attrs)
+      def attach_avatar!(employer:)
+        # keep existing avatar if they didn't pick a new one
+        return if employer.avatar.blank?
+
+        employer.avatar.attach(employer.avatar)
       end
 
       def email_is_available?(email)

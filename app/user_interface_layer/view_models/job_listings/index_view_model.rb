@@ -10,13 +10,14 @@ module JobListings
 
     attr_reader :paginator, :request, :filtering_by_employer
 
-    def initialize(job_listings:, paginator:, search_text:, filtering_by_employer:, sort_column:, request:)
-  @job_listings = job_listings
-  @paginator = paginator
-  @search_text = search_text
-  @filtering_by_employer = filtering_by_employer
-  @sort_column = sort_column
-  @request = request
+    def initialize(current_employer:, job_listings:, paginator:, search_text:, filtering_by_employer:, sort_column:, request:)
+      @current_employer = current_employer
+      @job_listings = job_listings
+      @paginator = paginator
+      @search_text = search_text
+      @filtering_by_employer = filtering_by_employer
+      @sort_column = sort_column
+      @request = request
     end
 
     public

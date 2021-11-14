@@ -9,7 +9,7 @@
         <div class="employer-info__details">
           <div class="h2 mb-1"> <%= view.employer_name %></div>
           <div class="my-1"> <%= view.location %></div>
-          <% if !view.is_own_listing?(current_employer) %>
+          <% if !view.is_own_listing?(view.current_employer) %>
             <div class="mt-2">
               <% if view.has_contact_url? %>
                 <%= link_to "Apply Now", view.contact_url, class: "btn btn-tertiary", id: "#{dom_id(view.job_listing)}-apply-url" %>
@@ -34,7 +34,7 @@
     <div class="description mt-2">
       <%= view.description %>
     </div>
-    <% if !view.is_own_listing?(current_employer) %>
+    <% if !view.is_own_listing?(view.current_employer) %>
       <%= render partial: "apply_button" %>
     <% end %>
   </div>

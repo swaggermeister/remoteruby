@@ -8,7 +8,7 @@ module EmployersRepository
       name,
       email,
       created_at,
-      updated_at,
+      updated_at
     from employers
     where id = :id
     limit 1
@@ -31,8 +31,8 @@ module EmployersRepository
     def update(entity:)
       # update the DB record if the entity is valid
       if entity.valid?
-        record = RecordBuilder.from_entity(entity: entity, record_class: EmployerRecord)
-        record.update!(attrs)
+        record = EmployerRecord.find(entity.id)
+        record.update!(entity.writeable_attributes)
       end
 
       # return the entity back. if it wasn't valid,

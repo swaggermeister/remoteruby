@@ -31,6 +31,30 @@ class ApplicationController < ActionController::Base
   def view
     # If a view was already set in the action, use that.
     # Otherwise fall back to a default web view
-    @view || DefaultWebViewModel.new
+    @view || prepare_view!(DefaultWebViewModel)
+  end
+
+  # Build the view model for templates to use
+  def prepare_view!(view_model_module, **args)
+    # Ideally, in our architecture the controller should never
+    # be seeing database records (ActiveRecord) because it should
+    # only be talking to the application layer and getting back
+    # result entities from those use cases. However, Devise forces
+    # us to work directly with ActiveRecord. So we have to convert
+    # the ActiveRecord employer -> use cases result entity to
+    # patch over the tight coupling of Devise
+    result_employer = if current_employer
+        # We have to go through this chain because
+        # typically result entities are only made from domain entities
+        # but here we are stuck with the AR record
+        employer_entity = Employer.new(**current_employer.attributes)
+        ResultEntities::ResultEmployer.from_entity(employer_entity)
+      end
+
+    # Build the view model
+    view_model = view_model_module.new(**args.merge(current_employer: result_employer))
+
+    # Set it to an ivar for the templates to have access to
+    @view = view_model
   end
 end

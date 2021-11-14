@@ -4,19 +4,19 @@ module Employers
   class UnlocksController < Devise::UnlocksController
     # GET /resource/unlock/new
     def new
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
     # POST /resource/unlock
     def create
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
     # GET /resource/unlock?unlock_token=abcdef
     def show
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 

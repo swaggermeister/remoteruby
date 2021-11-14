@@ -43,8 +43,8 @@ module JobListingsRepository
     def update(entity:)
       # update the DB record if the entity is valid
       if entity.valid?
-        record = RecordBuilder.from_entity(entity: entity, record_class: JobListingRecord)
-        record.update!(attrs)
+        record = JobListingRecord.find(entity.id)
+        record.update!(entity.writeable_attributes)
       end
 
       # return the entity back. if it wasn't valid,
@@ -54,7 +54,12 @@ module JobListingsRepository
 
     def create(entity:)
       # create the DB record if the entity is valid
-      JobListingRecord.create!(attrs) if entity.valid?
+      if entity.valid?
+        create_attrs = entity.attributes.select do |_attr_name, attr_val|
+          attr_val.present?
+        end
+        JobListingRecord.create!(create_attrs)
+      end
 
       # return the entity back. if it wasn't valid,
       # the entity's ActiveRecord style errors attribute will be populated
@@ -76,7 +81,9 @@ module JobListingsRepository
     end
 
     def for_employer(id:)
-      JobListingRecord.where(employer_id: id).all
+      JobListingRecord.where(employer_id: id).all.map do |job_listing_record|
+        JobListingEntityBuilder.to_entity(record: job_listing_record)
+      end
     end
   end
 end

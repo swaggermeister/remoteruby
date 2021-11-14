@@ -58,11 +58,10 @@ module ActiveSupport
     end
 
     def create_job_listing_record!(...)
-      # TODO: use a repository for this later
-      job_listing = build_job_listing_record(...)
-      job_listing.save!
+      job_listing_record = build_job_listing_record(...)
+      job_listing = to_result_entity(job_listing_record)
 
-      job_listing
+      JobListingsRepository.create(job_listing)
     end
 
     def build_job_listing_record(employer_record:,

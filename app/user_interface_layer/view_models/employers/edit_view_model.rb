@@ -9,7 +9,8 @@ module Employers
 
     private
 
-    def initialize(employer:)
+    def initialize(current_employer:, employer:)
+      @current_employer = current_employer
       @employer = employer
     end
   end

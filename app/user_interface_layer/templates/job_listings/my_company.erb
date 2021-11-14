@@ -1,6 +1,6 @@
 <div class="mb-6">
   <h3 class="text-center">My Account</h3>
-  <%= link_to edit_employer_path(current_employer), class: "btn btn-link p-centered" do %>
+  <%= link_to edit_employer_path(view.current_employer), class: "btn btn-link p-centered" do %>
     Update Company Profile
   <% end %>
   <%= link_to 'Sign out', destroy_employer_session_path, method: :delete, class: "btn btn-link p-centered" %>

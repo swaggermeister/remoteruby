@@ -3,6 +3,10 @@
 module Shared
   # Functions used by the layout
   module LayoutShared
+    def self.included(_klass)
+      attr_reader :current_employer
+    end
+
     def toast_flashes(flash:)
       flash.reject do |(type, _message)|
         # to avoid extra "true" flash message from devise

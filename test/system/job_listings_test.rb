@@ -240,8 +240,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "destroying a Job listing" do
     employer_record = create_employer_record!
-    employer = create_employer_record!(employer_record)
-    create_job_listing_record!(employer_record: employer)
+    create_job_listing_record!(employer_record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first

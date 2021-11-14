@@ -5,8 +5,11 @@ module EntityBehavior
     klass.instance_eval do
       # Validation support
       include ActiveModel::Validations
+      # Provide ActiveModel identity methods like to_key
+      include ActiveModel::Conversion
 
-      attr_reader(*klass::ATTRIBUTES)
+      # add an attribute for validation errors to be reported on
+      attr_reader(*(klass::ATTRIBUTES + [:errors]))
 
       private
 
@@ -22,8 +25,7 @@ module EntityBehavior
   # @name = attributes["name"]
   # @age = attributes["age"]
   def initialize(**attributes)
-    # add an attribute for validation errors to be reported on
-    attributes.merge!(:errors)
+    @errors = ActiveModel::Errors.new(self)
 
     attributes.each do |name, value|
       instance_variable_set("@#{name}".intern, value)
@@ -34,18 +36,34 @@ module EntityBehavior
   def attributes
     attrs = {}
 
-    entity.class::ATTRIBUTES.map do |name|
-      attrs[name] = entity.public_send(attr)
+    self.class::ATTRIBUTES.map do |attr_name|
+      attrs[attr_name] = public_send(attr_name)
     end
 
     attrs
   end
 
-  def attributes=(**update_attrs)
+  # returns a hash of all the writeable attributes on this entity
+  def writeable_attributes
+    attrs = {}
+
+    self.class::WRITER_ATTRIBUTES.map do |attr_name|
+      attrs[attr_name] = public_send(attr_name)
+    end
+
+    attrs
+  end
+
+  # assign new writeable attributes from a hash
+  def attributes=(update_attrs)
     self.class::WRITER_ATTRIBUTES.each do |attr_name|
       if (val = update_attrs[attr_name])
         public_send("#{attr_name}=", val)
       end
     end
+  end
+
+  def persisted?
+    id.present?
   end
 end

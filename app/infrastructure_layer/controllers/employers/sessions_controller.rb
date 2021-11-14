@@ -6,19 +6,19 @@ module Employers
 
     # GET /resource/sign_in
     def new
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
     # POST /resource/sign_in
     def create
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
     # DELETE /resource/sign_out
     def destroy
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 

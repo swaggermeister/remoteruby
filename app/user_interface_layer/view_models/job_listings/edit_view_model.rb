@@ -10,7 +10,8 @@ module JobListings
 
     private
 
-    def initialize(job_listing:)
+    def initialize(current_employer:, job_listing:)
+      @current_employer = current_employer
       @job_listing = job_listing
     end
   end

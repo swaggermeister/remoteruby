@@ -19,7 +19,7 @@ class JobListing
 
   # These attributes get setter methods and can be updated directly
   # at any time
-  WRITER_ATTRS = %i[
+  WRITER_ATTRIBUTES = %i[
     title
     description
     location

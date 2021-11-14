@@ -10,11 +10,9 @@ module JobListings
 
     private
 
-    # attr_reader :view_context
-
-    def initialize(job_listing:)
+    def initialize(current_employer:, job_listing:)
+      @current_employer = current_employer
       @job_listing = job_listing
-      # @view_context = view_context
     end
   end
 end

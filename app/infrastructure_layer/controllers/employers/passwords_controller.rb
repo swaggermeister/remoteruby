@@ -4,25 +4,25 @@ module Employers
   class PasswordsController < Devise::PasswordsController
     # GET /resource/password/new
     def new
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
     # POST /resource/password
     def create
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
     # GET /resource/password/edit?reset_password_token=abcdef
     def edit
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
     # PUT /resource/password
     def update
-      @view = ::DefaultDeviseViewModel.new
+      prepare_view!(::DefaultDeviseViewModel)
       super
     end
 

@@ -16,7 +16,9 @@ module JobListings
       private
 
       def find_job_listings(job_listings_repository:, employer_id:)
-        job_listings_repository.for_employer(id: employer_id)
+        job_listings_repository.for_employer(id: employer_id).map! do |job_listing|
+          ::ResultEntities::ResultJobListing.from_entity(job_listing)
+        end
       end
     end
   end

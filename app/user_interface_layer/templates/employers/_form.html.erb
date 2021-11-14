@@ -6,7 +6,7 @@
   <% end %>
   <%= view.form_group(self, form, :avatar) do %>
     <%= form.label :avatar, "Logo", class:"form-label" %>
-    <%= image_tag view.employer_avatar_url(current_employer), class: "avatar avatar-lg mb-2" %>
+    <%= image_tag view.employer_avatar_url(view.current_employer), class: "avatar avatar-lg mb-2" %>
     <%= form.file_field :avatar, class:"form-input" %>
   <% end %>
   <%= view.form_group(self, form, :email) do %>
