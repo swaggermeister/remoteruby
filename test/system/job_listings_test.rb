@@ -15,10 +15,10 @@ class JobListingsTest < ApplicationSystemTestCase
     # create two job listings with diff salaries
     # make sure higher salary is first
     higher_salary_employer_record = create_employer_record!
-    create_job_listing_record!(employer_record: higher_salary_employer_record, fixed_amount: "98k")
+    create_job_listing!(employer_record: higher_salary_employer_record, fixed_amount: "98k")
 
     lower_salary_employer_record = create_employer_record!
-    create_job_listing_record!(employer_record: lower_salary_employer_record, fixed_amount: "80k")
+    create_job_listing!(employer_record: lower_salary_employer_record, fixed_amount: "80k")
 
     visit job_listings_url
 
@@ -37,7 +37,7 @@ class JobListingsTest < ApplicationSystemTestCase
   test "pagination works" do
     employer_record = create_employer_record!
     11.times do
-      create_job_listing_record!(employer_record: employer_record)
+      create_job_listing!(employer_record: employer_record)
     end
 
     # Number of listings on the page matches the pagination count set
@@ -54,8 +54,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "read full job listing details" do
     employer_record = create_employer_record!
-    job_listing_record = create_job_listing_record!(employer_record: employer_record, title: "Best job", description: "This is a terrific job")
-    job_listing = to_result_entity(job_listing_record)
+    job_listing = create_job_listing!(employer_record: employer_record, title: "Best job", description: "This is a terrific job")
 
     visit job_listings_url
     click_on job_listing.title
@@ -66,8 +65,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "applying to a listing with a contact url" do
     employer_record = create_employer_record!
-    job_listing_record = create_job_listing_record!(employer_record: employer_record, title: "Best job", contact_url: "https://bread.com/")
-    job_listing = to_result_entity(job_listing_record)
+    job_listing = create_job_listing!(employer_record: employer_record, title: "Best job", contact_url: "https://bread.com/")
 
     visit job_listings_url
     click_on job_listing.title
@@ -78,8 +76,8 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "applying to a listing with a contact email" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
-    job_listing = create_job_listing_record!(employer_record: employer, title: "Best job", contact_email: "bread@bread.com")
+    employer = to_result_entity(record: employer_record)
+    job_listing = create_job_listing!(employer_record: employer, title: "Best job", contact_email: "bread@bread.com")
     contact_email_mailto = "mailto:#{job_listing.contact_email}"
 
     visit job_listings_url
@@ -91,7 +89,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "search functionality - correct match" do
     employer_record = create_employer_record!
-    create_job_listing_record!(employer_record: employer_record, title: "Search Engineer")
+    create_job_listing!(employer_record: employer_record, title: "Search Engineer")
     selector = "div.card"
 
     visit job_listings_url
@@ -103,7 +101,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "search functionality - no results" do
     employer_record = create_employer_record!
-    create_job_listing_record!(employer_record: employer_record)
+    create_job_listing!(employer_record: employer_record)
 
     visit job_listings_url
 
@@ -180,7 +178,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "updating a Job listing successfully" do
     employer_record = create_employer_record!
-    create_job_listing_record!(employer_record: employer_record)
+    create_job_listing!(employer_record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -198,7 +196,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "fail to update a job listing with missing/removed fields" do
     employer_record = create_employer_record!
-    create_job_listing_record!(employer_record: employer_record)
+    create_job_listing!(employer_record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -240,7 +238,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "destroying a Job listing" do
     employer_record = create_employer_record!
-    create_job_listing_record!(employer_record: employer_record)
+    create_job_listing!(employer_record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first

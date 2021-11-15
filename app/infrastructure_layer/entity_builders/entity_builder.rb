@@ -6,7 +6,7 @@ module EntityBuilder
     # Get the attributes of the ActiveRecord object
     # and convert them into a hash.
     # Then filter to the attributes on the entity
-    filtered_attributes = attributes.symbolize_keys.slice(*entity_class::ATTRIBUTES)
+    filtered_attributes = attributes.symbolize_keys.slice(*entity_class::GETTER_ATTRIBUTES)
 
     # Build entity from the filtered attributes
     entity_class.new(filtered_attributes)

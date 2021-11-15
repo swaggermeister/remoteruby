@@ -40,30 +40,45 @@ module JobListingsRepository
       JobListingEntityBuilder.to_entity(record: record)
     end
 
+    # Update the DB record, then return the entity back.
+    # If it wasn't valid, the entity's ActiveRecord-style
+    # errors attribute will be populated
     def update(entity:)
       # update the DB record if the entity is valid
       if entity.valid?
+        # get the existing DB record
         record = JobListingRecord.find(entity.id)
-        record.update!(entity.writeable_attributes)
-      end
 
-      # return the entity back. if it wasn't valid,
-      # the entity's ActiveRecord style errors attribute will be populated
-      entity
+        # get a hash of attributes to update in the DB
+        update_attrs = DatabaseWriteableAttributesFilter.get_writeable_attributes(entity: entity)
+
+        # update in the DB
+        record.update!(update_attrs)
+
+        # build the entity from the updated DB record
+        JobListing.new(**record.attributes)
+      else
+        entity
+      end
     end
 
+    # Create the DB record, then return the entity back.
+    # If it wasn't valid, the entity's ActiveRecord-style
+    # errors attribute will be populated
     def create(entity:)
       # create the DB record if the entity is valid
       if entity.valid?
-        create_attrs = entity.attributes.select do |_attr_name, attr_val|
-          attr_val.present?
-        end
-        JobListingRecord.create!(create_attrs)
-      end
+        # get a hash of attributes to update in the DB
+        create_attrs = DatabaseWriteableAttributesFilter.get_writeable_attributes(entity: entity)
 
-      # return the entity back. if it wasn't valid,
-      # the entity's ActiveRecord style errors attribute will be populated
-      entity
+        # create in the DB
+        record = JobListingRecord.create!(create_attrs)
+
+        # build the entity from the created DB record
+        JobListing.new(**record.attributes)
+      else
+        entity
+      end
     end
 
     def job_listing_count_for_employer(employer_id:)

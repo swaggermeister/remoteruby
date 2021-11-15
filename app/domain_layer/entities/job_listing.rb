@@ -1,25 +1,21 @@
 # frozen_string_literal: true
 
 class JobListing
-  # These attributes can be set only from the constructor
-  # and they are all publicly accessible from readers
-  ATTRIBUTES = %i[id
-                  created_at
-                  updated_at
-                  employer_id
-                  employer
-                  title
-                  description
-                  location
-                  contact_email
-                  contact_url
-                  minimum_salary
-                  maximum_salary
-                  fixed_amount].freeze
+  GETTER_ATTRIBUTES = %i[id
+                         created_at
+                         updated_at
+                         employer_id
+                         employer
+                         title
+                         description
+                         location
+                         contact_email
+                         contact_url
+                         minimum_salary
+                         maximum_salary
+                         fixed_amount].freeze
 
-  # These attributes get setter methods and can be updated directly
-  # at any time
-  WRITER_ATTRIBUTES = %i[
+  SETTER_ATTRIBUTES = %i[
     title
     description
     location

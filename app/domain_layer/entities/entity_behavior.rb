@@ -8,12 +8,13 @@ module EntityBehavior
       # Provide ActiveModel identity methods like to_key
       include ActiveModel::Conversion
 
-      # add an attribute for validation errors to be reported on
-      attr_reader(*(klass::ATTRIBUTES + [:errors]))
+      # Define getters and setters
+      # Also add an attribute for validation errors to be reported on
+      attr_reader(*(klass::GETTER_ATTRIBUTES + [:errors]))
 
       private
 
-      attr_writer(*klass::WRITER_ATTRIBUTES)
+      attr_writer(*(klass::SETTER_ATTRIBUTES + [:errors]))
     end
   end
 
@@ -32,37 +33,27 @@ module EntityBehavior
     end
   end
 
-  # returns a hash of all the attributes
+  # Returns a hash of all the getter attributes
   def attributes
     attrs = {}
 
-    self.class::ATTRIBUTES.map do |attr_name|
+    self.class::GETTER_ATTRIBUTES.map do |attr_name|
       attrs[attr_name] = public_send(attr_name)
     end
 
     attrs
   end
 
-  # returns a hash of all the writeable attributes on this entity
-  def writeable_attributes
-    attrs = {}
-
-    self.class::WRITER_ATTRIBUTES.map do |attr_name|
-      attrs[attr_name] = public_send(attr_name)
-    end
-
-    attrs
-  end
-
-  # assign new writeable attributes from a hash
+  # Mass-assign new setter attributes from a hash
   def attributes=(update_attrs)
-    self.class::WRITER_ATTRIBUTES.each do |attr_name|
+    self.class::SETTER_ATTRIBUTES.each do |attr_name|
       if (val = update_attrs[attr_name])
         public_send("#{attr_name}=", val)
       end
     end
   end
 
+  # Is the record new or has it already been persisted?
   def persisted?
     id.present?
   end

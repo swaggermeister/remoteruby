@@ -110,7 +110,7 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Updating an Employer successfully" do
     employer_record = create_employer_record!(password: "systemtestpw")
-    employer = to_result_entity(employer_record)
+    employer = to_result_entity(record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -131,7 +131,7 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Failing to update an employer with missing fields" do
     employer_record = create_employer_record!(password: "systemtestpw")
-    employer = to_result_entity(employer_record)
+    employer = to_result_entity(record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -153,7 +153,7 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "avatar persists when updating profile if no new one was picked" do
     employer_record = create_employer_record!(password: "systemtestpw")
-    employer = to_result_entity(employer_record)
+    employer = to_result_entity(record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -183,11 +183,11 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Profile page shows only the employer's own listings" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
-    create_job_listing_record!(employer_record: employer, title: "Job for Employer")
+    employer = to_result_entity(record: employer_record)
+    create_job_listing!(employer_record: employer, title: "Job for Employer")
     other_employer_record = create_employer_record!
-    other_employer = to_result_entity(other_employer_record)
-    create_job_listing_record!(employer_record: other_employer, title: "Job for Other Employer")
+    other_employer = to_result_entity(record: other_employer_record)
+    create_job_listing!(employer_record: other_employer, title: "Job for Other Employer")
     selector = "div.card"
 
     visit job_listings_url

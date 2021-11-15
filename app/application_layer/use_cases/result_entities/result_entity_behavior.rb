@@ -12,7 +12,8 @@ module ResultEntities
         # Work with Rails path helpers
         include ActiveModel::Conversion
 
-        attr_accessor(*klass::ENTITY_CLASS::ATTRIBUTES)
+        # Getters
+        attr_accessor(*klass::ENTITY_CLASS::GETTER_ATTRIBUTES)
 
         extend ClassMethods
         prepend InstanceMethods
@@ -21,13 +22,7 @@ module ResultEntities
 
     module ClassMethods
       def from_entity(entity)
-        attributes = {}
-
-        entity.class::ATTRIBUTES.each do |attribute|
-          attributes[attribute] = entity.public_send(attribute)
-        end
-
-        new(attributes)
+        new(entity.attributes.slice(*entity.class::GETTER_ATTRIBUTES))
       end
     end
 

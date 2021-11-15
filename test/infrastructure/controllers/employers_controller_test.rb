@@ -29,7 +29,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
 
   test "should show employer" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
+    employer = to_result_entity(record: employer_record)
     sign_in employer_record
 
     get my_company_job_listings_path(employer)
@@ -38,7 +38,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
+    employer = to_result_entity(record: employer_record)
     sign_in employer_record
 
     get edit_employer_path(employer)
@@ -47,7 +47,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
 
   test "should update employer" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
+    employer = to_result_entity(record: employer_record)
     sign_in employer_record
 
     patch employer_path(employer),
@@ -58,7 +58,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy employer" do
     employer_record = create_employer_record!
-    employer = to_result_entity(employer_record)
+    employer = to_result_entity(record: employer_record)
     sign_in employer_record
 
     assert_difference("EmployerRecord.count", -1) do
