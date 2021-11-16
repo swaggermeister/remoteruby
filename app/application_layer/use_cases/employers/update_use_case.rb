@@ -7,15 +7,20 @@ module Employers
     class << self
       def call(employers_repository:, id:, attrs:)
         # get the existing entity from the DB
-        employer = find_employer(employers_repository: employers_repository, id: id)
+        employer = find_employer_entity(employers_repository: employers_repository, id: id)
 
         # assign the new attributes
-        employer.attributes = attrs.merge(
-          email_is_available: email_is_available?(employer.email),
+        employer.attributes = attrs
+        employer.email_is_available = email_is_available?(employer_id: id, email: employer.email)
+
+        employer = update_employer(
+          employers_repository: employers_repository,
+          employer: employer,
+          avatar: attrs[:avatar],
         )
 
         # update the record in the DB
-        if update_employer(employers_repository: employers_repository, employer: employer)
+        if employer.valid?
           Result.new(success: true, employer: employer)
         else
           Result.new(success: false, employer: employer)
@@ -24,21 +29,19 @@ module Employers
 
       private
 
-      def find_employer(employers_repository:, id:)
-        employer_attrs = employers_repository.find(id: id)
-        Employer.new(**employer_attrs)
+      def find_employer_entity(employers_repository:, id:)
+        # employer_attrs = employers_repository.find(id: id)
+        employers_repository.find(id: id)
+        # Employer.new(**employer_attrs)
+        # ResultEntities::ResultEmployer.from_entity(employer)
       end
 
-      def update_employer(employers_repository:, employer:)
-        attach_avatar!(employer: employer)
+      def update_employer(employers_repository:, employer:, avatar:)
+        # update the avatar
+        employers_repository.set_avatar!(employer_id: employer.id, avatar: avatar)
+
+        # update the employer DB record
         employers_repository.update(entity: employer)
-      end
-
-      def attach_avatar!(employer:)
-        # keep existing avatar if they didn't pick a new one
-        return if employer.avatar.blank?
-
-        employer.avatar.attach(employer.avatar)
       end
 
       def email_is_available?(email)

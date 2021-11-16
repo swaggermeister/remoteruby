@@ -31,8 +31,12 @@ class EmployersController < ApplicationController
     )
 
     if result.success
+      # HACK: we need to get the ActiveRecord object manually here
+      # since devise is so tightly coupled to AR
+      employer_record = EmployerRecord.find(result.employer.id)
+
       # keep employer signed in after successfully updating profile/changing password
-      bypass_sign_in result.employer, scope: :employer
+      bypass_sign_in employer_record, scope: :employer
 
       redirect_to edit_employer_path(result.employer), notice: "Account successfully updated."
     else

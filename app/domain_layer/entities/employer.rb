@@ -16,6 +16,7 @@ class Employer
     name
     email
     avatar
+    email_is_available
   ].freeze
 
   include EntityBehavior

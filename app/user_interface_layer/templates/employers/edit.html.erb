@@ -1,5 +1,5 @@
 <h3>Editing Profile</h3>
-<%= render 'form', partial: 'form' %>
+<%= render partial: 'form', locals: {employer: view.employer} %>
 <div class="mt-8">
   <%= link_to 'My Job Listings', my_company_job_listings_path, class: "btn btn-link" %>
 </div>

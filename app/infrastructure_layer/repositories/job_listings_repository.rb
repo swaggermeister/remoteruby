@@ -40,6 +40,7 @@ module JobListingsRepository
       JobListingEntityBuilder.to_entity(record: record)
     end
 
+    # TODO: update! instead of update
     # Update the DB record, then return the entity back.
     # If it wasn't valid, the entity's ActiveRecord-style
     # errors attribute will be populated
@@ -57,11 +58,12 @@ module JobListingsRepository
 
         # build the entity from the updated DB record
         JobListing.new(**record.attributes)
-      else
-        entity
       end
+
+      entity
     end
 
+    # TODO: create! instead of create
     # Create the DB record, then return the entity back.
     # If it wasn't valid, the entity's ActiveRecord-style
     # errors attribute will be populated
@@ -91,6 +93,7 @@ module JobListingsRepository
       result.first.count
     end
 
+    # TODO: destroy! instead of destroy
     def destroy(id:)
       JobListingRecord.destroy_by(id: id)
     end

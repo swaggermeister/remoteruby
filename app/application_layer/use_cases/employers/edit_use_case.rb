@@ -14,8 +14,11 @@ module Employers
       private
 
       def find_employer(employers_repository:, id:)
-        employer_attrs = employers_repository.find(id: id)
-        ResultEntities::ResultEmployer.new(employer_attrs)
+        # employer_attrs = employers_repository.find(id: id)
+        employer = employers_repository.find(id: id)
+        # ResultEntities::ResultEmployer.new(**employer_attrs)
+        # ResultEntities::ResultEmployer.new(**employer_attrs.attributes)
+        ResultEntities::ResultEmployer.from_entity(employer)
       end
     end
   end

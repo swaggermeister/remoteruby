@@ -1,4 +1,4 @@
-<%= form_with(model: view.employer) do |form| %>
+<%= form_with(model: employer) do |form| %>
   <%= view.form_group(self, form, :name) do %>
     <%= form.label :name, "Company Name", class:"form-label" %>
     <%= form.text_field :name, class:"form-input" %>
@@ -6,7 +6,7 @@
   <% end %>
   <%= view.form_group(self, form, :avatar) do %>
     <%= form.label :avatar, "Logo", class:"form-label" %>
-    <%= image_tag view.employer_avatar_url(view.current_employer), class: "avatar avatar-lg mb-2" %>
+    <%= image_tag view.employer_avatar_url(employer), class: "avatar avatar-lg mb-2" %>
     <%= form.file_field :avatar, class:"form-input" %>
   <% end %>
   <%= view.form_group(self, form, :email) do %>
