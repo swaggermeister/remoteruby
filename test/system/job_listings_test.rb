@@ -111,7 +111,7 @@ class JobListingsTest < ApplicationSystemTestCase
     assert_text "No results for your search."
   end
 
-  test "creating a Job listing with fixed amount pay successfully" do
+  test "creating a job listing with fixed amount pay successfully" do
     employer_record = create_employer_record!
 
     visit job_listings_url

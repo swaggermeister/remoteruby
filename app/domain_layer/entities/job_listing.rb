@@ -58,7 +58,7 @@ class JobListing
 
   def validate_salary_range
     return if fixed_amount.present?
-    return if minimum_salary < maximum_salary
+    return if minimum_salary.to_i < maximum_salary.to_i
 
     errors.add(:minimum_salary, "must be less than the maximum salary.")
   end

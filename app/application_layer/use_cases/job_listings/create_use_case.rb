@@ -6,10 +6,16 @@ module JobListings
 
     class << self
       def call(job_listings_repository:, attrs:, employer_id:)
+        # clean up the attributes
         prepare_attributes!(attrs: attrs, employer_id: employer_id)
+
+        # create an entity
         job_listing = JobListing.new(**attrs)
 
-        if (job_listing = create_job_listing(job_listings_repository: job_listings_repository, job_listing: job_listing))
+        # create the DB record from that entity
+        job_listing = create_job_listing(job_listings_repository: job_listings_repository, job_listing: job_listing)
+
+        if job_listing.valid?
           Result.new(success: true, job_listing: job_listing)
         else
           Result.new(success: false, job_listing: job_listing)

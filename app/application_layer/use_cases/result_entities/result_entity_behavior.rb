@@ -13,7 +13,7 @@ module ResultEntities
         include ActiveModel::Conversion
 
         # Getters
-        attr_accessor(*klass::ENTITY_CLASS::GETTER_ATTRIBUTES)
+        attr_accessor(*(klass::ENTITY_CLASS::GETTER_ATTRIBUTES + [:errors]))
 
         extend ClassMethods
         prepend InstanceMethods
@@ -22,7 +22,10 @@ module ResultEntities
 
     module ClassMethods
       def from_entity(entity)
-        new(entity.attributes.slice(*entity.class::GETTER_ATTRIBUTES))
+        attrs = entity.attributes
+        filtered_attrs = attrs.slice(*(entity.class::GETTER_ATTRIBUTES + [:errors]))
+
+        new(filtered_attrs)
       end
     end
 
@@ -47,6 +50,10 @@ module ResultEntities
 
       def persisted?
         id.present?
+      end
+
+      def valid?
+        errors.empty?
       end
     end
   end

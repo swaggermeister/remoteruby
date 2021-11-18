@@ -6,9 +6,14 @@ module JobListings
 
     class << self
       def call
-        job_listing = ResultEntities::ResultJobListing.new
+        Result.new(job_listing: new_job_listing)
+      end
 
-        Result.new(job_listing: job_listing)
+      private
+
+      def new_job_listing
+        job_listing = JobListing.new
+        ResultEntities::ResultJobListing.from_entity(job_listing)
       end
     end
   end

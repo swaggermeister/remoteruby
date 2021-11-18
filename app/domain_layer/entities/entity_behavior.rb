@@ -37,7 +37,7 @@ module EntityBehavior
   def attributes
     attrs = {}
 
-    self.class::GETTER_ATTRIBUTES.map do |attr_name|
+    (self.class::GETTER_ATTRIBUTES + [:errors]).map do |attr_name|
       attrs[attr_name] = public_send(attr_name)
     end
 
