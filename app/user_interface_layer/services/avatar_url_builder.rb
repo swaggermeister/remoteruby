@@ -2,9 +2,7 @@
 
 module AvatarUrlBuilder
   def self.build(employer:)
-    if employer&.avatar.respond_to?(:attachment) && employer&.avatar&.attachment
-      return employer.avatar
-    end
+    return employer.avatar if employer&.avatar.respond_to?(:attachment) && employer&.avatar&.attachment
 
     hash = Digest::MD5.hexdigest(employer.email.downcase)
     "https://secure.gravatar.com/avatar/#{hash}.png?s=96"

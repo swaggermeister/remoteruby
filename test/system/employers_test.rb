@@ -183,11 +183,9 @@ class EmployersTest < ApplicationSystemTestCase
 
   test "Profile page shows only the employer's own listings" do
     employer_record = create_employer_record!
-    employer = to_result_entity(record: employer_record)
-    create_job_listing!(employer_record: employer, title: "Job for Employer")
+    create_job_listing!(employer_record: employer_record, title: "Job for Employer")
     other_employer_record = create_employer_record!
-    other_employer = to_result_entity(record: other_employer_record)
-    create_job_listing!(employer_record: other_employer, title: "Job for Other Employer")
+    create_job_listing!(employer_record: other_employer_record, title: "Job for Other Employer")
     selector = "div.card"
 
     visit job_listings_url
