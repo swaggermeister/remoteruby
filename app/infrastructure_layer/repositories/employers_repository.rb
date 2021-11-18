@@ -78,12 +78,13 @@ module EmployersRepository
 
     def set_avatar!(employer_id:, avatar:)
       # keep existing avatar if they didn't pick a new one
-      return if avatar.blank?
+      return false if avatar.blank?
 
       record = EmployerRecord.find(employer_id)
 
       # attach the avatar with ActiveStorage
       record.avatar.attach(avatar)
+      true
     end
   end
 end

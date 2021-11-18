@@ -4,19 +4,18 @@
 </div>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= view.form_group(self, f, :name) do %>
-    <%= f.text_field :name, class:"form-input", placeholder:"Company Name", autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :name, class:"form-input", placeholder: "Company Name", autofocus: true, autocomplete: "name" %>
     <%= view.errors_hint_tag(f, :name) %>
   <% end %>
   <%= view.form_group(self, f, :email) do %>
-    <%= f.email_field :email, class:"form-input", placeholder:"Email", autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, class:"form-input", placeholder: "Email", autocomplete: "email" %>
     <%= view.errors_hint_tag(f, :email) %>
   <% end %>
   <%= view.form_group(self, f, :password) do %>
     <%= f.password_field :password, 
         class:"form-input", 
         placeholder:"Password #{@minimum_password_length.present? ? '(' + @minimum_password_length.to_s + ' characters minimum)' : ''}", 
-  autofocus: true, 
-  autocomplete: "new-password" %>
+        autocomplete: "new-password" %>
     <%= view.errors_hint_tag(f, :password) %>
   <% end %>
   <%= view.form_group(self, f, :password_confirmation) do %>

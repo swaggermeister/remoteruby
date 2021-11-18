@@ -37,8 +37,13 @@ module Employers
       end
 
       def update_employer(employers_repository:, employer:, avatar:)
-        # update the avatar
-        employers_repository.set_avatar!(employer_id: employer.id, avatar: avatar)
+        if avatar.present?
+          # update the avatar
+          employers_repository.set_avatar!(employer_id: employer.id, avatar: avatar)
+        else
+          # Unset the employer avatar attribute if it wasn't being updated
+          employer.avatar = nil
+        end
 
         # update the employer DB record
         employers_repository.update(entity: employer)
