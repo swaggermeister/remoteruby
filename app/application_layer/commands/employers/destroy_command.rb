@@ -5,8 +5,8 @@ module Employers
     Result = Struct.new(:success, :employer, keyword_init: true)
 
     class << self
-      def call(employers_repository:, id:)
-        if destroy_employer(employers_repository: employers_repository, id: id)
+      def call(employers_command_repository:, id:)
+        if destroy_employer(employers_command_repository: employers_command_repository, id: id)
           Result.new(success: true)
         else
           Result.new(success: false)
@@ -15,8 +15,8 @@ module Employers
 
       private
 
-      def destroy_employer(employers_repository:, id:)
-        employers_repository.destroy(id: id)
+      def destroy_employer(employers_command_repository:, id:)
+        employers_command_repository.destroy(id: id)
       end
     end
   end

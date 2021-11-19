@@ -5,7 +5,7 @@ class EmployersController < ApplicationController
 
   def show
     result = Employers::ShowQuery.call(
-      employers_repository: EmployersRepository,
+      employers_command_repository: EmployersCommandRepository,
       id: params.fetch(:id),
     )
 
@@ -15,7 +15,7 @@ class EmployersController < ApplicationController
 
   def edit
     result = Employers::EditQuery.call(
-      employers_repository: EmployersRepository,
+      employers_query_repository: EmployersQueryRepository,
       id: params.fetch(:id),
     )
 
@@ -25,7 +25,8 @@ class EmployersController < ApplicationController
 
   def update
     result = Employers::UpdateCommand.call(
-      employers_repository: EmployersRepository,
+      employers_query_repository: EmployersQueryRepository,
+      employers_command_repository: EmployersCommandRepository,
       id: params.fetch(:id),
       attrs: employer_params,
     )
@@ -47,7 +48,7 @@ class EmployersController < ApplicationController
 
   def destroy
     result = Employers::DestroyCommand.call(
-      employers_repository: EmployersRepository,
+      employers_command_repository: EmployersCommandRepository,
       id: params.fetch(:id),
     )
 

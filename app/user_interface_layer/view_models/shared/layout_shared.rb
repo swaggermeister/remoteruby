@@ -30,8 +30,7 @@ module Shared
     end
 
     def employer_avatar_url(employer)
-      employer_entity = EmployersRepository.find(id: employer.id)
-      AvatarUrlBuilder.build(employer: employer_entity)
+      AvatarUrlBuilder.build(employer: employer)
     end
 
     def current_year

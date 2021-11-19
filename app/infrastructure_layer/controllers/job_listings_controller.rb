@@ -5,8 +5,8 @@ class JobListingsController < ApplicationController
 
   def index
     result = ::JobListings::IndexQuery.call(
-      job_listings_repository: JobListingsRepository,
-      employers_repository: EmployersRepository,
+      job_listings_query_repository: JobListingsQueryRepository,
+      employers_query_repository: EmployersQueryRepository,
       query: params[:search],
       employer_id: params[:employer_id],
       sort_column: params[:sort_column],
@@ -24,7 +24,7 @@ class JobListingsController < ApplicationController
 
   def show
     result = JobListings::ShowQuery.call(
-      job_listings_repository: JobListingsRepository,
+      job_listings_query_repository: JobListingsQueryRepository,
       id: params.fetch(:id),
       search_text: params[:search_text],
     )
@@ -44,7 +44,7 @@ class JobListingsController < ApplicationController
 
   def edit
     result = JobListings::EditQuery.call(
-      job_listings_repository: JobListingsRepository,
+      job_listings_query_repository: JobListingsQueryRepository,
       id: params.fetch(:id),
     )
 
@@ -54,7 +54,7 @@ class JobListingsController < ApplicationController
 
   def create
     result = JobListings::CreateCommand.call(
-      job_listings_repository: JobListingsRepository,
+      job_listings_command_repository: JobListingsCommandRepository,
       attrs: job_listing_params,
       employer_id: current_employer.id,
     )
@@ -69,7 +69,8 @@ class JobListingsController < ApplicationController
 
   def update
     result = JobListings::UpdateCommand.call(
-      job_listings_repository: JobListingsRepository,
+      job_listings_query_repository: JobListingsQueryRepository,
+      job_listings_command_repository: JobListingsCommandRepository,
       id: params.fetch(:id), attrs: job_listing_params,
     )
 
@@ -83,7 +84,7 @@ class JobListingsController < ApplicationController
 
   def destroy
     result = JobListings::DestroyCommand.call(
-      job_listings_repository: JobListingsRepository,
+      job_listings_command_repository: JobListingsCommandRepository,
       id: params.fetch(:id),
     )
 
@@ -96,7 +97,7 @@ class JobListingsController < ApplicationController
 
   def my_company
     result = JobListings::MyCompanyQuery.call(
-      job_listings_repository: JobListingsRepository,
+      job_listings_query_repository: JobListingsQueryRepository,
       employer_id: current_employer.id,
     )
 

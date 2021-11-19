@@ -5,7 +5,7 @@ module JobListings
     Result = Struct.new(:success, :job_listing, keyword_init: true)
 
     class << self
-      def call(job_listings_repository:, attrs:, employer_id:)
+      def call(job_listings_command_repository:, attrs:, employer_id:)
         # clean up the attributes
         prepare_attributes!(attrs: attrs, employer_id: employer_id)
 
@@ -13,7 +13,7 @@ module JobListings
         job_listing = JobListing.new(**attrs)
 
         # create the DB record from that entity
-        job_listing = create_job_listing(job_listings_repository: job_listings_repository, job_listing: job_listing)
+        job_listing = create_job_listing(job_listings_command_repository: job_listings_command_repository, job_listing: job_listing)
 
         if job_listing.valid?
           Result.new(success: true, job_listing: job_listing)
@@ -24,8 +24,8 @@ module JobListings
 
       private
 
-      def create_job_listing(job_listings_repository:, job_listing:)
-        created_job_listing = job_listings_repository.create(entity: job_listing)
+      def create_job_listing(job_listings_command_repository:, job_listing:)
+        created_job_listing = job_listings_command_repository.create(entity: job_listing)
         ResultJobListing.from_entity(created_job_listing)
       end
 

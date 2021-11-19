@@ -8,20 +8,20 @@ module JobListings
     PAGINATION_COUNT = 10
 
     class << self
-      def call(job_listings_repository:, employers_repository:, query:, employer_id:, page_num:, sort_column:)
+      def call(job_listings_query_repository:, employers_query_repository:, query:, employer_id:, page_num:, sort_column:)
         query ||= ""
         query = query.strip
         sort_column ||= DEFAULT_SORT_COLUMN
 
         pagination = get_pagination(
-          job_listings_repository: job_listings_repository,
+          job_listings_query_repository: job_listings_query_repository,
           query: query,
           employer_id: employer_id,
           page_num: page_num,
           sort_column: sort_column,
         )
-        last_updated_job_listing = get_last_updated_job_listing(job_listings_repository: job_listings_repository)
-        filtering_by_employer = employers_repository.find(id: employer_id)
+        last_updated_job_listing = get_last_updated_job_listing(job_listings_query_repository: job_listings_query_repository)
+        filtering_by_employer = employers_query_repository.find(id: employer_id)
 
         Result.new(
           paginator: pagination.paginator,
@@ -41,8 +41,8 @@ module JobListings
         end
       end
 
-      def get_pagination(job_listings_repository:, query:, employer_id:, page_num:, sort_column:)
-        job_listings_repository.list(
+      def get_pagination(job_listings_query_repository:, query:, employer_id:, page_num:, sort_column:)
+        job_listings_query_repository.list(
           query: query,
           employer_id: employer_id,
           page_num: page_num,
@@ -51,8 +51,8 @@ module JobListings
         )
       end
 
-      def get_last_updated_job_listing(job_listings_repository:)
-        job_listings_repository.last_updated
+      def get_last_updated_job_listing(job_listings_query_repository:)
+        job_listings_query_repository.last_updated
       end
     end
   end
