@@ -90,7 +90,7 @@ module JobListingsRepository
         ApplicationRecord.sanitize_sql([query, { employer_id: employer_id }])
       )
 
-      result.first.count
+      result.getvalue(0, 0)
     end
 
     # TODO: destroy! instead of destroy

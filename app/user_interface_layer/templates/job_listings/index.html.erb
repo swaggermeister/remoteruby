@@ -27,7 +27,7 @@
     </div>
     <div class="joblistings col-12">
       <% if view.job_listings? %>
-        <%= render partial: "job_listing", collection: view.job_listings, cached: true %>
+        <%= render partial: "job_listing", collection: view.job_listings %>
         <%== view.pagination_nav %>
       <% elsif view.empty_state? %>
         <%= render 'no_job_listings' %>

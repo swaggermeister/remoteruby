@@ -14,7 +14,7 @@
     Add a new job listing
   <% end %>
   <% if view.job_listings? %>
-    <%= render partial: "my_job_listing", collection: view.job_listings, as: :job_listing, cached: true %>
+    <%= render partial: "my_job_listing", collection: view.job_listings, as: :job_listing %>
   <% else %>
     <%= render partial: "no_employer_job_listings" %>
   <% end %>

@@ -5,8 +5,8 @@
     <%= f.email_field :email, class:"form-input mt-2", placeholder:"Email",autofocus: true, autocomplete: "email" %>
     <%= view.errors_hint_tag(f, :email) %>
   <% end %>
-  <div class="actions mt-4">
-    <%= f.submit "Resend unlock instructions", class: "btn btn-primary my-2" %>
+  <div class="actions mt-4 text-center">
+    <%= f.submit "Resend unlock instructions", class: "btn btn-primary btn-block my-2" %>
   </div>
 <% end %>
 <%= render "devise/shared/links" %>

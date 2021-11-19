@@ -63,6 +63,18 @@ class JobListingsTest < ApplicationSystemTestCase
     assert_text "This is a terrific job"
   end
 
+  test "job listing details show link to other job listings from same employer if available" do
+    employer_record = create_employer_record!
+    job_listing = create_job_listing!(employer_record: employer_record, title: "Best job", description: "This is a terrific job")
+    create_job_listing!(employer_record: employer_record, title: "2nd best job", description: "This is an ok job")
+
+    visit job_listings_url
+    click_on job_listing.title
+
+    assert_current_path job_listing_path(job_listing.id)
+    assert_text "More jobs from this company"
+  end
+
   test "applying to a listing with a contact url" do
     employer_record = create_employer_record!
     job_listing = create_job_listing!(employer_record: employer_record, title: "Best job", contact_url: "https://bread.com/")

@@ -34,10 +34,6 @@ class JobListingsController < ApplicationController
                   job_listing: result.job_listing,
                   employer_num_job_listings: result.employer_num_job_listings,
                   search_text: result.search_text)
-
-    # HTTP caching with etag
-    # https://guides.rubyonrails.org/caching_with_rails.html#conditional-get-support
-    fresh_when result.job_listing
   end
 
   def new
