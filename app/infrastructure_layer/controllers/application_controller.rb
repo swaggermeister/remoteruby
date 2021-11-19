@@ -47,7 +47,14 @@ class ApplicationController < ActionController::Base
         # We have to go through this chain because
         # typically result entities are only made from domain entities
         # but here we are stuck with the AR record
-        employer_entity = Employer.new(**current_employer.attributes)
+        # rubocop:disable Layout/FirstArgumentIndentation
+        employer_entity = Employer.new(**current_employer.attributes.merge(
+                                         # attach the avatar as well, since it's not an
+                                         # attribute from the DB record, but actually
+                                         # built from the avatar method on the AR record
+                                         avatar: current_employer.avatar,
+                                       ))
+        # rubocop:enable Layout/FirstArgumentIndentation
         ResultEmployer.from_entity(employer_entity)
       end
 

@@ -27,7 +27,7 @@ module EmployersQueryRepository
 
       entity_build_attrs = record.attributes.merge(
         # attach the avatar as well, since it's not an
-        #  attribute from the DB record, but actually
+        # attribute from the DB record, but actually
         # built from the avatar method on the AR record
         avatar: record.avatar,
       )
