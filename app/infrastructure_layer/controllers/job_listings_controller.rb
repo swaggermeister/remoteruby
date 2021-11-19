@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class JobListingsController < ApplicationController
   skip_before_action :authenticate_employer!, only: %i[index show]
 
   def index
-    result = ::JobListings::IndexUseCase.call(
+    result = ::JobListings::IndexQuery.call(
       job_listings_repository: JobListingsRepository,
       employers_repository: EmployersRepository,
       query: params[:search],
@@ -24,7 +23,7 @@ class JobListingsController < ApplicationController
   end
 
   def show
-    result = JobListings::ShowUseCase.call(
+    result = JobListings::ShowQuery.call(
       job_listings_repository: JobListingsRepository,
       id: params.fetch(:id),
       search_text: params[:search_text],
@@ -37,14 +36,14 @@ class JobListingsController < ApplicationController
   end
 
   def new
-    result = JobListings::NewUseCase.call
+    result = JobListings::NewQuery.call
 
     prepare_view!(JobListings::NewViewModel,
                   job_listing: result.job_listing)
   end
 
   def edit
-    result = JobListings::EditUseCase.call(
+    result = JobListings::EditQuery.call(
       job_listings_repository: JobListingsRepository,
       id: params.fetch(:id),
     )
@@ -54,7 +53,7 @@ class JobListingsController < ApplicationController
   end
 
   def create
-    result = JobListings::CreateUseCase.call(
+    result = JobListings::CreateCommand.call(
       job_listings_repository: JobListingsRepository,
       attrs: job_listing_params,
       employer_id: current_employer.id,
@@ -69,7 +68,7 @@ class JobListingsController < ApplicationController
   end
 
   def update
-    result = JobListings::UpdateUseCase.call(
+    result = JobListings::UpdateCommand.call(
       job_listings_repository: JobListingsRepository,
       id: params.fetch(:id), attrs: job_listing_params,
     )
@@ -83,7 +82,7 @@ class JobListingsController < ApplicationController
   end
 
   def destroy
-    result = JobListings::DestroyUseCase.call(
+    result = JobListings::DestroyCommand.call(
       job_listings_repository: JobListingsRepository,
       id: params.fetch(:id),
     )
@@ -96,7 +95,7 @@ class JobListingsController < ApplicationController
   end
 
   def my_company
-    result = JobListings::MyCompanyUseCase.call(
+    result = JobListings::MyCompanyQuery.call(
       job_listings_repository: JobListingsRepository,
       employer_id: current_employer.id,
     )
@@ -122,5 +121,3 @@ class JobListingsController < ApplicationController
     )
   end
 end
-
-# rubocop:enable Metrics/ClassLength

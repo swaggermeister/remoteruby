@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  module UpdateUseCase
+  module UpdateCommand
     Result = Struct.new(:success, :job_listing, keyword_init: true)
 
     class << self

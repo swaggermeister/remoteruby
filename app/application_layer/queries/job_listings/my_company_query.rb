@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  module MyCompanyUseCase
+  module MyCompanyQuery
     Result = Struct.new(:job_listings, keyword_init: true)
 
     class << self
@@ -17,7 +17,7 @@ module JobListings
 
       def find_job_listings(job_listings_repository:, employer_id:)
         job_listings_repository.for_employer(id: employer_id).map! do |job_listing|
-          ::ResultEntities::ResultJobListing.from_entity(job_listing)
+          ::ResultJobListing.from_entity(job_listing)
         end
       end
     end

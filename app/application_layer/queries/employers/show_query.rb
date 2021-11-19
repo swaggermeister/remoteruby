@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Employers
-  module EditUseCase
+  module ShowQuery
     Result = Struct.new(:employer, keyword_init: true)
 
     class << self
@@ -14,11 +14,8 @@ module Employers
       private
 
       def find_employer(employers_repository:, id:)
-        # employer_attrs = employers_repository.find(id: id)
-        employer = employers_repository.find(id: id)
-        # ResultEntities::ResultEmployer.new(**employer_attrs)
-        # ResultEntities::ResultEmployer.new(**employer_attrs.attributes)
-        ResultEntities::ResultEmployer.from_entity(employer)
+        entity = employers_repository.find(id: id)
+        ResultEmployer.from_entity(entity)
       end
     end
   end

@@ -4,7 +4,7 @@ class EmployersController < ApplicationController
   before_action :authenticate_employer!
 
   def show
-    result = Employers::ShowUseCase.call(
+    result = Employers::ShowQuery.call(
       employers_repository: EmployersRepository,
       id: params.fetch(:id),
     )
@@ -14,7 +14,7 @@ class EmployersController < ApplicationController
   end
 
   def edit
-    result = Employers::EditUseCase.call(
+    result = Employers::EditQuery.call(
       employers_repository: EmployersRepository,
       id: params.fetch(:id),
     )
@@ -24,7 +24,7 @@ class EmployersController < ApplicationController
   end
 
   def update
-    result = Employers::UpdateUseCase.call(
+    result = Employers::UpdateCommand.call(
       employers_repository: EmployersRepository,
       id: params.fetch(:id),
       attrs: employer_params,
@@ -46,7 +46,7 @@ class EmployersController < ApplicationController
   end
 
   def destroy
-    result = Employers::DestroyUseCase.call(
+    result = Employers::DestroyCommand.call(
       employers_repository: EmployersRepository,
       id: params.fetch(:id),
     )

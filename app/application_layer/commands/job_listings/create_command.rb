@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  module CreateUseCase
+  module CreateCommand
     Result = Struct.new(:success, :job_listing, keyword_init: true)
 
     class << self
@@ -26,7 +26,7 @@ module JobListings
 
       def create_job_listing(job_listings_repository:, job_listing:)
         created_job_listing = job_listings_repository.create(entity: job_listing)
-        ResultEntities::ResultJobListing.from_entity(created_job_listing)
+        ResultJobListing.from_entity(created_job_listing)
       end
 
       def prepare_attributes!(attrs:, employer_id:)

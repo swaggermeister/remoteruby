@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  module IndexUseCase
+  module IndexQuery
     Result = Struct.new(:paginator, :job_listings, :query, :filtering_by_employer, :last_updated_job_listing, :sort_column, keyword_init: true)
 
     DEFAULT_SORT_COLUMN = "created_at"
@@ -37,7 +37,7 @@ module JobListings
 
       def result_job_listings(pagination:)
         pagination.job_listings.map do |job_listing|
-          ResultEntities::ResultJobListing.from_entity(job_listing)
+          ResultJobListing.from_entity(job_listing)
         end
       end
 

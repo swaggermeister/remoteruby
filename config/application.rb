@@ -54,7 +54,9 @@ module Remoteruby
     ####################
     # A single point of interaction with the application layer
     # Could be split into commands and queries in a future refactor
-    config.autoload_paths << Rails.root.join("app/application_layer/use_cases")
+    config.autoload_paths << Rails.root.join("app/application_layer/queries")
+    config.autoload_paths << Rails.root.join("app/application_layer/commands")
+    config.autoload_paths << Rails.root.join("app/application_layer/result_entities")
     # Any ancillary logic that isn't part of a use case itself
     # We aren't using this yet but it's commonly referenced in the literature
     config.autoload_paths << Rails.root.join("app/application_layer/services")

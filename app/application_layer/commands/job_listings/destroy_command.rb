@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  module DestroyUseCase
+  module DestroyCommand
     Result = Struct.new(:success, :job_listing, keyword_init: true)
 
     class << self

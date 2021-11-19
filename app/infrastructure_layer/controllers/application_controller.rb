@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
         # typically result entities are only made from domain entities
         # but here we are stuck with the AR record
         employer_entity = Employer.new(**current_employer.attributes)
-        ResultEntities::ResultEmployer.from_entity(employer_entity)
+        ResultEmployer.from_entity(employer_entity)
       end
 
     # Build the view model

@@ -43,7 +43,7 @@ class JobListingsTest < ApplicationSystemTestCase
     # Number of listings on the page matches the pagination count set
     visit job_listings_url
     listings = all(".job-listing")
-    assert listings.count == JobListings::IndexUseCase::PAGINATION_COUNT
+    assert listings.count == JobListings::IndexQuery::PAGINATION_COUNT
 
     # Going to the next page shows the last listing
     click_on "2"

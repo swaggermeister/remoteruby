@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Employers
-  module UpdateUseCase
+  module UpdateCommand
     Result = Struct.new(:success, :employer, keyword_init: true)
 
     class << self
@@ -33,7 +33,7 @@ module Employers
         # employer_attrs = employers_repository.find(id: id)
         employers_repository.find(id: id)
         # Employer.new(**employer_attrs)
-        # ResultEntities::ResultEmployer.from_entity(employer)
+        # ResultEmployer.from_entity(employer)
       end
 
       def update_employer(employers_repository:, employer:, avatar:)

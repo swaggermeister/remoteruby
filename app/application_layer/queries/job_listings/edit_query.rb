@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  module EditUseCase
+  module EditQuery
     Result = Struct.new(:job_listing, keyword_init: true)
 
     class << self
@@ -15,7 +15,7 @@ module JobListings
 
       def find_job_listing(job_listings_repository:, id:)
         entity = job_listings_repository.find(id: id)
-        ResultEntities::ResultJobListing.from_entity(entity)
+        ResultJobListing.from_entity(entity)
       end
     end
   end

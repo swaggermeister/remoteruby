@@ -69,7 +69,7 @@ module ActiveSupport
       job_listing = JobListingsRepository.create(entity: job_listing)
 
       # convert the domain entity to a result entity
-      ResultEntities::ResultJobListing.from_entity(job_listing)
+      ResultJobListing.from_entity(job_listing)
     end
 
     def build_job_listing_record(employer_record:,
@@ -104,10 +104,10 @@ module ActiveSupport
       case record
       when EmployerRecord
         entity = EmployerEntityBuilder.to_entity(record: record)
-        ResultEntities::ResultEmployer.from_entity(entity)
+        ResultEmployer.from_entity(entity)
       when JobListingRecord
         entity = JobListingEntityBuilder.to_entity(record: record)
-        ResultEntities::ResultJobListing.from_entity(entity)
+        ResultJobListing.from_entity(entity)
       else
         raise "Can't convert record: #{record.class} to a result entity. Are you sure it's a record class?"
       end

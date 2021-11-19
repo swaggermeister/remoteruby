@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JobListings
-  module NewUseCase
+  module NewQuery
     Result = Struct.new(:job_listing, keyword_init: true)
 
     class << self
@@ -13,7 +13,7 @@ module JobListings
 
       def new_job_listing
         job_listing = JobListing.new
-        ResultEntities::ResultJobListing.from_entity(job_listing)
+        ResultJobListing.from_entity(job_listing)
       end
     end
   end
