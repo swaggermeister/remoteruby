@@ -88,7 +88,7 @@ class JobListingsTest < ApplicationSystemTestCase
 
   test "applying to a listing with a contact email" do
     employer_record = create_employer_record!
-    employer = to_result_entity(record: employer_record)
+    to_result_entity(record: employer_record)
     job_listing = create_job_listing!(employer_record: employer_record, title: "Best job", contact_email: "bread@bread.com")
     contact_email_mailto = "mailto:#{job_listing.contact_email}"
 

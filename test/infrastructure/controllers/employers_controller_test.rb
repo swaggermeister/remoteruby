@@ -48,6 +48,7 @@ class EmployersControllerTest < ActionDispatch::IntegrationTest
   test "should update employer" do
     employer_record = create_employer_record!
     employer = to_result_entity(record: employer_record)
+
     sign_in employer_record
 
     patch employer_path(employer),
