@@ -43,7 +43,7 @@ module Employers
         end
 
         # update the employer DB record
-        employers_command_repository.update(entity: employer)
+        employers_command_repository.update!(entity: employer)
       end
 
       def email_is_available?(employers_query_repository:, employer_id:, email:)

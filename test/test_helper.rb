@@ -66,7 +66,7 @@ module ActiveSupport
 
       # create in DB and get back the entity again, this time
       # populated with validation errors if there are any
-      job_listing = JobListingsCommandRepository.create(entity: job_listing)
+      job_listing = JobListingsCommandRepository.create!(entity: job_listing)
 
       # convert the domain entity to a result entity
       ResultJobListing.from_entity(job_listing)

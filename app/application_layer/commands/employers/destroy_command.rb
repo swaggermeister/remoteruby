@@ -16,7 +16,7 @@ module Employers
       private
 
       def destroy_employer(employers_command_repository:, id:)
-        employers_command_repository.destroy(id: id)
+        employers_command_repository.destroy!(id: id)
       end
     end
   end

@@ -30,7 +30,7 @@ module JobListings
       end
 
       def update_job_listing(job_listings_command_repository:, job_listing:)
-        job_listings_command_repository.update(entity: job_listing)
+        job_listings_command_repository.update!(entity: job_listing)
       end
 
       def sanitize_salary_attrs!(attrs)

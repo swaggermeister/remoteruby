@@ -25,7 +25,7 @@ module JobListings
       private
 
       def create_job_listing(job_listings_command_repository:, job_listing:)
-        created_job_listing = job_listings_command_repository.create(entity: job_listing)
+        created_job_listing = job_listings_command_repository.create!(entity: job_listing)
         ResultJobListing.from_entity(created_job_listing)
       end
 

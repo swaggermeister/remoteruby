@@ -2,11 +2,10 @@
 
 module JobListingsCommandRepository
   class << self
-    # TODO: update! instead of update
     # Update the DB record, then return the entity back.
     # If it wasn't valid, the entity's ActiveRecord-style
     # errors attribute will be populated
-    def update(entity:)
+    def update!(entity:)
       # update the DB record if the entity is valid
       if entity.valid?
         # get the existing DB record
@@ -25,11 +24,10 @@ module JobListingsCommandRepository
       entity
     end
 
-    # TODO: create! instead of create
     # Create the DB record, then return the entity back.
     # If it wasn't valid, the entity's ActiveRecord-style
     # errors attribute will be populated
-    def create(entity:)
+    def create!(entity:)
       # create the DB record if the entity is valid
       if entity.valid?
         # get a hash of attributes to update in the DB
@@ -45,8 +43,7 @@ module JobListingsCommandRepository
       end
     end
 
-    # TODO: destroy! instead of destroy
-    def destroy(id:)
+    def destroy!(id:)
       JobListingRecord.destroy_by(id: id)
     end
   end
