@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class AddDeviseToEmployers < ActiveRecord::Migration[6.0]
-  # rubocop:disable Metrics/AbcSize
   def self.up
     change_table :employers, bulk: true do |t|
       ## Database authenticatable
@@ -76,5 +75,4 @@ class AddDeviseToEmployers < ActiveRecord::Migration[6.0]
       t.remove :locked_at
     end
   end
-  # rubocop:enable Metrics/AbcSize
-end
+  end

@@ -1,0 +1,39 @@
+<div class="text-center mb-4 h4 mt-8">
+  Find your next great job
+</div>
+<%= render partial: "search", locals: {search_text: view.search_text} %>
+<div class="container">
+  <div class="columns">
+    <div class="sort col-12 text-center">
+      <div class="h5 mb-2 mt-2">
+        Sort Jobs by 
+      </div>
+      <div>
+        <%= link_to 'Newest', job_listings_path(search: view.search_text, employer_id: view.filtering_by_employer_id), class: "btn btn-link #{view.active_sort_button('created_at')}" %>
+        |
+        <%= link_to 'Minimum Salary', job_listings_path(search: view.search_text, employer_id: view.filtering_by_employer_id, sort_column: 'minimum_salary'), class: "btn btn-link #{view.active_sort_button('minimum_salary')}" %>
+        |
+        <%= link_to 'Maximum Salary', job_listings_path(search: view.search_text, employer_id: view.filtering_by_employer_id, sort_column: 'maximum_salary' ), class: "btn btn-link #{view.active_sort_button('maximum_salary')}" %>
+        |
+        <%= link_to 'Hourly', job_listings_path(search: view.search_text, employer_id: view.filtering_by_employer_id, sort_column: 'fixed_amount'), class: "btn btn-link #{view.active_sort_button('fixed_amount')}" %>
+      </div>
+      <% if view.filtering_by_employer? %>
+        <div class="h4 mt-8 mb-2">Filtering jobs for <%= view.filtering_by_employer_name %></div>
+        <%= link_to root_path, class: "btn btn-secondary" do %>
+          <i class="icon icon-cross"></i>
+          Remove filter 
+        <% end %>
+      <% end %>
+    </div>
+    <div class="joblistings col-12">
+      <% if view.job_listings? %>
+        <%= render partial: "job_listing", collection: view.job_listings %>
+        <%== view.pagination_nav %>
+      <% elsif view.empty_state? %>
+        <%= render 'no_job_listings' %>
+      <% else %>
+        <%= render 'no_search_results' %>
+      <% end %>
+    </div>
+  </div>
+</div>

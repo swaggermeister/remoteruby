@@ -10,24 +10,25 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Creating an Employer successfully via regular authentication" do
-    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+    password_placeholder_text = "Password (#{EmployerRecord.password_length.min} characters minimum)"
 
     visit job_listings_url
     click_on "Post a Job", match: :first
     click_on "Create an Account"
 
-    fill_in "Email", with: "YetAnotherEmail@email.com"
-    fill_in "Company Name", with: "Cool Test Co"
-    fill_in password_placeholder_text, with: "testsecretpassword"
-    fill_in "Confirm Password", with: "testsecretpassword"
+    fill_in "Email", with: "test@email.com"
+    sleep 1 # fix intermittent test failure where it would not wait for the email field to fill in before continuing sometimes
+    fill_in "Company Name", with: "MyCo"
+    fill_in password_placeholder_text, with: "password"
+    fill_in "Confirm Password", with: "password"
     click_on "Create Account"
 
-    assert_current_path root_path
     assert_text "A message with a confirmation link has been sent to your email"
+    assert_current_path root_path
   end
 
   test "Failing to create an employer with missing fields" do
-    password_placeholder_text = "Password (#{Employer.password_length.min} characters minimum)"
+    password_placeholder_text = "Password (#{EmployerRecord.password_length.min} characters minimum)"
 
     visit job_listings_url
     click_on "Post a Job", match: :first
@@ -70,7 +71,7 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "resend confirmation instructions" do
-    create_employer!(email: "testconfirm@confirm.com", is_confirmed: false)
+    create_employer_record!(email: "testconfirm@confirm.com", is_confirmed: false)
     visit new_employer_confirmation_path
 
     assert_text "Resend confirmation instructions"
@@ -83,7 +84,7 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "resend unlock instructions" do
-    create_employer!(email: "testlocked@lock.com", is_locked: true)
+    create_employer_record!(email: "testlocked@lock.com", is_locked: true)
     visit new_employer_unlock_path
 
     assert_text "Resend unlock instructions"
@@ -96,7 +97,7 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "forgot password" do
-    create_employer!(email: "forgotpw@reset.com")
+    create_employer_record!(email: "forgotpw@reset.com")
     visit new_employer_password_path
 
     has_button? "Send me reset password instructions"
@@ -109,11 +110,12 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Updating an Employer successfully" do
-    employer = create_employer!(password: "systemtestpw")
+    employer_record = create_employer_record!(password: "systemtestpw")
+    employer = to_result_entity(record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
-    sign_in employer
+    sign_in employer_record
     visit my_company_job_listings_path
     click_on "Update Company Profile"
 
@@ -129,11 +131,12 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Failing to update an employer with missing fields" do
-    employer = create_employer!(password: "systemtestpw")
+    employer_record = create_employer_record!(password: "systemtestpw")
+    employer = to_result_entity(record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
-    sign_in employer
+    sign_in employer_record
     visit my_company_job_listings_path
     click_on "Update Company Profile"
 
@@ -150,11 +153,12 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "avatar persists when updating profile if no new one was picked" do
-    employer = create_employer!(password: "systemtestpw")
+    employer_record = create_employer_record!(password: "systemtestpw")
+    employer = to_result_entity(record: employer_record)
 
     visit job_listings_url
     click_on "Post a Job", match: :first
-    sign_in employer
+    sign_in employer_record
     visit my_company_job_listings_path
     click_on "Update Company Profile"
 
@@ -168,26 +172,26 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Profile page with no listings added yet" do
-    employer = create_employer!
+    employer_record = create_employer_record!
 
     visit job_listings_url
     click_on "Post a Job", match: :first
-    sign_in employer
+    sign_in employer_record
     visit my_company_job_listings_path
 
     assert_text "You don't have any listings yet!"
   end
 
   test "Profile page shows only the employer's own listings" do
-    employer = create_employer!
-    create_job_listing!(employer: employer, title: "Job for Employer")
-    other_employer = create_employer!
-    create_job_listing!(employer: other_employer, title: "Job for Other Employer")
+    employer_record = create_employer_record!
+    create_job_listing!(employer_record: employer_record, title: "Job for Employer")
+    other_employer_record = create_employer_record!
+    create_job_listing!(employer_record: other_employer_record, title: "Job for Other Employer")
     selector = "div.card"
 
     visit job_listings_url
     click_on "Post a Job", match: :first
-    sign_in employer
+    sign_in employer_record
     visit my_company_job_listings_path
 
     assert has_css?(selector, count: 1)
@@ -196,11 +200,11 @@ class EmployersTest < ApplicationSystemTestCase
   end
 
   test "Destroying an Employer" do
-    employer = create_employer!
+    employer_record = create_employer_record!
 
     visit job_listings_url
     click_on "Post a Job", match: :first
-    sign_in employer
+    sign_in employer_record
     visit my_company_job_listings_path
     click_on "Update Company Profile"
 

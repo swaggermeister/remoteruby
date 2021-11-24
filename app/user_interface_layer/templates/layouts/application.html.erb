@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Find your next great remote Ruby on Rails job here!">
+    <title>Remote Ruby on Rails Jobs</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload", async: true %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="columns">
+        <div class="<%= view.layout_columns_class %>">
+          <header class="navbar">
+            <section class="navbar-section">
+              <%= link_to root_path, class: "navbar-brand" do %>
+                <%= image_tag asset_pack_path("media/images/logo.png"), alt: "Remote Ruby on Rails Jobs", width: 128, height: 111 %>
+              <% end %>
+            </section>
+            <section class="navbar-section">
+              <% if employer_signed_in? %>
+                <%= link_to my_company_job_listings_path, class: "btn btn-link" do %>
+                  My Account
+                  <%= image_tag view.employer_avatar_url(view.current_employer), class: "avatar" %>
+                <% end %>
+              <% else %>
+                <%= link_to new_employer_session_path, class: "btn btn-primary" do %>
+                  <i class="icon icon-plus"></i>
+                  Post a Job
+                <% end %>
+              <% end %>
+            </section>
+          </header>
+          <div id="app-layout-container">
+            <%= render partial: "layouts/flash" %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "layouts/footer" %>
+  </body>
+</html>
