@@ -2,7 +2,6 @@
 
 module DatabaseWriteableAttributesFilter
   # These attrs can be set on the database record
-  # TODO: make sure updating an avatar works
   DB_WRITEABLE_ATTRIBUTES_EMPLOYER = %i[
     name
     email

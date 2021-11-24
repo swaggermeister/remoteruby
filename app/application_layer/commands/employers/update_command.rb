@@ -30,10 +30,7 @@ module Employers
       private
 
       def find_employer_entity(employers_query_repository:, id:)
-        # employer_attrs = employers_repository.find(id: id)
         employers_query_repository.find(id: id)
-        # Employer.new(**employer_attrs)
-        # ResultEmployer.from_entity(employer)
       end
 
       def update_employer(employers_command_repository:, employer:, avatar:)

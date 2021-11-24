@@ -7,7 +7,7 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # rubocop:disable Naming/MethodName
   def Google
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
+    # from_omniauth is implemented in the EmployerRecord rather than Employer now
     @employer = EmployerRecord.from_omniauth(request.env["omniauth.auth"].except(:extra))
 
     if @employer.persisted?

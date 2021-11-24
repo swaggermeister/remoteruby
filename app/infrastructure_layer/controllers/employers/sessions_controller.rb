@@ -4,19 +4,16 @@ module Employers
   class SessionsController < Devise::SessionsController
     # before_action :configure_sign_in_params, only: [:create]
 
-    # GET /resource/sign_in
     def new
       prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
-    # POST /resource/sign_in
     def create
       prepare_view!(::DefaultDeviseViewModel)
       super
     end
 
-    # DELETE /resource/sign_out
     def destroy
       prepare_view!(::DefaultDeviseViewModel)
       super

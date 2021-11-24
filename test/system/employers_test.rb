@@ -17,7 +17,7 @@ class EmployersTest < ApplicationSystemTestCase
     click_on "Create an Account"
 
     fill_in "Email", with: "test@email.com"
-    sleep 0.5 # fix intermittent test failure where it would not wait for the email field to fill in before continuing sometimes
+    sleep 1 # fix intermittent test failure where it would not wait for the email field to fill in before continuing sometimes
     fill_in "Company Name", with: "MyCo"
     fill_in password_placeholder_text, with: "password"
     fill_in "Confirm Password", with: "password"

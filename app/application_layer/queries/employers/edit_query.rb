@@ -14,10 +14,7 @@ module Employers
       private
 
       def find_employer(employers_query_repository:, id:)
-        # employer_attrs = employers_repository.find(id: id)
         employer = employers_query_repository.find(id: id)
-        # ResultEmployer.new(**employer_attrs)
-        # ResultEmployer.new(**employer_attrs.attributes)
         ResultEmployer.from_entity(employer)
       end
     end

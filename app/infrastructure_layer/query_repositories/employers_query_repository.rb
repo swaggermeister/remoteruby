@@ -17,11 +17,6 @@ module EmployersQueryRepository
     def find(id:)
       return nil if id.blank?
 
-      # result = ActiveRecord::Base.connection.execute(
-      #   ApplicationRecord.sanitize_sql([FIND_SQL_QUERY, { id: id }])
-      # )
-
-      # result.first
       # get the DB record
       record = EmployerRecord.find(id)
 
