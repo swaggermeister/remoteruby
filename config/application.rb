@@ -53,7 +53,6 @@ module Remoteruby
     # Application Layer
     ####################
     # A single point of interaction with the application layer
-    # Could be split into commands and queries in a future refactor
     config.autoload_paths << Rails.root.join("app/application_layer/queries")
     config.autoload_paths << Rails.root.join("app/application_layer/commands")
     config.autoload_paths << Rails.root.join("app/application_layer/result_entities")
