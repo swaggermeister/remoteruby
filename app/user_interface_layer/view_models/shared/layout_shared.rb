@@ -40,5 +40,9 @@ module Shared
     def layout_columns_class
       "column col-xl-6 col-lg-10 col-md-8 col-sm-10 col-xs-12 col-mx-auto col-4"
     end
+
+    def blog_url
+      "https://www.blog.remoterubyonrails.com"
+    end
   end
 end
