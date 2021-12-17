@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# This is technically part of the Infrastructure layer
+# but Rails wants it to be in the config folder.
 Rails.application.routes.draw do
   # Authentication
   devise_for :employers,

@@ -18,9 +18,9 @@ module Shared
     # https://picturepan2.github.io/spectre/components/toasts.html#toasts
     def flash_toast_class(flash_type:)
       toast_style = case flash_type
-                    when "notice"
+        when "notice"
           "toast-success"
-                    when "alert", "timedout"
+        when "alert", "timedout"
           "toast-error"
         else
           raise "No toast class defined for #{flash_type}"
@@ -39,6 +39,10 @@ module Shared
 
     def layout_columns_class
       "column col-xl-6 col-lg-10 col-md-8 col-sm-10 col-xs-12 col-mx-auto col-4"
+    end
+
+    def blog_url
+      "https://www.blog.remoterubyonrails.com"
     end
   end
 end
