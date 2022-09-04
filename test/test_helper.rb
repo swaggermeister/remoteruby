@@ -18,8 +18,7 @@ module ActiveSupport
       ApplicationController.any_instance.stubs(:current_employer).returns(employer)
     end
 
-    # rubocop:disable Metrics/ParameterLists
-    def create_employer!(name: nil, email: nil, password: nil, avatar: nil, is_confirmed: true, is_locked: false)
+    def create_employer_record!(name: nil, email: nil, password: nil, avatar: nil, is_confirmed: true, is_locked: false)
       name ||= "Test #{random_string}"
       email ||= "#{random_string}@test.com"
       password ||= random_string
@@ -27,7 +26,7 @@ module ActiveSupport
       confirmed_at = Time.zone.now if is_confirmed
       locked_at = Time.zone.now if is_locked
 
-      employer = Employer.create!(
+      employer = EmployerRecord.create!(
         name: name,
         email: email,
         password: password,
@@ -36,12 +35,10 @@ module ActiveSupport
         locked_at: locked_at,
       )
       employer.avatar.attach(avatar)
-      employer.save
+      employer.save!
 
       employer
     end
-
-    # rubocop:enable Metrics/ParameterLists
 
     def mock_google_auth_hash
       OmniAuth.config.mock_auth[:Google] = OmniAuth::AuthHash.new({
@@ -61,41 +58,60 @@ module ActiveSupport
     end
 
     def create_job_listing!(...)
-      job_listing = build_job_listing(...)
-      job_listing.save!
-      job_listing
+      # build the record
+      job_listing_record = build_job_listing_record(...)
+
+      # convert it to an entity
+      job_listing = JobListingEntityBuilder.to_entity(record: job_listing_record)
+
+      # create in DB and get back the entity again, this time
+      # populated with validation errors if there are any
+      job_listing = JobListingsCommandRepository.create!(entity: job_listing)
+
+      # convert the domain entity to a result entity
+      ResultJobListing.from_entity(job_listing)
     end
 
-    # rubocop:disable Metrics/ParameterLists
-    def build_job_listing(employer:,
-                          title: nil,
-                          description: nil,
-                          location: nil,
-                          fixed_amount: nil,
-                          minimum_salary: nil,
-                          maximum_salary: nil,
-                          contact_email: nil,
-                          contact_url: nil)
+    def build_job_listing_record(employer_record:,
+                                 title: nil,
+                                 description: nil,
+                                 location: nil,
+                                 fixed_amount: nil,
+                                 minimum_salary: nil,
+                                 maximum_salary: nil,
+                                 contact_email: nil,
+                                 contact_url: nil)
       title ||= "A Great Job #{random_string}"
       description ||= "The best job you will ever have you will love it #{random_string}"
       location ||= "Randomville, CA"
       contact_url ||= contact_email.nil? ? "http://test.com" : nil
       fixed_amount ||= "99 breads" if minimum_salary.blank? || maximum_salary.blank?
 
-      JobListing.new(
+      JobListingRecord.new(
         title: title,
         description: description,
         location: location,
         fixed_amount: fixed_amount,
         minimum_salary: minimum_salary,
         maximum_salary: maximum_salary,
-        employer: employer,
+        employer: employer_record,
         contact_email: contact_email,
         contact_url: contact_url,
       )
     end
 
-    # rubocop:enable Metrics/ParameterLists
+    def to_result_entity(record:)
+      case record
+      when EmployerRecord
+        entity = EmployerEntityBuilder.to_entity(record: record)
+        ResultEmployer.from_entity(entity)
+      when JobListingRecord
+        entity = JobListingEntityBuilder.to_entity(record: record)
+        ResultJobListing.from_entity(entity)
+      else
+        raise "Can't convert record: #{record.class} to a result entity. Are you sure it's a record class?"
+      end
+    end
 
     def random_string
       SecureRandom.hex.split("-").join

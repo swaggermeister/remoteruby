@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
+# This is technically part of the Infrastructure layer
+# but Rails wants it to be in the config folder.
 Rails.application.routes.draw do
   # Authentication
-  devise_for :employers, controllers: {
-    omniauth_callbacks: "omniauth_callbacks",
-    confirmations: "employers/confirmations",
-    passwords: "employers/passwords",
-    registrations: "employers/registrations",
-    sessions: "employers/sessions",
-    unlocks: "employers/unlocks",
-  }
+  devise_for :employers,
+             class_name: "EmployerRecord",
+             controllers: {
+               omniauth_callbacks: "omniauth_callbacks",
+               confirmations: "employers/confirmations",
+               passwords: "employers/passwords",
+               registrations: "employers/registrations",
+               sessions: "employers/sessions",
+               unlocks: "employers/unlocks",
+             }
 
   resources :employers
 
