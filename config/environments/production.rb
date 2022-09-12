@@ -17,6 +17,7 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
+  # rubocop:disable Style/FetchEnvVar
   config.action_mailer.smtp_settings = {
     address: ENV["CLOUDMAILIN_HOST"],
     port: 587,
@@ -26,6 +27,7 @@ Rails.application.configure do
     user_name: ENV["CLOUDMAILIN_USERNAME"],
     password: ENV["CLOUDMAILIN_PASSWORD"],
   }
+  # rubocop:enable Style/FetchEnvVar
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
@@ -66,8 +68,10 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  # rubocop:disable Style/FetchEnvVar
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"] }
+  # rubocop:enable Style/FetchEnvVar
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
