@@ -9,6 +9,6 @@ module EntityBuilder
     filtered_attributes = attributes.symbolize_keys.slice(*entity_class::GETTER_ATTRIBUTES)
 
     # Build entity from the filtered attributes
-    entity_class.new(filtered_attributes)
+    entity_class.new(**filtered_attributes)
   end
 end
