@@ -54,9 +54,12 @@ module JobListings
       filtering_by_employer.present?
     end
 
+    # rubocop:disable Rails/Delegate
     def filtering_by_employer_name
       filtering_by_employer.name
     end
+
+    # rubocop:enable Rails/Delegate
 
     def filtering_by_employer_id
       return nil if filtering_by_employer.blank?

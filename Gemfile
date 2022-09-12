@@ -3,10 +3,12 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.2"
+# ruby "3.1.2"
+ruby "2.7.2" # updating version
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.0.2", ">= 6.0.2.2"
+gem "rails", "~>6.1"
+# gem "rails", "~> 6.0.2", ">= 6.0.2.2"
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
 # use postgres
@@ -24,7 +26,7 @@ gem "jbuilder", "~> 2.7"
 # Cache store
 gem "redis", "~> 4.5"
 
-gem "binding_of_caller", "~> 0.8.0"
+gem "binding_of_caller" # , "~> 0.8.0"
 gem "redcarpet", "~> 3.5.0"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -46,7 +48,7 @@ gem "image_processing", "~> 1.2"
 gem "aws-sdk-s3", require: false
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", "1.8.1", require: false
+gem "bootsnap" # , "1.8.1", require: false
 
 # Linter for PG migrations
 gem "strong_migrations"
@@ -55,6 +57,9 @@ gem "dotenv-rails"
 
 # Monitoring for production
 gem "newrelic_rpm"
+
+# Ruby 3.1 needs this gem included (can remove once moving to rails 7)
+gem "net-smtp", require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

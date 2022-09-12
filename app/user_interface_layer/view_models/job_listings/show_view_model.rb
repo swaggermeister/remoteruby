@@ -24,17 +24,23 @@ module JobListings
       contact_url.present?
     end
 
+    # rubocop:disable Rails/Delegate
     def contact_url
       job_listing.contact_url
     end
+
+    # rubocop:enable Rails/Delegate
 
     def salary
       job_listing.fixed_amount.presence || "#{job_listing.minimum_salary.to_s(:currency, precision: 0)} - #{job_listing.maximum_salary.to_s(:currency, precision: 0)}"
     end
 
+    # rubocop:disable Rails/Delegate
     def created_at
       job_listing.created_at
     end
+
+    # rubocop:enable Rails/Delegate
 
     def is_own_listing?(signed_in_employer = nil)
       return false unless signed_in_employer

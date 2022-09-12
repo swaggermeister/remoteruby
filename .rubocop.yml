@@ -44,3 +44,6 @@ Metrics/ParameterLists:
 
 Metrics/AbcSize:
   Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
