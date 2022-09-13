@@ -33,7 +33,7 @@ blocks:
             - cache restore bundler-$(checksum Gemfile.lock)
 
             # Set Ruby version
-            - sem-version ruby 2.7.2
+            - sem-version ruby 3.1.2
 
             # Bundle install
             - bundle config set deployment 'true'
