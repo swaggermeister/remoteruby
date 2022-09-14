@@ -14,7 +14,7 @@ gem "rails", "~>6.1"
 gem "pg"
 gem "pg_search"
 # Use Puma as the app server
-gem "puma", ">= 4.1", "< 4.3.9"
+gem "puma" # , ">= 4.1", "< 4.3.9"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", "~> 5.0"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -70,7 +70,6 @@ end
 group :development do
   gem "brakeman", require: false
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  # gem "listen", ">= 3.0.5", "< 3.2"
   gem "listen", ">= 3.3.0"
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -79,7 +78,7 @@ group :development do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "spring-watcher-listen" # , "~> 2.0.0"
 
   # gem "binding_of_caller"
 end

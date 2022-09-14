@@ -207,7 +207,7 @@ GEM
       activerecord (>= 5.2)
       activesupport (>= 5.2)
     public_suffix (5.0.0)
-    puma (4.3.8)
+    puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.4)
@@ -361,7 +361,7 @@ DEPENDENCIES
   pagy
   pg
   pg_search
-  puma (>= 4.1, < 4.3.9)
+  puma
   rails (~> 6.1)
   redcarpet (~> 3.5.0)
   redis (~> 4.5)
@@ -370,7 +370,7 @@ DEPENDENCIES
   rubocop-rails
   selenium-webdriver
   spring
-  spring-watcher-listen (~> 2.0.0)
+  spring-watcher-listen
   strong_migrations
   turbolinks (~> 5)
   tzinfo-data

@@ -1,4 +1,4 @@
-<%= form_with(model: view.job_listing, html: {:novalidate => 'novalidate'}) do |form| %>
+<%= form_with(model: view.job_listing, html: {:novalidate => 'novalidate'}, local: false) do |form| %>
   <%= view.form_group(self, form, :title) do %>
     <%= form.label :title, class: "form-label" %>
     <%= form.text_field :title, class: "form-input", placeholder: "Senior Software Engineer" %>
