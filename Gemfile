@@ -57,7 +57,9 @@ gem "dotenv-rails"
 # Monitoring for production
 gem "newrelic_rpm"
 
-# Ruby 3.1 needs this gem included (can remove once moving to rails 7)
+# Ruby 3.1 needs these gems included while on Rails 6.1 (can remove once moving to rails 7)
+gem "net-imap", require: false
+gem "net-pop", require: false
 gem "net-smtp", require: false
 
 group :development, :test do

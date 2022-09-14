@@ -22,7 +22,7 @@ module ActiveSupport
       name ||= "Test #{random_string}"
       email ||= "#{random_string}@test.com"
       password ||= random_string
-      avatar ||= Rack::Test::UploadedFile.new(file_fixture("bread.jpg"), "image/jpg")
+      avatar ||= Rack::Test::UploadedFile.new(file_fixture("bread.jpg"), "image/jpeg")
       confirmed_at = Time.zone.now if is_confirmed
       locked_at = Time.zone.now if is_locked
 
