@@ -75,7 +75,7 @@ end
 
 desc "custom task to seed the db with test employers"
 task seed_employers: :environment do
-  Array.new(10) do
+  Array.new(5) do
     pw = employer_passwords.sample
     EmployerRecord.create!(name: employer_names.sample,
                            email: "#{SecureRandom.hex}@test.com",
@@ -89,7 +89,7 @@ desc "custom task to seed the db with test job listings"
 task seed_job_listings: :environment do
   employers = EmployerRecord.select(:id).limit(10)
 
-  Array.new(50) do
+  Array.new(10) do
     JobListingRecord.create!(title: job_titles.sample,
                              description: job_description,
                              location: job_locations.sample,
@@ -98,7 +98,7 @@ task seed_job_listings: :environment do
                              employer_id: employers.sample.id)
   end
 
-  Array.new(50) do
+  Array.new(10) do
     min_salary = job_minimum_salaries.sample
     max_salary = job_maximum_salaries.select { |salary| salary > min_salary }.sample
     JobListingRecord.create!(title: job_titles.sample,

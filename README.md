@@ -1,36 +1,54 @@
-# Clear Semaphore cache
+# Remote Ruby On Rails
 
-If you run into issues on CI try clearing its cache after SSHing into a session
+A [job board](remoterubyonrails.com) focused on remote-first Ruby on Rails positions. Includes a small [blog](blog.remoterubyonrails.com) discussing the site's architecture.  
+
+![Remote Ruby homepage](public/ScreenshotRemoteRubyonRailsHomepage.png)
+
+## Getting started
+
+### Requirements
+
+Ruby 3.1.2
+PostgresQL 14.5
+
+To support OmniAuth Google authentication, Devise expects a couple Rails secrets to be set up. They're referenced in config/initializers/devise.rb. To make this work, you'll need to set up Rails secrets by running:
 
 ```bash
-cache clear
+rails credentials:edit
 ```
 
-# Troubleshooting
+Create a section named "oauth", with secret names GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET (and plug in your own values for these). For AWS storage to work, you'll want to name a section "aws" and include secret names access_key_id and secret_access_key, plugging in your own values again. Note: you may need to set the EDITOR environment variable in order to edit secrets, by running for example:
 
-If your JavaScript doesn't look like it's loading in development, make sure you are running `bin/webpack-dev-server`
+```bash
+export EDITOR=vim
+```
 
-# README
+As always, make sure you don't commit your config/master.key to version control!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Next, make sure you add a config/database.yml file set to use the username, password, and database name environment variables that you initialized the Postgres database with. These can be set in .env files as well. The reason this file isn't included in the repository in the first place is that the production site is deployed via Semaphore and Heroku, which use their own version.
 
-Things you may want to cover:
+Finally, make sure to run the "yarn" command to generate a manifest.json file.
 
-- Ruby version
+### Development
 
-- System dependencies
+Start the PostgreSQL server:
 
-- Configuration
+```bash
+brew services start postgresql
+```
 
-- Database creation
+Run the following to start the Rails server and build assets:
 
-- Database initialization
+```bash
+rails s
+bin/webpack-dev-server
+```
 
-- How to run the test suite
+### Seeds
 
-- Services (job queues, cache servers, search engines, etc.)
+Seeding the database via lib/tasks/seed_db.rake creates 5 employers and 20 job listings.
 
-- Deployment instructions
+### Testing
 
-- ...
+- Run `rails test` to run unit/integration tests.
+- Run `rails test:system` to run system tests.
