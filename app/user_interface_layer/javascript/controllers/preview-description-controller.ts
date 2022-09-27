@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import marked from "marked";
+const { marked } = require("marked");
 import { textChangeRangeIsUnchanged } from "typescript";
 
 const HIDDEN_CLASS = "d-none";
@@ -96,7 +96,7 @@ export default class extends Controller {
   }
 
   setPreviewPaneContents(): void {
-    const html = marked(this.descriptionText());
+    const html = marked.parse(this.descriptionText());
 
     this.previewTarget.innerHTML = html;
   }
